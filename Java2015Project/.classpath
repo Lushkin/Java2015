@@ -13,5 +13,15 @@
 	</classpathentry>
 	<classpathentry kind="con" path="org.eclipse.jst.j2ee.internal.web.container"/>
 	<classpathentry kind="con" path="org.eclipse.jst.j2ee.internal.module.container"/>
+	<classpathentry kind="lib" path="WebContent/WEB-INF/lib/sqljdbc41.jar"/>
+	<classpathentry kind="lib" path="WebContent/WEB-INF/lib/cglib-full-2.0.2.jar"/>
+	<classpathentry kind="lib" path="WebContent/WEB-INF/lib/commons-collections-2.1.1.jar"/>
+	<classpathentry kind="lib" path="WebContent/WEB-INF/lib/commons-logging-1.0.4.jar"/>
+	<classpathentry kind="lib" path="WebContent/WEB-INF/lib/dom4j-1.4.jar"/>
+	<classpathentry kind="lib" path="WebContent/WEB-INF/lib/ehcache-0.9.jar"/>
+	<classpathentry kind="lib" path="WebContent/WEB-INF/lib/hibernate2.jar"/>
+	<classpathentry kind="lib" path="WebContent/WEB-INF/lib/jta.jar"/>
+	<classpathentry kind="lib" path="WebContent/WEB-INF/lib/jtds-0.8.1.jar"/>
+	<classpathentry kind="lib" path="WebContent/WEB-INF/lib/odmg-3.0.jar"/>
 	<classpathentry kind="output" path="build/classes"/>
 </classpath>

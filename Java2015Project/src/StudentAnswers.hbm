@@ -1,0 +1,45 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC
+	"-//Hibernate/Hibernate Mapping DTD//EN"
+	"http://hibernate.sourceforge.net/hibernate-mapping-2.0.dtd" >
+
+<hibernate-mapping package="hibernate">
+	<class name="StudentAnswers" table="StudentAnswers">
+		<id
+			column="Id"
+			name="Id"
+			type="integer"
+		>
+			<generator class="increment" />
+		</id>
+		<property
+			column="IsChecked"
+			length="1"
+			name="IsChecked"
+			not-null="true"
+			type="boolean"
+		 />
+
+		<many-to-one
+			class="Users"
+			name="Student"
+			not-null="true"
+		>
+			<column name="StudentId" />
+		</many-to-one>
+		<many-to-one
+			class="Tests"
+			name="Test"
+			not-null="true"
+		>
+			<column name="TestId" />
+		</many-to-one>
+		<many-to-one
+			class="Answers"
+			name="Answer"
+			not-null="true"
+		>
+			<column name="AnswerId" />
+		</many-to-one>
+	</class>
+</hibernate-mapping>

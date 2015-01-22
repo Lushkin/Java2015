@@ -1,0 +1,89 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC
+	"-//Hibernate/Hibernate Mapping DTD//EN"
+	"http://hibernate.sourceforge.net/hibernate-mapping-2.0.dtd" >
+
+<hibernate-mapping package="hibernate">
+	<class name="Users" table="Users">
+		<id
+			column="Id"
+			name="Id"
+			type="integer"
+		>
+			<generator class="increment" />
+		</id>
+		<property
+			column="Email"
+			length="500"
+			name="Email"
+			not-null="true"
+			type="string"
+		 />
+		<property
+			column="Password"
+			name="Password"
+			not-null="true"
+			type="string"
+		 />
+		<property
+			column="Role"
+			length="10"
+			name="Role"
+			not-null="true"
+			type="integer"
+		 />
+		<property
+			column="FirstName"
+			length="200"
+			name="FirstName"
+			not-null="true"
+			type="string"
+		 />
+		<property
+			column="LastName"
+			length="200"
+			name="LastName"
+			not-null="true"
+			type="string"
+		 />
+		<property
+			column="BirthDate"
+			length="23"
+			name="BirthDate"
+			not-null="true"
+			type="timestamp"
+		 />
+
+		<many-to-one
+			class="Promotions"
+			name="Promotion"
+			not-null="true"
+		>
+			<column name="PromotionId" />
+		</many-to-one>
+		<set inverse="true" name="UserTestsSet">
+			<key column="UserId" />
+			<one-to-many class="UserTests" />
+		</set>
+		<set inverse="true" name="StudentAnswersSet">
+			<key column="StudentId" />
+			<one-to-many class="StudentAnswers" />
+		</set>
+		<set inverse="true" name="TeacherPromotionsSet">
+			<key column="TeacherId" />
+			<one-to-many class="TeacherPromotions" />
+		</set>
+		<set inverse="true" name="UserQuestionsSet">
+			<key column="UserId" />
+			<one-to-many class="UserQuestions" />
+		</set>
+		<set inverse="true" name="TestsSet">
+			<key column="AuthorId" />
+			<one-to-many class="Tests" />
+		</set>
+		<set inverse="true" name="UserSubjectsSet">
+			<key column="UserId" />
+			<one-to-many class="UserSubjects" />
+		</set>
+	</class>
+</hibernate-mapping>
