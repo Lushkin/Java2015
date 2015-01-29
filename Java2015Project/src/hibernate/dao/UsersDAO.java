@@ -1,5 +1,13 @@
 package hibernate.dao;
 
+import java.util.List;
+
+import net.sf.hibernate.Hibernate;
+import net.sf.hibernate.HibernateException;
+import net.sf.hibernate.Session;
+import net.sf.hibernate.Transaction;
+import hibernate.HibernateUtil;
+import hibernate.Users;
 import hibernate.base.BaseUsersDAO;
 
 /**
@@ -11,4 +19,28 @@ import hibernate.base.BaseUsersDAO;
  * Any customizations belong here.
  */
 public class UsersDAO extends BaseUsersDAO {
+	
+	public Users Authenticate(String email, String password)
+	{
+		Session session;
+		try
+		{
+			session = HibernateUtil.currentSession();
+			List<Users> user = session.find("from Users WHERE Email = '" + email + "' AND Password = '" + password + "'");
+			HibernateUtil.closeSession();
+			
+			if(user != null && user.size() > 0)
+			{
+				return user.get(0);
+			}
+			else
+			{
+				return null;
+			}
+		} 
+		catch (HibernateException e)
+		{
+			return null;
+		}
+	}
 }

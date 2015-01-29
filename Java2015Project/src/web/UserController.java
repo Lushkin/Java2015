@@ -1,5 +1,8 @@
 package web;
 
+import hibernate.DataAccess;
+import hibernate.Users;
+
 import java.io.IOException;
 
 import javax.servlet.ServletException;
@@ -17,7 +20,36 @@ public class UserController  extends HttpServlet
 	}
 	
 	public void service(HttpServletRequest req, HttpServletResponse rep) throws ServletException, IOException
-	{	System.out.println("service methode called !");		
-		getServletContext().getRequestDispatcher(url).forward(req, rep);
+	{	
+		String action = req.getPathInfo();
+		
+		if(action != null)
+		{
+			switch(action)
+			{
+			case "/Login":
+				Login(req, rep);
+				break;
+			}
+		}
+	}
+	
+	private void Login(HttpServletRequest req, HttpServletResponse rep) throws ServletException, IOException
+	{
+		String email = req.getParameter("email");
+		String password = req.getParameter("password");
+		Users user = DataAccess.Users().Authenticate(email, password);
+		
+		if(user == null)
+		{
+			System.out.println("User null");
+			req.getSession().setAttribute("errorMsg", "Nom d'utilisateur ou mot de passe incorect !");
+			rep.sendRedirect("/Java2015Project/");
+		}
+		else
+		{
+			System.out.println("User = " + user.getFirstName());
+			getServletContext().getRequestDispatcher(url).forward(req, rep);
+		}
 	}
 }
