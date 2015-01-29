@@ -7,13 +7,13 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-public class Application  extends HttpServlet
+public class UserController  extends HttpServlet
 {
 	String url;
 	public void init()
 	{
 		System.out.println("init methode called !");
-		url = getInitParameter("url");
+		url = getInitParameter("userUrl");
 	}
 	
 	public void service(HttpServletRequest req, HttpServletResponse rep) throws ServletException, IOException
