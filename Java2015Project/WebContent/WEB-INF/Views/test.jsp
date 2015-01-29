@@ -3,9 +3,12 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>JAVA!</title>
+<title>Insert title here</title>
 </head>
 <body>
-<h1>HOHO</h1>
+<f:view>
+
+</f:view>
+<h1>NICE</h1>
 </body>
 </html>
