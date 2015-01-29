@@ -1,0 +1,30 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC
+	"-//Hibernate/Hibernate Mapping DTD//EN"
+	"http://hibernate.sourceforge.net/hibernate-mapping-2.0.dtd" >
+
+<hibernate-mapping package="hibernate">
+	<class name="QuestionAnswers" table="QuestionAnswers">
+		<id
+			column="Id"
+			name="Id"
+			type="integer"
+		>
+			<generator class="increment" />
+		</id>
+		<many-to-one
+			class="Questions"
+			name="Question"
+			not-null="true"
+		>
+			<column name="QuestionId" />
+		</many-to-one>
+		<many-to-one
+			class="Answers"
+			name="Answer"
+			not-null="true"
+		>
+			<column name="AnswerId" />
+		</many-to-one>
+	</class>
+</hibernate-mapping>
