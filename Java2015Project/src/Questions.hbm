@@ -1,0 +1,45 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC
+	"-//Hibernate/Hibernate Mapping DTD//EN"
+	"http://hibernate.sourceforge.net/hibernate-mapping-2.0.dtd" >
+
+<hibernate-mapping package="hibernate">
+	<class name="Questions" table="Questions">
+		<id
+			column="Id"
+			name="Id"
+			type="integer"
+		>
+			<generator class="increment" />
+		</id>
+		<property
+			column="Content"
+			name="Content"
+			not-null="true"
+			type="string"
+		 />
+		<property
+			column="Ponderation"
+			length="18"
+			name="Ponderation"
+			not-null="true"
+			type="big_decimal"
+		 />
+
+		<many-to-one
+			class="Categories"
+			name="Category"
+			not-null="true"
+		>
+			<column name="CategoryId" />
+		</many-to-one>
+		<set inverse="true" name="QuestionAnswersSet">
+			<key column="QuestionId" />
+			<one-to-many class="QuestionAnswers" />
+		</set>
+		<set inverse="true" name="UserQuestionsSet">
+			<key column="QuestionId" />
+			<one-to-many class="UserQuestions" />
+		</set>
+	</class>
+</hibernate-mapping>
