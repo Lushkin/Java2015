@@ -23,11 +23,5 @@
 	<classpathentry kind="lib" path="WebContent/WEB-INF/lib/jta.jar"/>
 	<classpathentry kind="lib" path="WebContent/WEB-INF/lib/jtds-0.8.1.jar"/>
 	<classpathentry kind="lib" path="WebContent/WEB-INF/lib/odmg-3.0.jar"/>
-	<classpathentry kind="lib" path="WebContent/WEB-INF/lib/commons-logging.jar"/>
-	<classpathentry kind="lib" path="WebContent/WEB-INF/lib/org.springframework.asm-3.1.1.RELEASE.jar"/>
-	<classpathentry kind="lib" path="WebContent/WEB-INF/lib/org.springframework.beans-3.1.1.RELEASE.jar"/>
-	<classpathentry kind="lib" path="WebContent/WEB-INF/lib/org.springframework.context-3.1.1.RELEASE.jar"/>
-	<classpathentry kind="lib" path="WebContent/WEB-INF/lib/org.springframework.core-3.1.1.RELEASE.jar"/>
-	<classpathentry kind="lib" path="WebContent/WEB-INF/lib/org.springframework.expression-3.1.1.RELEASE.jar"/>
 	<classpathentry kind="output" path="build/classes"/>
 </classpath>
