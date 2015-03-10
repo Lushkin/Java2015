@@ -5,8 +5,16 @@
   	<servlet-name>UserController</servlet-name>
   	<servlet-class>web.UserController</servlet-class>
   	<init-param>
-  		<param-name>userUrl</param-name>
-  		<param-value>/WEB-INF/Views/User/index.jsp</param-value>
+  		<param-name>AdminUrl</param-name>
+  		<param-value>/WEB-INF/Views/User/admin.jsp</param-value>
+  	</init-param>
+  	<init-param>
+  		<param-name>TeacherUrl</param-name>
+  		<param-value>/WEB-INF/Views/User/teacher.jsp</param-value>
+  	</init-param>
+	<init-param>
+  		<param-name>StudentUrl</param-name>
+  		<param-value>/WEB-INF/Views/User/student.jsp</param-value>
   	</init-param>
   </servlet>
   <servlet>

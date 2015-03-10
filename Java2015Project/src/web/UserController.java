@@ -12,11 +12,13 @@ import javax.servlet.http.HttpServletResponse;
 
 public class UserController  extends HttpServlet
 {
-	String url;
+	String urlAdmin, urlTeacher, urlStudent;
 	public void init()
 	{
 		System.out.println("init methode called !");
-		url = getInitParameter("userUrl");
+		urlAdmin = getInitParameter("AdminUrl");
+		urlTeacher = getInitParameter("TeacherUrl");
+		urlStudent = getInitParameter("StudentUrl");
 	}
 	
 	public void service(HttpServletRequest req, HttpServletResponse rep) throws ServletException, IOException
@@ -49,7 +51,19 @@ public class UserController  extends HttpServlet
 		else
 		{
 			System.out.println("User = " + user.getFirstName());
-			getServletContext().getRequestDispatcher(url).forward(req, rep);
+			switch (user.getRole())
+			{
+			case 1:
+				getServletContext().getRequestDispatcher(urlAdmin).forward(req, rep);
+				break;
+			case 2:
+				getServletContext().getRequestDispatcher(urlTeacher).forward(req, rep);
+				break;
+			case 3:
+				getServletContext().getRequestDispatcher(urlStudent).forward(req, rep);
+				break;
+			}
+			
 		}
 	}
 }
