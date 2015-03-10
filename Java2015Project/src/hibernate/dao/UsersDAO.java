@@ -43,4 +43,38 @@ public class UsersDAO extends BaseUsersDAO {
 			return null;
 		}
 	}
+	
+	public List<Users> GetTeachers()
+	{
+		Session session;
+		try
+		{
+			session = HibernateUtil.currentSession();
+			List<Users> teachers = session.find("from Users WHERE Role = 2");
+			HibernateUtil.closeSession();
+			
+			return teachers;
+		} 
+		catch (HibernateException e)
+		{
+			return null;
+		}
+	}
+	
+	public List<Users> GetStudents()
+	{
+		Session session;
+		try
+		{
+			session = HibernateUtil.currentSession();
+			List<Users> students = session.find("from Users WHERE Role = 3");
+			HibernateUtil.closeSession();
+			
+			return students;
+		} 
+		catch (HibernateException e)
+		{
+			return null;
+		}
+	}
 }

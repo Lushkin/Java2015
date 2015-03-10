@@ -54,7 +54,7 @@ public class UserController  extends HttpServlet
 			switch (user.getRole())
 			{
 			case 1:
-				getServletContext().getRequestDispatcher(urlAdmin).forward(req, rep);
+				rep.sendRedirect("/Java2015Project/Admin");
 				break;
 			case 2:
 				getServletContext().getRequestDispatcher(urlTeacher).forward(req, rep);
