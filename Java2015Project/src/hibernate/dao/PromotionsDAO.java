@@ -1,5 +1,10 @@
 package hibernate.dao;
 
+import net.sf.hibernate.HibernateException;
+import net.sf.hibernate.Session;
+import net.sf.hibernate.Transaction;
+import hibernate.HibernateUtil;
+import hibernate.Promotions;
 import hibernate.base.BasePromotionsDAO;
 
 /**
@@ -11,4 +16,18 @@ import hibernate.base.BasePromotionsDAO;
  * Any customizations belong here.
  */
 public class PromotionsDAO extends BasePromotionsDAO {
+	public Promotions CreatePromotion(String promotionName) throws HibernateException
+	{
+		
+		Promotions promotion = new Promotions();
+		promotion.setName(promotionName);
+		try
+		{
+			HibernateUtil.currentSession().saveOrUpdate(promotion);
+			return promotion;
+		} catch (HibernateException e)
+		{
+			return null;
+		}
+	}
 }
