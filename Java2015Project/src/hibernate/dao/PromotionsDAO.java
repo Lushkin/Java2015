@@ -3,6 +3,7 @@ package hibernate.dao;
 import java.util.List;
 
 import net.sf.hibernate.HibernateException;
+import net.sf.hibernate.Query;
 import net.sf.hibernate.Session;
 import net.sf.hibernate.Transaction;
 import hibernate.HibernateUtil;

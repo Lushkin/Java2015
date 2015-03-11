@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -27,13 +27,24 @@
 					<th>Nom</th>
 					<th>Email</th>
 					<th>Date de naissance</th>
+					<th>Modifier</th>
+					<th>Supprimer</th>
 				</tr>
 				<c:forEach items="${Teachers}" var="t">
 					<tr>
 						<td>${t.getFirstName()}</td>
 						<td>${t.getLastName()}</td>
 						<td>${t.getEmail()}</td>
-						<td><fmt:formatDate pattern="dd/MM/yyyy" value="${t.getBirthDate()}"/></td>
+						<td><fmt:formatDate pattern="dd/MM/yyyy"
+								value="${t.getBirthDate()}" /></td>
+						<td><a role="button" class="btn btn-default"
+							href="${t.getId()}"> <span class="glyphicon glyphicon-pencil"
+								aria-hidden="true"></span>
+						</a></td>
+						<td><a role="button" class="btn btn-default"
+							href="${t.getId()}"> <span class="glyphicon glyphicon-trash"
+								aria-hidden="true"></span>
+						</a></td>
 					</tr>
 				</c:forEach>
 			</table>
@@ -43,14 +54,26 @@
 			<table class="table table-hover">
 				<tr>
 					<th>Nom</th>
+					<th>Modifier</th>
+					<th>Supprimer</th>
 				</tr>
 				<c:forEach items="${Promotions}" var="p">
 					<tr>
 						<td>${p.getName()}</td>
+						<td><a role="button" class="btn btn-default"
+							href="${p.getId()}"> <span class="glyphicon glyphicon-pencil"
+								aria-hidden="true"></span>
+						</a></td>
+						<td><a role="button" class="btn btn-default"
+							href="${p.getId()}"> <span class="glyphicon glyphicon-trash"
+								aria-hidden="true"></span>
+						</a></td>
 					</tr>
 				</c:forEach>
 			</table>
-			<a class="btn btn-default" role="button" href="/Java2015Project/Admin/CreatePromotion">Ajouter une promotion</a>
+			<a class="btn btn-default" role="button"
+				href="/Java2015Project/Admin/CreatePromotion">Ajouter une
+				promotion</a>
 		</div>
 		<div class="content" id="student-content" style="display: none">
 			<table class="table table-hover">
@@ -59,17 +82,29 @@
 					<th>Nom</th>
 					<th>Email</th>
 					<th>Date de naissance</th>
+					<th>Modifier</th>
+					<th>Supprimer</th>
 				</tr>
 				<c:forEach items="${Students}" var="s">
 					<tr>
 						<td>${s.getFirstName()}</td>
 						<td>${s.getLastName()}</td>
 						<td>${s.getEmail()}</td>
-						<td><fmt:formatDate pattern="dd/MM/yyyy" value="${s.getBirthDate()}"/></td>
+						<td><fmt:formatDate pattern="dd/MM/yyyy"
+								value="${s.getBirthDate()}" /></td>
+						<td><a role="button" class="btn btn-default"
+							href="${s.getId()}"> <span class="glyphicon glyphicon-pencil"
+								aria-hidden="true"></span>
+						</a></td>
+						<td><a role="button" class="btn btn-default"
+							href="${s.getId()}"> <span class="glyphicon glyphicon-trash"
+								aria-hidden="true"></span>
+						</a></td>
 					</tr>
 				</c:forEach>
 			</table>
-			<a class="btn btn-default" role="button" href="">Ajouter un étudiant</a>
+			<a class="btn btn-default" role="button" href="">Ajouter un
+				étudiant</a>
 		</div>
 	</div>
 	<script
@@ -77,10 +112,10 @@
 	<script
 		src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
 	<script type="text/javascript">
-		$(function(){
-			$('.nav').click(function(e){
+		$(function() {
+			$('.nav').click(function(e) {
 				$('.content').hide();
-				$('#'+$(this).attr('id')+'-content').show();
+				$('#' + $(this).attr('id') + '-content').show();
 				$('.nav').removeClass('active');
 				$(this).addClass('active');
 				e.stopImmediatePropagation();
