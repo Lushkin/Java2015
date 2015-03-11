@@ -105,7 +105,9 @@
 			</table>
 			<a class="btn btn-default" role="button" href="">Ajouter un
 				étudiant</a>
+			<a class="btn btn-default" role="button" href="/Java2015Project/Admin/CreateEtudiant">Ajouter un étudiant</a>
 		</div>
+		<a class="btn btn-info" role="button" href="/Java2015Project/Admin/StudentsToPromotion">Attribuer Etudiant au Promotion</a>
 	</div>
 	<script
 		src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
