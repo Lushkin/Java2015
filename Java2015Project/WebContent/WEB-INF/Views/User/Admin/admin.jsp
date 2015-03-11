@@ -50,7 +50,7 @@
 					</tr>
 				</c:forEach>
 			</table>
-			<a class="btn btn-default" role="button" href="">Ajouter une promotion</a>
+			<a class="btn btn-default" role="button" href="/Java2015Project/Admin/CreatePromotion">Ajouter une promotion</a>
 		</div>
 		<div class="content" id="student-content" style="display: none">
 			<table class="table table-hover">
