@@ -13,9 +13,13 @@ import javax.servlet.http.HttpServletResponse;
 
 public class AdminController extends HttpServlet
 {
+	private String adminUrl;
+	
 	public void init()
 	{
-		System.out.println("init methode called !");
+		System.out.println("init");
+		adminUrl = getInitParameter("AdminUrl");
+		System.out.println(adminUrl);
 	}
 	
 	public void service(HttpServletRequest req, HttpServletResponse rep) throws ServletException, IOException
@@ -26,18 +30,12 @@ public class AdminController extends HttpServlet
 		{
 			switch(action)
 			{
-			case "/Teachers":
-				GetTeachers(req, rep);
-				break;
-			case "Promotions":
-				break;
-			case "Students":
-				break;
 			}
 		}
 		else
 		{
 			GetTeachers(req, rep);
+			getServletContext().getRequestDispatcher(adminUrl).forward(req, rep);
 		}
 	}
 	
@@ -46,6 +44,5 @@ public class AdminController extends HttpServlet
 		System.out.println("teachers");
 		List<Users> teachers = DataAccess.Users().GetTeachers();		
 		req.setAttribute("Teachers", teachers);
-		getServletContext().getRequestDispatcher("/WEB-INF/Views/User/admin.jsp").forward(req, rep);
 	}
 }
