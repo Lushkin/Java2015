@@ -88,7 +88,7 @@ public class AdminController extends HttpServlet
 		System.out.println("GetPromotions");
 		GetPromotions(req, rep);
 		
-		System.out.println("GetGetStudents");
+		System.out.println("GetStudents");
 		GetStudents(req, rep);
 	}
 	

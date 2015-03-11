@@ -4,4 +4,7 @@
 .index-log-container{position:relative; top:40px; width:50%; margin:auto;}
 .index-log-in-button{width:100%;}
 
-.unable{background-color:#ddd !important;}
+.unable-row{background-color:#ddd !important;}
+
+
+.student-table{max-height:500px; overflow-y:auto;}
