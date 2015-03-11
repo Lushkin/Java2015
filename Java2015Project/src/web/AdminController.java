@@ -9,6 +9,7 @@ import java.io.IOException;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.Arrays;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -27,9 +28,7 @@ public class AdminController extends HttpServlet
 	
 	public void init()
 	{
-		System.out.println("init");
 		adminUrl = getInitParameter("AdminUrl");
-		System.out.println(adminUrl);
 	}
 	
 	public void service(HttpServletRequest req, HttpServletResponse rep) throws ServletException, IOException
@@ -71,6 +70,13 @@ public class AdminController extends HttpServlet
 					case "/CreateEtudiant":
 						req.getServletContext().getRequestDispatcher("/WEB-INF/Views/User/Admin/CreateEtudiant.jsp").forward(req, rep);
 					break;
+					case "/StudentsToPromotion":
+						GetPromotionsAndStudents(req, rep);
+						req.getServletContext().getRequestDispatcher("/WEB-INF/Views/User/Admin/StudentsToPromotion.jsp").forward(req, rep);
+					break;
+					case "/SaveStudentsToPromotion":
+						PutStudentsInPromotion(req, rep);
+					break;
 				}
 			}
 		}
@@ -86,7 +92,7 @@ public class AdminController extends HttpServlet
 	private void CreatePromotion(HttpServletRequest req, HttpServletResponse rep) throws ServletException, IOException, HibernateException
 	{
 		String promotionName = req.getParameter("PromotionName");
-		DataAccess.promotions().CreatePromotion(promotionName);
+		DataAccess.Promotions().CreatePromotion(promotionName);
 	}
 	private void CreateProf(HttpServletRequest req, HttpServletResponse rep) throws ServletException, IOException, HibernateException, ParseException
 	{
@@ -121,9 +127,29 @@ public class AdminController extends HttpServlet
 		req.setAttribute("Teachers", teachers);
 	}
 	
+	
+	private void GetPromotionsAndStudents(HttpServletRequest req, HttpServletResponse rep) throws ServletException, IOException
+	{
+		System.out.println("GetPromotions");
+		GetPromotions(req, rep);
+		
+		System.out.println("GetGetStudents");
+		GetStudents(req, rep);
+	}
+	
+	private void PutStudentsInPromotion(HttpServletRequest req, HttpServletResponse rep) throws ServletException, IOException
+	{
+		System.out.println("promo");
+		List<Integer> studentIds = Arrays.asList(9);
+		
+		boolean result = DataAccess.Users().PutUsersIntoPromotion(1, studentIds);
+		System.out.println("Result : " + result);
+		
+	}
+	
 	private void GetPromotions(HttpServletRequest req, HttpServletResponse rep) throws ServletException, IOException
 	{
-		List<Promotions> promotions = DataAccess.promotions().GetPromotions();
+		List<Promotions> promotions = DataAccess.Promotions().GetPromotions();
 		req.setAttribute("Promotions", promotions);
 	}
 	
