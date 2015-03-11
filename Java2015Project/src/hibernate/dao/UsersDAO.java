@@ -62,6 +62,21 @@ public class UsersDAO extends BaseUsersDAO {
 		}
 	}
 	
+	public Users GetUser(int id)
+	{
+		try
+		{
+			Session session = HibernateUtil.currentSession();
+			Users user = (Users)session.load(Users.class, id);
+			HibernateUtil.closeSession();
+			return user;
+		}
+		catch (HibernateException e)
+		{
+			 return null;
+		}
+	}
+	
 	public List<Users> GetStudents()
 	{
 		Session session;

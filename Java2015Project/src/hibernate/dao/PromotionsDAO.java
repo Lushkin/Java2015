@@ -60,4 +60,20 @@ public class PromotionsDAO extends BasePromotionsDAO {
 		}
 	}
 	
+	public Promotions GetPromotion(int id)
+	{
+		Session session;
+		try
+		{
+			session = HibernateUtil.currentSession();
+			Promotions promotion = (Promotions)session.load(Promotions.class, id);
+			HibernateUtil.closeSession();
+			
+			return promotion;
+		} 
+		catch (HibernateException e)
+		{
+			return null;
+		}
+	}
 }

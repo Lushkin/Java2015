@@ -23,9 +23,7 @@ public class AdminController extends HttpServlet
 	
 	public void init()
 	{
-		System.out.println("init");
 		adminUrl = getInitParameter("AdminUrl");
-		System.out.println(adminUrl);
 	}
 	
 	public void service(HttpServletRequest req, HttpServletResponse rep) throws ServletException, IOException
