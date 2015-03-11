@@ -81,6 +81,9 @@ public class UsersDAO extends BaseUsersDAO {
 	
 	public boolean PutUsersIntoPromotion(int promotionId, List<Integer> studentIds)
 	{
+		if(promotionId <= 0)
+			return false; //Promotion Id must be greather than 0
+		
 		Session session;
 		try
 		{
@@ -89,7 +92,8 @@ public class UsersDAO extends BaseUsersDAO {
 
 			Promotions promotion = (Promotions) session.load(Promotions.class, promotionId);
 			if(promotion == null)
-				return false;
+				return false; //Promotion does not exists
+			
 			System.out.println("Promotion : " + promotion.getName());
 				
 			for(int id : studentIds)

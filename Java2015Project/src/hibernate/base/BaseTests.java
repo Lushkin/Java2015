@@ -90,7 +90,7 @@ public abstract class BaseTests  implements Serializable {
 	/**
 	 * Return the unique identifier of this class
      * @hibernate.id
-     *  generator-class="increment"
+     *  generator-class="native"
      *  column="Id"
      */
 	public java.lang.Integer getId () {

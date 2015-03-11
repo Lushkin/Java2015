@@ -7,6 +7,7 @@ import hibernate.dao.PromotionsDAO;
 
 import java.io.IOException;
 import java.util.Arrays;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.ServletException;
@@ -63,6 +64,8 @@ public class AdminController extends HttpServlet
 		else
 		{
 			GetTeachers(req, rep);
+			GetStudents(req, rep);
+			GetPromotions(req, rep);
 			getServletContext().getRequestDispatcher(adminUrl).forward(req, rep);
 		}
 	}
@@ -75,7 +78,6 @@ public class AdminController extends HttpServlet
 	
 	private void GetTeachers(HttpServletRequest req, HttpServletResponse rep) throws ServletException, IOException
 	{
-		System.out.println("teachers");
 		List<Users> teachers = DataAccess.Users().GetTeachers();		
 		req.setAttribute("Teachers", teachers);
 	}
@@ -84,12 +86,10 @@ public class AdminController extends HttpServlet
 	private void GetPromotionsAndStudents(HttpServletRequest req, HttpServletResponse rep) throws ServletException, IOException
 	{
 		System.out.println("GetPromotions");
-		List<Promotions> promotions = DataAccess.Promotions().GetPromotions();
-		req.setAttribute("Promotions", promotions);
+		GetPromotions(req, rep);
 		
 		System.out.println("GetGetStudents");
-		List<Users> students = DataAccess.Users().GetStudents();		
-		req.setAttribute("Students", students);
+		GetStudents(req, rep);
 	}
 	
 	private void PutStudentsInPromotion(HttpServletRequest req, HttpServletResponse rep) throws ServletException, IOException
@@ -100,5 +100,17 @@ public class AdminController extends HttpServlet
 		boolean result = DataAccess.Users().PutUsersIntoPromotion(1, studentIds);
 		System.out.println("Result : " + result);
 		
+	}
+	
+	private void GetPromotions(HttpServletRequest req, HttpServletResponse rep) throws ServletException, IOException
+	{
+		List<Promotions> promotions = DataAccess.promotions().GetPromotions();
+		req.setAttribute("Promotions", promotions);
+	}
+	
+	private void GetStudents(HttpServletRequest req, HttpServletResponse rep) throws ServletException, IOException
+	{
+		List<Users> students = DataAccess.Users().GetStudents();		
+		req.setAttribute("Students", students);
 	}
 }

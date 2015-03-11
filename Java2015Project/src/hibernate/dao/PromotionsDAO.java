@@ -21,14 +21,40 @@ import hibernate.base.BasePromotionsDAO;
 public class PromotionsDAO extends BasePromotionsDAO {
 	public Promotions CreatePromotion(String promotionName) throws HibernateException
 	{
+		Session session = HibernateUtil.currentSession();
+		Transaction tx = session.beginTransaction();
 		
 		Promotions promotion = new Promotions();
 		promotion.setName(promotionName);
 		try
 		{
-			HibernateUtil.currentSession().saveOrUpdate(promotion);
-			return promotion;
-		} catch (HibernateException e)
+			System.out.println(promotion.getId());
+			session.save(promotion);
+			tx.commit();
+		}
+		catch (HibernateException e)
+		{
+			return null;
+		}
+		finally
+		{
+			HibernateUtil.closeSession();
+		}
+		return promotion;
+	}
+	
+	public List<Promotions> GetPromotions()
+	{
+		Session session;
+		try
+		{
+			session = HibernateUtil.currentSession();
+			List<Promotions> promotions = session.find("from Promotions");
+			HibernateUtil.closeSession();
+			
+			return promotions;
+		} 
+		catch (HibernateException e)
 		{
 			return null;
 		}
