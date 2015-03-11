@@ -1,5 +1,6 @@
 package hibernate;
 
+import hibernate.dao.PromotionsDAO;
 import hibernate.dao.UsersDAO;
 
 public class DataAccess
@@ -11,5 +12,14 @@ public class DataAccess
 		if (users == null)
 			users = new UsersDAO();
 		return users;
+	}
+	
+	private static PromotionsDAO promotions;
+	
+	public static PromotionsDAO promotions()
+	{
+		if (promotions == null)
+			promotions = new PromotionsDAO();
+		return promotions;
 	}
 }
