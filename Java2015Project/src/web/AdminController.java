@@ -76,8 +76,7 @@ public class AdminController extends HttpServlet
 	
 	private void GetPromotions(HttpServletRequest req, HttpServletResponse rep) throws ServletException, IOException
 	{
-		//List<Promotions> promotions = DataAccess.Users().GetTeachers();
-		List<Promotions> promotions = new ArrayList<Promotions>();
+		List<Promotions> promotions = DataAccess.promotions().GetPromotions();
 		req.setAttribute("Promotions", promotions);
 	}
 	
