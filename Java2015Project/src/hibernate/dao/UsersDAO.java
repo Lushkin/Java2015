@@ -1,5 +1,7 @@
 package hibernate.dao;
 
+
+import java.util.Date;
 import java.util.List;
 
 import net.sf.hibernate.Hibernate;
@@ -41,6 +43,27 @@ public class UsersDAO extends BaseUsersDAO {
 		catch (HibernateException e)
 		{
 			return null;
+		}
+	}
+	
+	public void CreateUser(String nom, String prenom, String email, Date datenaissance, String password, int role)
+	{
+		Users user = new Users();
+		user.setFirstName(prenom);
+		user.setLastName(nom);
+		user.setEmail(email);
+		user.setPassword(password);
+		user.setBirthDate(datenaissance);
+		user.setRole(role);
+		
+		try
+		{
+			Transaction transac = HibernateUtil.currentSession().beginTransaction();
+			HibernateUtil.currentSession().saveOrUpdate(user);
+			transac.commit();
+		} catch (HibernateException e)
+		{
+			System.out.println("Erreur dans CreateUser DAO");
 		}
 	}
 	

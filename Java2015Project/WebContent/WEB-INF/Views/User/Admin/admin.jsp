@@ -37,7 +37,7 @@
 					</tr>
 				</c:forEach>
 			</table>
-			<a class="btn btn-default" role="button" href="">Ajouter un prof</a>
+			<a class="btn btn-default" role="button" href="/Java2015Project/Admin/CreateProf">Ajouter un prof</a>
 		</div>
 		<div class="content" id="promotion-content" style="display: none">
 			<table class="table table-hover">
@@ -69,7 +69,7 @@
 					</tr>
 				</c:forEach>
 			</table>
-			<a class="btn btn-default" role="button" href="">Ajouter un étudiant</a>
+			<a class="btn btn-default" role="button" href="/Java2015Project/Admin/CreateEtudiant">Ajouter un étudiant</a>
 		</div>
 	</div>
 	<script
