@@ -6,9 +6,14 @@ import hibernate.Users;
 import hibernate.dao.PromotionsDAO;
 
 import java.io.IOException;
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Arrays;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -23,33 +28,47 @@ public class AdminController extends HttpServlet
 	
 	public void init()
 	{
-		System.out.println("init");
 		adminUrl = getInitParameter("AdminUrl");
-		System.out.println(adminUrl);
 	}
 	
 	public void service(HttpServletRequest req, HttpServletResponse rep) throws ServletException, IOException
 	{	
 		String action = req.getPathInfo();
-		
-		System.out.println(action);
 		if(action != null)
 		{
 			if(req.getMethod() == "POST")
 			{
 				try
 				{
-					CreatePromotion(req,rep);
-				} catch (HibernateException e)
+					switch(action)
+					{
+						case "/CreatePromotion":
+							CreatePromotion(req,rep);
+						break;
+						case "/CreateProf":
+							CreateProf(req, rep);
+						break;
+						case "/CreateEtudiant":
+							CreateEtudiant(req,rep);
+						break;
+					}
+					
+				} catch (Exception e)
 				{
 					e.printStackTrace();
 				}
-				getServletContext().getRequestDispatcher(adminUrl).forward(req, rep);
+				rep.sendRedirect("/Java2015Project/Admin");
 			}else{
 				switch(action)
 				{
 					case "/CreatePromotion":
 						req.getServletContext().getRequestDispatcher("/WEB-INF/Views/User/Admin/CreatePromotion.jsp").forward(req, rep);
+					break;
+					case "/CreateProf":
+						req.getServletContext().getRequestDispatcher("/WEB-INF/Views/User/Admin/CreateProf.jsp").forward(req, rep);
+					break;
+					case "/CreateEtudiant":
+						req.getServletContext().getRequestDispatcher("/WEB-INF/Views/User/Admin/CreateEtudiant.jsp").forward(req, rep);
 					break;
 					case "/StudentsToPromotion":
 						GetPromotionsAndStudents(req, rep);
@@ -75,7 +94,33 @@ public class AdminController extends HttpServlet
 		String promotionName = req.getParameter("PromotionName");
 		DataAccess.Promotions().CreatePromotion(promotionName);
 	}
+	private void CreateProf(HttpServletRequest req, HttpServletResponse rep) throws ServletException, IOException, HibernateException, ParseException
+	{
+		String prenom = req.getParameter("Prenom");
+		String nom = req.getParameter("Nom");
+
+		DateFormat format = new SimpleDateFormat("yyyy-dd-MM", Locale.ENGLISH);
+		Date dateNaissance = (Date) format.parse(req.getParameter("DateNaissance"));
+
+		String email = req.getParameter("Email");
+		String password = req.getParameter("Password");
+		
+		DataAccess.Users().CreateUser(nom, prenom, email, dateNaissance, password, 2);
+	}
 	
+	private void CreateEtudiant(HttpServletRequest req, HttpServletResponse rep) throws ServletException, IOException, HibernateException, ParseException
+	{
+		String prenom = req.getParameter("Prenom");
+		String nom = req.getParameter("Nom");
+
+		DateFormat format = new SimpleDateFormat("yyyy-dd-MM", Locale.ENGLISH);
+		Date dateNaissance = (Date) format.parse(req.getParameter("DateNaissance"));
+
+		String email = req.getParameter("Email");
+		String password = req.getParameter("Password");
+		
+		DataAccess.Users().CreateUser(nom, prenom, email, dateNaissance, password, 3);
+	}
 	private void GetTeachers(HttpServletRequest req, HttpServletResponse rep) throws ServletException, IOException
 	{
 		List<Users> teachers = DataAccess.Users().GetTeachers();		
