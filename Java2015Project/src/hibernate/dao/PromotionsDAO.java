@@ -1,10 +1,13 @@
 package hibernate.dao;
 
+import java.util.List;
+
 import net.sf.hibernate.HibernateException;
 import net.sf.hibernate.Session;
 import net.sf.hibernate.Transaction;
 import hibernate.HibernateUtil;
 import hibernate.Promotions;
+import hibernate.Users;
 import hibernate.base.BasePromotionsDAO;
 
 /**
@@ -26,6 +29,23 @@ public class PromotionsDAO extends BasePromotionsDAO {
 			HibernateUtil.currentSession().saveOrUpdate(promotion);
 			return promotion;
 		} catch (HibernateException e)
+		{
+			return null;
+		}
+	}
+	
+	public List<Promotions> GetPromotions()
+	{
+		Session session;
+		try
+		{
+			session = HibernateUtil.currentSession();
+			List<Promotions> promotions = session.find("from Promotions");
+			HibernateUtil.closeSession();
+			
+			return promotions;
+		} 
+		catch (HibernateException e)
 		{
 			return null;
 		}

@@ -16,7 +16,7 @@ public class DataAccess
 	
 	private static PromotionsDAO promotions;
 	
-	public static PromotionsDAO promotions()
+	public static PromotionsDAO Promotions()
 	{
 		if (promotions == null)
 			promotions = new PromotionsDAO();

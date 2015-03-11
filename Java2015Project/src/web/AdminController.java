@@ -6,6 +6,7 @@ import hibernate.Users;
 import hibernate.dao.PromotionsDAO;
 
 import java.io.IOException;
+import java.util.Arrays;
 import java.util.List;
 
 import javax.servlet.ServletException;
@@ -49,6 +50,13 @@ public class AdminController extends HttpServlet
 					case "/CreatePromotion":
 						req.getServletContext().getRequestDispatcher("/WEB-INF/Views/User/Admin/CreatePromotion.jsp").forward(req, rep);
 					break;
+					case "/StudentsToPromotion":
+						GetPromotionsAndStudents(req, rep);
+						req.getServletContext().getRequestDispatcher("/WEB-INF/Views/User/Admin/StudentsToPromotion.jsp").forward(req, rep);
+					break;
+					case "/SaveStudentsToPromotion":
+						PutStudentsInPromotion(req, rep);
+					break;
 				}
 			}
 		}
@@ -62,7 +70,7 @@ public class AdminController extends HttpServlet
 	private void CreatePromotion(HttpServletRequest req, HttpServletResponse rep) throws ServletException, IOException, HibernateException
 	{
 		String promotionName = req.getParameter("PromotionName");
-		DataAccess.promotions().CreatePromotion(promotionName);
+		DataAccess.Promotions().CreatePromotion(promotionName);
 	}
 	
 	private void GetTeachers(HttpServletRequest req, HttpServletResponse rep) throws ServletException, IOException
@@ -70,5 +78,27 @@ public class AdminController extends HttpServlet
 		System.out.println("teachers");
 		List<Users> teachers = DataAccess.Users().GetTeachers();		
 		req.setAttribute("Teachers", teachers);
+	}
+	
+	
+	private void GetPromotionsAndStudents(HttpServletRequest req, HttpServletResponse rep) throws ServletException, IOException
+	{
+		System.out.println("GetPromotions");
+		List<Promotions> promotions = DataAccess.Promotions().GetPromotions();
+		req.setAttribute("Promotions", promotions);
+		
+		System.out.println("GetGetStudents");
+		List<Users> students = DataAccess.Users().GetStudents();		
+		req.setAttribute("Students", students);
+	}
+	
+	private void PutStudentsInPromotion(HttpServletRequest req, HttpServletResponse rep) throws ServletException, IOException
+	{
+		System.out.println("promo");
+		List<Integer> studentIds = Arrays.asList(9);
+		
+		boolean result = DataAccess.Users().PutUsersIntoPromotion(1, studentIds);
+		System.out.println("Result : " + result);
+		
 	}
 }

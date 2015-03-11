@@ -7,6 +7,7 @@ import net.sf.hibernate.HibernateException;
 import net.sf.hibernate.Session;
 import net.sf.hibernate.Transaction;
 import hibernate.HibernateUtil;
+import hibernate.Promotions;
 import hibernate.Users;
 import hibernate.base.BaseUsersDAO;
 
@@ -75,6 +76,44 @@ public class UsersDAO extends BaseUsersDAO {
 		catch (HibernateException e)
 		{
 			return null;
+		}
+	}
+	
+	public boolean PutUsersIntoPromotion(int promotionId, List<Integer> studentIds)
+	{
+		Session session;
+		try
+		{
+			session = HibernateUtil.currentSession();
+			Transaction tx = session.beginTransaction();
+
+			Promotions promotion = (Promotions) session.load(Promotions.class, promotionId);
+			if(promotion == null)
+				return false;
+			System.out.println("Promotion : " + promotion.getName());
+				
+			for(int id : studentIds)
+			{
+				Users usr = (Users) session.load(Users.class, id);
+				
+				if(usr != null)	
+				{
+					System.out.println("User : " + usr.getFirstName() + " " + usr.getLastName());
+					usr.setPromotion(promotion);
+					session.save(usr);
+					tx.commit();
+					System.out.println("User : " + usr.getFirstName() + " " + usr.getLastName() + " / " + usr.getPromotion().getName());
+				}
+				else
+					System.out.println("User not found");
+			}
+			HibernateUtil.closeSession();
+			return true;
+		}
+		catch(HibernateException e)
+		{
+			System.out.println("Exception : " + e);
+			return false;
 		}
 	}
 }
