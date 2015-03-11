@@ -10,7 +10,7 @@
 			name="Id"
 			type="integer"
 		>
-			<generator class="increment" />
+			<generator class="native" />
 		</id>
 		<property
 			column="IsValidated"
