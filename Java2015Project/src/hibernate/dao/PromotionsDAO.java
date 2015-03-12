@@ -3,6 +3,7 @@ package hibernate.dao;
 import java.util.List;
 
 import net.sf.hibernate.HibernateException;
+import net.sf.hibernate.Query;
 import net.sf.hibernate.Session;
 import net.sf.hibernate.Transaction;
 import hibernate.HibernateUtil;
@@ -74,6 +75,43 @@ public class PromotionsDAO extends BasePromotionsDAO {
 		catch (HibernateException e)
 		{
 			return null;
+		}
+	}
+	
+	public void UpdatePromotion(int id, String name)
+	{
+		Session session;
+		try
+		{
+			session = HibernateUtil.currentSession();
+			Transaction transac = session.beginTransaction();
+			Promotions promotion = (Promotions)session.load(Promotions.class, id);
+			promotion.setName(name);
+			session.saveOrUpdate(promotion);
+			transac.commit();
+			HibernateUtil.closeSession();
+		} 
+		catch (HibernateException e)
+		{
+			System.out.println("erreur dans update promotion");
+		}
+	}
+	
+	public void DeletePromotion(int id)
+	{
+		Session session;
+		try
+		{
+			session = HibernateUtil.currentSession();
+			Transaction transac = session.beginTransaction();
+			Promotions promotion = (Promotions)session.load(Promotions.class, id);
+			session.delete(promotion);
+			transac.commit();
+			HibernateUtil.closeSession();
+		} 
+		catch (HibernateException e)
+		{
+			System.out.println("erreur dans delete promotion");
 		}
 	}
 }

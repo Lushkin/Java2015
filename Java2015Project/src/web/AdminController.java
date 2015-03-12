@@ -1,6 +1,7 @@
 package web;
 
 import hibernate.DataAccess;
+import hibernate.HibernateUtil;
 import hibernate.Promotions;
 import hibernate.Users;
 import hibernate.dao.PromotionsDAO;
@@ -39,6 +40,7 @@ public class AdminController extends HttpServlet
 		{
 			if(req.getMethod() == "POST")
 			{
+				System.out.println("POST " + action);
 				try
 				{
 					switch(action)
@@ -55,6 +57,15 @@ public class AdminController extends HttpServlet
 						case "/SaveStudentsToPromotion":
 							PutStudentsInPromotion(req, rep);
 						break;
+						case "/EditPromotion":
+							EditPromotion(req,rep);
+						break;
+						case "/EditEtudiant":
+							EditEtudiant(req,rep);
+						break;
+						case "/EditProf":
+							EditEtudiant(req,rep);
+						break;
 					}
 					
 				} catch (Exception e)
@@ -63,6 +74,7 @@ public class AdminController extends HttpServlet
 				}
 				rep.sendRedirect("/Java2015Project/Admin");
 			}else{
+				System.out.println(action);
 				switch(action)
 				{
 					case "/CreatePromotion":
@@ -78,11 +90,51 @@ public class AdminController extends HttpServlet
 						GetPromotionsAndStudents(req, rep);
 						req.getServletContext().getRequestDispatcher("/WEB-INF/Views/User/Admin/StudentsToPromotion.jsp").forward(req, rep);
 					break;
+					case "/EditPromotion":
+						GetPromotion(req, rep);
+						req.getServletContext().getRequestDispatcher("/WEB-INF/Views/User/Admin/EditPromotion.jsp").forward(req, rep);
+					break;
+					case "/EditEtudiant":
+						GetStudent(req, rep);
+						req.getServletContext().getRequestDispatcher("/WEB-INF/Views/User/Admin/EditEtudiant.jsp").forward(req, rep);
+					break;
+					case "/EditProf":
+						GetStudent(req, rep);
+						req.getServletContext().getRequestDispatcher("/WEB-INF/Views/User/Admin/EditProf.jsp").forward(req, rep);
+					break;
+					case "/DeleteProf":
+						try
+						{
+							DeleteProf(req, rep);
+						} catch (HibernateException e)
+						{
+						}
+						GetTeachers(req, rep);
+						GetStudents(req, rep);
+						GetPromotions(req, rep);
+						getServletContext().getRequestDispatcher(adminUrl).forward(req, rep);
+						break;
+					case "/DeletePromotion":
+						System.out.println("delete promotion ->");
+						DeletePromotion(req, rep);
+						GetTeachers(req, rep);
+						GetStudents(req, rep);
+						GetPromotions(req, rep);
+						getServletContext().getRequestDispatcher(adminUrl).forward(req, rep);
+						break;
+					case "/DeleteEtudiant":
+						DeleteEtudiant(req, rep);
+						GetTeachers(req, rep);
+						GetStudents(req, rep);
+						GetPromotions(req, rep);
+						getServletContext().getRequestDispatcher(adminUrl).forward(req, rep);
+						break;
 				}
 			}
 		}
 		else
 		{
+			System.out.println("no action");
 			GetTeachers(req, rep);
 			GetStudents(req, rep);
 			GetPromotions(req, rep);
@@ -122,12 +174,38 @@ public class AdminController extends HttpServlet
 		
 		DataAccess.Users().CreateUser(nom, prenom, email, dateNaissance, password, 3);
 	}
+	
+	private void EditPromotion(HttpServletRequest req, HttpServletResponse rep) throws ServletException, IOException, HibernateException
+	{
+		int id = Integer.parseInt(req.getParameter("id"));
+		String name = req.getParameter("PromotionName");
+		DataAccess.Promotions().UpdatePromotion(id, name);
+	}
+	
+	private void EditEtudiant(HttpServletRequest req, HttpServletResponse rep) throws ServletException, IOException, HibernateException, ParseException
+	{
+		int id = Integer.parseInt(req.getParameter("id"));
+		String prenom = req.getParameter("Prenom");
+		String nom = req.getParameter("Nom");
+		DateFormat format = new SimpleDateFormat("yyyy-MM-dd", Locale.ENGLISH);
+		Date dateNaissance = (Date) format.parse(req.getParameter("DateNaissance"));
+		String email = req.getParameter("Email");
+		String password = req.getParameter("Password");
+		DataAccess.Users().UpdateUser(id,nom, prenom, email, dateNaissance, password);
+	}
+	
 	private void GetTeachers(HttpServletRequest req, HttpServletResponse rep) throws ServletException, IOException
 	{
 		List<Users> teachers = DataAccess.Users().GetTeachers();		
 		req.setAttribute("Teachers", teachers);
 	}
 	
+	private void GetPromotion(HttpServletRequest req, HttpServletResponse rep) throws ServletException, IOException
+	{
+		int id = Integer.parseInt(req.getParameter("id"));
+		Promotions promotion = DataAccess.Promotions().GetPromotion(id);
+		req.setAttribute("Promotion", promotion);
+	}
 	
 	private void GetPromotionsAndStudents(HttpServletRequest req, HttpServletResponse rep) throws ServletException, IOException
 	{
@@ -172,11 +250,49 @@ public class AdminController extends HttpServlet
 
 		List<Promotions> promotions = DataAccess.Promotions().GetPromotions();
 		req.setAttribute("Promotions", promotions);
+		DateFormat d  = new SimpleDateFormat();
+	}
+	
+	private void DeletePromotion(HttpServletRequest req, HttpServletResponse rep) throws ServletException, IOException
+	{
+		int id = Integer.parseInt(req.getParameter("id"));
+		try
+		{
+			List<Users> users = HibernateUtil.currentSession().find("from Users WHERE PromotionId = " + id);
+			for (Users user : users)
+			{
+				user.setPromotion(null);
+				DataAccess.Users().update(user);
+			}
+			DataAccess.Promotions().DeletePromotion(id);
+		} catch (HibernateException e)
+		{
+			System.out.println("erreur delete promotion");
+		}
+	}
+	
+	private void DeleteProf(HttpServletRequest req, HttpServletResponse rep) throws ServletException, IOException, HibernateException
+	{
+		int id = Integer.parseInt(req.getParameter("id"));
+		DataAccess.Users().DeleteUser(id);
+	}
+	
+	private void DeleteEtudiant(HttpServletRequest req, HttpServletResponse rep) throws ServletException, IOException
+	{
+		int id = Integer.parseInt(req.getParameter("id"));
+		DataAccess.Users().DeleteUser(id);
 	}
 	
 	private void GetStudents(HttpServletRequest req, HttpServletResponse rep) throws ServletException, IOException
 	{
 		List<Users> students = DataAccess.Users().GetStudents();		
 		req.setAttribute("Students", students);
+	}
+	
+	private void GetStudent(HttpServletRequest req, HttpServletResponse rep) throws ServletException, IOException
+	{
+		int id = Integer.parseInt(req.getParameter("id"));
+		Users user = DataAccess.Users().GetUser(id);
+		req.setAttribute("Etudiant", user);
 	}
 }
