@@ -62,9 +62,32 @@ public class UsersDAO extends BaseUsersDAO {
 			Transaction transac = HibernateUtil.currentSession().beginTransaction();
 			HibernateUtil.currentSession().saveOrUpdate(user);
 			transac.commit();
+			HibernateUtil.closeSession();
 		} catch (HibernateException e)
 		{
 			System.out.println("Erreur dans CreateUser DAO");
+		}
+	}
+	
+	public void UpdateUser(int id,String nom, String prenom, String email, Date datenaissance, String password)
+	{
+		
+		
+		try
+		{
+			Transaction transac = HibernateUtil.currentSession().beginTransaction();
+			Users user = (Users)HibernateUtil.currentSession().load(Users.class, id);
+			user.setFirstName(prenom);
+			user.setLastName(nom);
+			user.setEmail(email);
+			user.setPassword(password);
+			user.setBirthDate(datenaissance);
+			HibernateUtil.currentSession().saveOrUpdate(user);
+			transac.commit();
+			HibernateUtil.closeSession();
+		} catch (HibernateException e)
+		{
+			System.out.println("Erreur dans UpdateUser DAO");
 		}
 	}
 	

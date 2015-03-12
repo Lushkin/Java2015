@@ -38,11 +38,11 @@
 						<td><fmt:formatDate pattern="dd/MM/yyyy"
 								value="${t.getBirthDate()}" /></td>
 						<td><a role="button" class="btn btn-default"
-							href="${t.getId()}"> <span class="glyphicon glyphicon-pencil"
+							href="/Java2015Project/Admin/EditProf?id=${t.getId()}"> <span class="glyphicon glyphicon-pencil"
 								aria-hidden="true"></span>
 						</a></td>
 						<td><a role="button" class="btn btn-default"
-							href="${t.getId()}"> <span class="glyphicon glyphicon-trash"
+							href="/Java2015Project/Admin/DeleteProf?id=${t.getId()}"> <span class="glyphicon glyphicon-trash"
 								aria-hidden="true"></span>
 						</a></td>
 					</tr>
@@ -61,11 +61,11 @@
 					<tr>
 						<td>${p.getName()}</td>
 						<td><a role="button" class="btn btn-default"
-							href="${p.getId()}"> <span class="glyphicon glyphicon-pencil"
+							href="/Java2015Project/Admin/EditPromotion?id=${p.getId()}"> <span class="glyphicon glyphicon-pencil"
 								aria-hidden="true"></span>
 						</a></td>
 						<td><a role="button" class="btn btn-default"
-							href="${p.getId()}"> <span class="glyphicon glyphicon-trash"
+							href="/Java2015Project/Admin/DeletePromotion?id=${p.getId()}"> <span class="glyphicon glyphicon-trash"
 								aria-hidden="true"></span>
 						</a></td>
 					</tr>
@@ -93,11 +93,11 @@
 						<td><fmt:formatDate pattern="dd/MM/yyyy"
 								value="${s.getBirthDate()}" /></td>
 						<td><a role="button" class="btn btn-default"
-							href="${s.getId()}"> <span class="glyphicon glyphicon-pencil"
+							href="/Java2015Project/Admin/EditEtudiant?id=${s.getId()}"><span class="glyphicon glyphicon-pencil"
 								aria-hidden="true"></span>
 						</a></td>
 						<td><a role="button" class="btn btn-default"
-							href="${s.getId()}"> <span class="glyphicon glyphicon-trash"
+							href="/Java2015Project/Admin/DeleteEtudiant?id=${s.getId()}"><span class="glyphicon glyphicon-trash"
 								aria-hidden="true"></span>
 						</a></td>
 					</tr>
