@@ -96,4 +96,22 @@ public class PromotionsDAO extends BasePromotionsDAO {
 			System.out.println("erreur dans update promotion");
 		}
 	}
+	
+	public void DeletePromotion(int id)
+	{
+		Session session;
+		try
+		{
+			session = HibernateUtil.currentSession();
+			Transaction transac = session.beginTransaction();
+			Promotions promotion = (Promotions)session.load(Promotions.class, id);
+			session.delete(promotion);
+			transac.commit();
+			HibernateUtil.closeSession();
+		} 
+		catch (HibernateException e)
+		{
+			System.out.println("erreur dans delete promotion");
+		}
+	}
 }

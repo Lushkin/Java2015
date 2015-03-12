@@ -1,6 +1,7 @@
 package web;
 
 import hibernate.DataAccess;
+import hibernate.HibernateUtil;
 import hibernate.Promotions;
 import hibernate.Users;
 import hibernate.dao.PromotionsDAO;
@@ -100,6 +101,33 @@ public class AdminController extends HttpServlet
 						GetStudent(req, rep);
 						req.getServletContext().getRequestDispatcher("/WEB-INF/Views/User/Admin/EditProf.jsp").forward(req, rep);
 					break;
+					case "/DeleteProf":
+						try
+						{
+							DeleteProf(req, rep);
+						} catch (HibernateException e)
+						{
+						}
+						GetTeachers(req, rep);
+						GetStudents(req, rep);
+						GetPromotions(req, rep);
+						getServletContext().getRequestDispatcher(adminUrl).forward(req, rep);
+						break;
+					case "/DeletePromotion":
+						System.out.println("delete promotion ->");
+						DeletePromotion(req, rep);
+						GetTeachers(req, rep);
+						GetStudents(req, rep);
+						GetPromotions(req, rep);
+						getServletContext().getRequestDispatcher(adminUrl).forward(req, rep);
+						break;
+					case "/DeleteEtudiant":
+						DeleteEtudiant(req, rep);
+						GetTeachers(req, rep);
+						GetStudents(req, rep);
+						GetPromotions(req, rep);
+						getServletContext().getRequestDispatcher(adminUrl).forward(req, rep);
+						break;
 				}
 			}
 		}
@@ -202,6 +230,36 @@ public class AdminController extends HttpServlet
 		List<Promotions> promotions = DataAccess.Promotions().GetPromotions();
 		req.setAttribute("Promotions", promotions);
 		DateFormat d  = new SimpleDateFormat();
+	}
+	
+	private void DeletePromotion(HttpServletRequest req, HttpServletResponse rep) throws ServletException, IOException
+	{
+		int id = Integer.parseInt(req.getParameter("id"));
+		try
+		{
+			List<Users> users = HibernateUtil.currentSession().find("from Users WHERE PromotionId = " + id);
+			for (Users user : users)
+			{
+				user.setPromotion(null);
+				DataAccess.Users().update(user);
+			}
+			DataAccess.Promotions().DeletePromotion(id);
+		} catch (HibernateException e)
+		{
+			System.out.println("erreur delete promotion");
+		}
+	}
+	
+	private void DeleteProf(HttpServletRequest req, HttpServletResponse rep) throws ServletException, IOException, HibernateException
+	{
+		int id = Integer.parseInt(req.getParameter("id"));
+		DataAccess.Users().DeleteUser(id);
+	}
+	
+	private void DeleteEtudiant(HttpServletRequest req, HttpServletResponse rep) throws ServletException, IOException
+	{
+		int id = Integer.parseInt(req.getParameter("id"));
+		DataAccess.Users().DeleteUser(id);
 	}
 	
 	private void GetStudents(HttpServletRequest req, HttpServletResponse rep) throws ServletException, IOException
