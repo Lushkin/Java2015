@@ -13,6 +13,11 @@
 </head>
 <body>
 	<div class="container">
+		<div class="header">
+			<h2>Création d'étudiant</h2>
+		</div>
+		<hr/>
+	
 		<form action="/Java2015Project/Admin/CreateEtudiant" method="POST">
 		
 			<label>Nom :</label>

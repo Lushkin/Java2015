@@ -13,6 +13,10 @@
 </head>
 <body>
 	<div class="container">
+		<div class="header">
+			<h2>Edition de promotion</h2>
+		</div>
+		<hr/>
 		<form action="/Java2015Project/Admin/EditPromotion?id=${Promotion.getId()}" method="POST">
 				<label>Nom de la promotion</label>
 				<input type="text" placeholder="ING2" id="PromotionName" name="PromotionName" class="form-control" value="${Promotion.getName()}"/>

@@ -15,6 +15,10 @@
 </head>
 <body>
 	<div class="container">
+		<div class="header">
+			<h2>Edition d'étudiant</h2>
+		</div>
+		<hr/>
 		<form action="/Java2015Project/Admin/EditEtudiant?id=${Etudiant.getId()}" method="POST">
 		
 			<label>Nom :</label>

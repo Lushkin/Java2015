@@ -13,6 +13,10 @@
 </head>
 <body>
 	<div class="container">
+		<div class="header">
+			<h2>Dashboard !</h2>
+		</div>
+		<hr/>
 		<div>
 			<ul class="nav nav-tabs">
 				<li role="presentation" class="active nav" id="teacher"><a>Profs</a></li>

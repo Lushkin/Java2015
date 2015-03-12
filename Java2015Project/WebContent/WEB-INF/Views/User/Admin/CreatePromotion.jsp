@@ -13,11 +13,16 @@
 </head>
 <body>
 	<div class="container">
+		<div class="header">
+			<h2>Création de promotion</h2>
+		</div>
+		<hr/>
 		<form action="/Java2015Project/Admin/CreatePromotion" method="POST">
-			<table>
-				<tr><td>Nom de la promotion :</td> <td><input type="text" placeholder="ING2" id="PromotionName" name="PromotionName" class="form-control"/></td></tr>
-				<tr><td colspan="2"><input type="submit" value="Ajouter une promotion" class="btn btn-primary"/></td></tr>
-			</table>
+			<div class="row">
+				<label class="col-md-4">Nom de la promotion :</label>
+				<div class="col-md-4"><input type="text" placeholder="ING2" id="PromotionName" name="PromotionName" class="form-control"/></div>
+				<div class="col-md-4"><input type="submit" value="Ajouter une promotion" class="btn btn-primary"/></div>
+			</div>
 		</form>
 	</div>
 	<script
