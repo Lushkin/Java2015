@@ -12,6 +12,7 @@ import java.text.SimpleDateFormat;
 import java.util.Arrays;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
 
@@ -51,6 +52,9 @@ public class AdminController extends HttpServlet
 						case "/CreateEtudiant":
 							CreateEtudiant(req,rep);
 						break;
+						case "/SaveStudentsToPromotion":
+							PutStudentsInPromotion(req, rep);
+						break;
 					}
 					
 				} catch (Exception e)
@@ -73,9 +77,6 @@ public class AdminController extends HttpServlet
 					case "/StudentsToPromotion":
 						GetPromotionsAndStudents(req, rep);
 						req.getServletContext().getRequestDispatcher("/WEB-INF/Views/User/Admin/StudentsToPromotion.jsp").forward(req, rep);
-					break;
-					case "/SaveStudentsToPromotion":
-						PutStudentsInPromotion(req, rep);
 					break;
 				}
 			}
@@ -140,15 +141,35 @@ public class AdminController extends HttpServlet
 	private void PutStudentsInPromotion(HttpServletRequest req, HttpServletResponse rep) throws ServletException, IOException
 	{
 		System.out.println("promo");
-		List<Integer> studentIds = Arrays.asList(9);
+		String json = req.getParameter("students");
+		System.out.println(json);
+		System.out.println(java.util.Arrays.toString(json.split("\\|")));
+		String[] lines = json.split("\\|");
+		HashMap<String, String> students = new HashMap<String, String>();
+		HashMap<String, String> promos = new HashMap<String, String>();
 		
-		boolean result = DataAccess.Users().PutUsersIntoPromotion(1, studentIds);
-		System.out.println("Result : " + result);
+		String[] col;
+		for(int i = 1; i < lines.length; i++)
+		{
+			if(lines[i].contains("\""))
+				lines[i] = lines[i].substring(0, lines[i].length()-1);
+
+				col = lines[i].split("\\:");
+				students.put(Integer.toString(i), col[1]);
+				promos.put(Integer.toString(i), col[0]);
+				
+				String toto = "roro";
+				toto.toString();
+		}
+		System.out.println(students.toString());
+		System.out.println(promos.toString());
 		
+		boolean result = DataAccess.Users().PutUsersIntoPromotion(students, promos);		
 	}
 	
 	private void GetPromotions(HttpServletRequest req, HttpServletResponse rep) throws ServletException, IOException
 	{
+
 		List<Promotions> promotions = DataAccess.Promotions().GetPromotions();
 		req.setAttribute("Promotions", promotions);
 	}

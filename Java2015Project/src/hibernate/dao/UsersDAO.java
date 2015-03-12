@@ -2,6 +2,7 @@ package hibernate.dao;
 
 
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
 
 import net.sf.hibernate.Hibernate;
@@ -114,6 +115,54 @@ public class UsersDAO extends BaseUsersDAO {
 		catch (HibernateException e)
 		{
 			return null;
+		}
+	}
+	
+	
+	public boolean PutUsersIntoPromotion(HashMap<String, String> std, HashMap<String, String> prom)
+	{
+		Session session;
+		try
+		{
+			session = HibernateUtil.currentSession();
+			Transaction tx = session.beginTransaction();
+			
+			for(String p: prom.keySet()){
+				Promotions promotion = null;
+				if(Integer.parseInt(prom.get(p)) != 0)
+				{
+					promotion = (Promotions) session.load(Promotions.class, Integer.parseInt(prom.get(p)));
+					
+					if(promotion == null)
+						return false; //Promotion does not exists
+				}		
+				
+				for(String s : std.keySet())
+				{
+					Users usr = (Users) session.load(Users.class, Integer.parseInt(std.get(s)));
+					if(usr != null)	
+					{
+						if(p.equalsIgnoreCase(s))
+						{
+							if(Integer.parseInt(prom.get(p)) == 0)						
+								usr.setPromotion(null);
+							else
+								usr.setPromotion(promotion);
+							session.save(usr);
+							tx.commit();
+						}
+					}
+					else
+						System.out.println("User not found");
+				}
+			}
+			HibernateUtil.closeSession();
+			return true;
+        }
+		catch(HibernateException e)
+		{
+			System.out.println("Exception : " + e);
+			return false;
 		}
 	}
 	
