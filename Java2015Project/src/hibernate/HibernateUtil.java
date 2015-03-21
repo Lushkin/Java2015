@@ -1,47 +1,52 @@
 package hibernate;
 
-import net.sf.hibernate.HibernateException;
-import net.sf.hibernate.Session;
-import net.sf.hibernate.SessionFactory;
-import net.sf.hibernate.cfg.Configuration;
+import org.hibernate.HibernateException;
+import org.hibernate.Session;
+import org.hibernate.SessionFactory;
+import org.hibernate.cfg.Configuration;
+import org.hibernate.service.ServiceRegistry;
+import org.hibernate.service.ServiceRegistryBuilder;
 
+@SuppressWarnings("deprecation")
 public class HibernateUtil
 {
-	private static final SessionFactory sessionFactory;
-	static 
+    private static final SessionFactory sessionFactory;
+    private static final ServiceRegistry serviceRegistry;
+    private static final ThreadLocal<Session> session = new ThreadLocal<Session>();
+
+    static
+    {
+        try
+        {
+            Configuration configuration = new Configuration().configure();
+            serviceRegistry = new ServiceRegistryBuilder().applySettings(configuration.getProperties()).buildServiceRegistry();
+            sessionFactory = configuration.buildSessionFactory(serviceRegistry);
+        }
+        catch (HibernateException ex)
+        {
+            System.err.println("Error creating Session: " + ex);
+            throw new ExceptionInInitializerError(ex);
+        }
+    }
+	
+	public static Session currentSession()
 	{
-		try 
-		{		
-			// Crée la SessionFactory
-			sessionFactory =new Configuration().configure().buildSessionFactory();
-		} 
-		catch (HibernateException ex) 
-		{
-			throw new RuntimeException("Problème de configuration : "
-			+ ex.getMessage(), ex);
-		}
-	}
-	@SuppressWarnings("rawtypes")
-	public static final ThreadLocal session = new ThreadLocal();
-	@SuppressWarnings("unchecked")
-	public static Session currentSession() throws HibernateException 
-	{
-		Session s = (Session) session.get();
-		// Ouvre une nouvelle Session, si ce Thread n'en a aucune
-		if (s == null) 
+		Session s = (Session)session.get();
+		if(s == null)
 		{
 			s = sessionFactory.openSession();
 			session.set(s);
 		}
 		return s;
 	}
-	@SuppressWarnings("unchecked")
-	public static void closeSession() throws HibernateException 
+	
+	public static void closeSession()
 	{
-		Session s = (Session) session.get();
+		Session s = (Session)session.get();
 		session.set(null);
-		if (s != null)
-		s.close();
+		if(s != null)
+		{
+			s.close();
+		}
 	}
-
 }

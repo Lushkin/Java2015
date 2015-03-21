@@ -1,0 +1,33 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated Mar 12, 2015 7:14:44 PM by Hibernate Tools 4.0.0 -->
+<hibernate-mapping>
+    <class name="hibernate.java.Questions" table="Questions" schema="dbo" catalog="Java2015">
+        <id name="id" type="int">
+            <column name="Id" />
+            <generator class="native" />
+        </id>
+        <many-to-one name="categories" class="hibernate.java.Categories" fetch="select">
+            <column name="CategoryId" />
+        </many-to-one>
+        <property name="content" type="string">
+            <column name="Content" not-null="true" />
+        </property>
+        <property name="ponderation" type="big_decimal">
+            <column name="Ponderation" scale="18" not-null="true" />
+        </property>
+        <set name="userQuestionses" table="UserQuestions" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="QuestionId" />
+            </key>
+            <one-to-many class="hibernate.java.UserQuestions" />
+        </set>
+        <set name="questionAnswerses" table="QuestionAnswers" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="QuestionId" />
+            </key>
+            <one-to-many class="hibernate.java.QuestionAnswers" />
+        </set>
+    </class>
+</hibernate-mapping>

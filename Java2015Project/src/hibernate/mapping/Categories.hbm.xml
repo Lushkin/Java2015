@@ -1,0 +1,21 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated Mar 12, 2015 7:14:44 PM by Hibernate Tools 4.0.0 -->
+<hibernate-mapping>
+    <class name="hibernate.java.Categories" table="Categories" schema="dbo" catalog="Java2015">
+        <id name="id" type="int">
+            <column name="Id" />
+            <generator class="native" />
+        </id>
+        <property name="name" type="string">
+            <column name="Name" not-null="true" />
+        </property>
+        <set name="questionses" table="Questions" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="CategoryId" />
+            </key>
+            <one-to-many class="hibernate.java.Questions" />
+        </set>
+    </class>
+</hibernate-mapping>

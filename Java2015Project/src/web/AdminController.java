@@ -1,16 +1,14 @@
 package web;
 
 import hibernate.DataAccess;
-import hibernate.Promotions;
-import hibernate.Users;
-import hibernate.dao.PromotionsDAO;
+import hibernate.java.Promotions;
+import hibernate.java.Users;
 
 import java.io.IOException;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Arrays;
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Locale;
@@ -19,8 +17,6 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-
-import net.sf.hibernate.HibernateException;
 
 public class AdminController extends HttpServlet
 {
@@ -89,12 +85,12 @@ public class AdminController extends HttpServlet
 		}
 	}
 	
-	private void CreatePromotion(HttpServletRequest req, HttpServletResponse rep) throws ServletException, IOException, HibernateException
+	private void CreatePromotion(HttpServletRequest req, HttpServletResponse rep) throws ServletException, IOException
 	{
 		String promotionName = req.getParameter("PromotionName");
 		DataAccess.Promotions().CreatePromotion(promotionName);
 	}
-	private void CreateProf(HttpServletRequest req, HttpServletResponse rep) throws ServletException, IOException, HibernateException, ParseException
+	private void CreateProf(HttpServletRequest req, HttpServletResponse rep) throws ServletException, IOException, ParseException
 	{
 		String prenom = req.getParameter("Prenom");
 		String nom = req.getParameter("Nom");
@@ -108,7 +104,7 @@ public class AdminController extends HttpServlet
 		DataAccess.Users().CreateUser(nom, prenom, email, dateNaissance, password, 2);
 	}
 	
-	private void CreateEtudiant(HttpServletRequest req, HttpServletResponse rep) throws ServletException, IOException, HibernateException, ParseException
+	private void CreateEtudiant(HttpServletRequest req, HttpServletResponse rep) throws ServletException, IOException, ParseException
 	{
 		String prenom = req.getParameter("Prenom");
 		String nom = req.getParameter("Nom");

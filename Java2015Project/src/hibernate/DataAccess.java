@@ -1,7 +1,6 @@
 package hibernate;
 
-import hibernate.dao.PromotionsDAO;
-import hibernate.dao.UsersDAO;
+import hibernate.dao.*;
 
 public class DataAccess
 {

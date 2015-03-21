@@ -1,0 +1,24 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+                                   "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated Mar 12, 2015 7:14:44 PM by Hibernate Tools 4.0.0 -->
+<hibernate-mapping>
+ <class catalog="Java2015" name="hibernate.java.StudentAnswers" schema="dbo" table="StudentAnswers">
+  <id name="id" type="int">
+   <column name="Id"/>
+   <generator class="native"/>
+  </id>
+  <many-to-one class="hibernate.java.Answers" fetch="select" name="answers">
+   <column name="AnswerId"/>
+  </many-to-one>
+  <many-to-one class="hibernate.java.Users" fetch="select" name="users">
+   <column name="StudentId"/>
+  </many-to-one>
+  <many-to-one class="hibernate.java.Tests" fetch="select" name="tests">
+   <column name="TestId"/>
+  </many-to-one>
+  <property generated="never" lazy="false" name="isChecked" type="byte">
+   <column name="IsChecked" not-null="true"/>
+  </property>
+ </class>
+</hibernate-mapping>

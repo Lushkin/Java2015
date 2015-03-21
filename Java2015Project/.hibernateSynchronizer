@@ -3,5 +3,5 @@ package=hibernate
 databaseUrl=jdbc:sqlserver://odn1rsqdjp.database.windows.net:1433;database=Java2015;user=Brulishkin@odn1rsqdjp;password=2015CorpPass;encrypt=true;hostNameInCertificate=*.database.windows.net;loginTimeout=30;
 driver=com.microsoft.sqlserver.jdbc.SQLServerDriver
 EnumInclude=
-ConfigurationFile=/Java2015Project/src/hibernate.cfg.xml
 username=Brulishkin
+ConfigurationFile=/Java2015Project/src/hibernate/mapping/hibernate.cfg.xml

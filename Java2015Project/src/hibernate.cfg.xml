@@ -1,44 +1,27 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!DOCTYPE hibernate-configuration
-    PUBLIC "-//Hibernate/Hibernate Configuration DTD//EN"
-    "http://hibernate.sourceforge.net/hibernate-configuration-2.0.dtd">
-
+<!DOCTYPE hibernate-configuration PUBLIC "-//Hibernate/Hibernate Configuration DTD 3.0//EN"
+                                         "http://www.hibernate.org/dtd/hibernate-configuration-3.0.dtd">
 <hibernate-configuration>
-	<session-factory>
-		<!-- local connection properties -->
-		<property name="hibernate.connection.url">
-			jdbc:sqlserver://odn1rsqdjp.database.windows.net:1433;database=Java2015;user=Brulishkin@odn1rsqdjp;password=2015CorpPass;encrypt=true;hostNameInCertificate=*.database.windows.net;loginTimeout=30;
-		</property>
-		<property name="hibernate.connection.driver_class">
-			com.microsoft.sqlserver.jdbc.SQLServerDriver
-		</property>
-		<property name="hibernate.connection.username">Brulishkin</property>
-		<property name="hibernate.connection.password">2015CorpPass</property>
-		<!-- property name="hibernate.connection.pool_size"></property -->
-		<!-- dialect for Microsoft SQL Server -->
-		<property name="dialect">
-			net.sf.hibernate.dialect.SQLServerDialect
-		</property>
-		<property name="hibernate.show_sql">false</property>
-		<property name="hibernate.use_outer_join">true</property>
-		<property name="hibernate.transaction.factory_class">
-			net.sf.hibernate.transaction.JDBCTransactionFactory
-		</property>
-		<property name="jta.UserTransaction">
-			java:comp/UserTransaction
-		</property>
-		<mapping resource="UserQuestions.hbm" />
-		<mapping resource="Subjects.hbm" />
-		<mapping resource="Users.hbm" />
-		<mapping resource="UserSubjects.hbm" />
-		<mapping resource="Questions.hbm" />
-		<mapping resource="Tests.hbm" />
-		<mapping resource="Answers.hbm" />
-		<mapping resource="Promotions.hbm" />
-		<mapping resource="UserTests.hbm" />
-		<mapping resource="TeacherPromotions.hbm" />
-		<mapping resource="QuestionAnswers.hbm" />
-		<mapping resource="Categories.hbm" />
-		<mapping resource="StudentAnswers.hbm" />
-	</session-factory>
+ <session-factory>
+  <property name="hibernate.bytecode.use_reflection_optimizer">false</property>
+  <property name="hibernate.connection.driver_class">com.microsoft.sqlserver.jdbc.SQLServerDriver</property>
+  <property name="hibernate.connection.password">2015CorpPass</property>
+  <property name="hibernate.connection.url">jdbc:sqlserver://odn1rsqdjp.database.windows.net:1433;databaseName=Java2015</property>
+  <property name="hibernate.connection.username">Brulishkin</property>
+  <property name="hibernate.dialect">org.hibernate.dialect.SQLServerDialect</property>
+  <property name="hibernate.search.autoregister_listeners">false</property>
+  <mapping resource="hibernate/mapping/UserQuestions.hbm.xml"/>
+  <mapping resource="hibernate/mapping/Subjects.hbm.xml"/>
+  <mapping resource="hibernate/mapping/Users.hbm.xml"/>
+  <mapping resource="hibernate/mapping/UserSubjects.hbm.xml"/>
+  <mapping resource="hibernate/mapping/Questions.hbm.xml"/>
+  <mapping resource="hibernate/mapping/Tests.hbm.xml"/>
+  <mapping resource="hibernate/mapping/Answers.hbm.xml"/>
+  <mapping resource="hibernate/mapping/Promotions.hbm.xml"/>
+  <mapping resource="hibernate/mapping/UserTests.hbm.xml"/>
+  <mapping resource="hibernate/mapping/TeacherPromotions.hbm.xml"/>
+  <mapping resource="hibernate/mapping/QuestionAnswers.hbm.xml"/>
+  <mapping resource="hibernate/mapping/Categories.hbm.xml"/>
+  <mapping resource="hibernate/mapping/StudentAnswers.hbm.xml"/>
+ </session-factory>
 </hibernate-configuration>

@@ -1,0 +1,45 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated Mar 12, 2015 7:14:44 PM by Hibernate Tools 4.0.0 -->
+<hibernate-mapping>
+    <class name="hibernate.java.Tests" table="Tests" schema="dbo" catalog="Java2015">
+        <id name="id" type="int">
+            <column name="Id" />
+            <generator class="native" />
+        </id>
+        <many-to-one name="subjects" class="hibernate.java.Subjects" fetch="select">
+            <column name="SubjectId" />
+        </many-to-one>
+        <many-to-one name="users" class="hibernate.java.Users" fetch="select">
+            <column name="AuthorId" />
+        </many-to-one>
+        <property name="isValidated" type="byte">
+            <column name="IsValidated" not-null="true" />
+        </property>
+        <property name="endDate" type="timestamp">
+            <column name="EndDate" length="23" not-null="true" />
+        </property>
+        <property name="startDate" type="timestamp">
+            <column name="StartDate" length="23" not-null="true" />
+        </property>
+        <property name="duration" type="java.lang.Integer">
+            <column name="Duration" />
+        </property>
+        <property name="title" type="string">
+            <column name="Title" length="250" not-null="true" />
+        </property>
+        <set name="userTestses" table="UserTests" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="TestId" />
+            </key>
+            <one-to-many class="hibernate.java.UserTests" />
+        </set>
+        <set name="studentAnswerses" table="StudentAnswers" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="TestId" />
+            </key>
+            <one-to-many class="hibernate.java.StudentAnswers" />
+        </set>
+    </class>
+</hibernate-mapping>

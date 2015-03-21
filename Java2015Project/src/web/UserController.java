@@ -1,7 +1,7 @@
 package web;
 
 import hibernate.DataAccess;
-import hibernate.Users;
+import hibernate.java.Users;
 
 import java.io.IOException;
 

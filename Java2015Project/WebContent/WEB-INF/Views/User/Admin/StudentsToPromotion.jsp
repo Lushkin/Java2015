@@ -51,7 +51,7 @@
 							<td class="col-md-3">${s.getEmail()}</td>
 							<td class="col-md-2"><fmt:formatDate pattern="dd/MM/yyyy" value="${s.getBirthDate()}"/></td>
 							<td class="col-md-2">
-								<span id="PromotionName" name="PromotionName"> ${(s.getPromotion().getName()) != null ? s.getPromotion().getName() : "N/A"}</span>
+								<span id="PromotionName" name="PromotionName"> ${s.getPromotions().getName() != null ? s.getPromotions().getName() : "N/A"}</span>
 								<input type="hidden" id="PromotionId" name="PromotionId" value="${s.getPromotion().getId()}"/>
 							</td>
 						</tr>
