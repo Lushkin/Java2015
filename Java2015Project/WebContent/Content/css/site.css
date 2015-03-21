@@ -1,5 +1,8 @@
 @CHARSET "UTF-8";
 
+.loader{width: 70px; height:70px; margin-auto; background-image: url('http://www.hepfu.vn/public/images/loader_7.gif');background-size: contain; margin-bottom:-30px;}
+.loader img{max-width: 70px; max-height:100px;}
+
 .index-input{margin-bottom:10px;}
 .index-log-container{position:relative; top:40px; width:50%; margin:auto;}
 .index-log-in-button{width:100%;}

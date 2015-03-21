@@ -14,23 +14,13 @@
 <body>
 	<div class="container">
 		<div class="header">
-			<h2>Création de professeur</h2>
+			<h2>Edition de promotion</h2>
 		</div>
 		<hr/>
-		<form action="/Java2015Project/Admin/CreateProf" method="POST">
-		
-			<label>Nom :</label>
-			<input type="text" placeholder="nom" id="Nom" name="Nom" class="form-control"/>
-			<label>Prenom :</label>
-			<input type="text" placeholder="prenom" id="Prenom" name="Prenom" class="form-control"/>
-			<label>Date de naissance :</label>
-			<input type="date" id="DateNaissance" name="DateNaissance" class="form-control"/>
-			<label>Email</label>
-			<input type="text" id="Email" name="Email" class="form-control" />
-			<label>Password</label>
-			<input type="password" id="Password" name="Password" class="form-control"/>
-			<input type="submit" value="Ajouter un prof" class="btn btn-primary"/>
-			
+		<form action="/Java2015Project/Admin/EditPromotion?id=${Promotion.getId()}" method="POST">
+				<label>Nom de la promotion</label>
+				<input type="text" placeholder="ING2" id="PromotionName" name="PromotionName" class="form-control" value="${Promotion.getName()}"/>
+				<input type="submit" value="Modifier promotion" class="btn btn-primary"/>
 		</form>
 	</div>
 	<script

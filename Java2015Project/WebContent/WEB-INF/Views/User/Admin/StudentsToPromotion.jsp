@@ -28,10 +28,15 @@
 			    </select>
 		    </div>
 	  	</div>
+	  	<div class="row">
+	  		<div class="loader col-md-2 col-md-offset-5" id="loader" hidden>
+		  		<!-- <img src="http://www.hepfu.vn/public/images/loader_7.gif" alt="loader" /> -->
+		  	</div>
+	  	</div>
 	  	<br/>
 	  	<div><label>Liste d'élèves</label></div>
 	  	<div style="border: solid 1px #ddd;">
-		  	<table class="table table-condensed" id="Students">
+		  	<table class="table table-condensed">
 			  		<tr>
 			  			<th class="col-md-1">Ajouter</th>
 						<th class="col-md-2">Prénom</th>
@@ -51,17 +56,26 @@
 							<td class="col-md-3">${s.getEmail()}</td>
 							<td class="col-md-2"><fmt:formatDate pattern="dd/MM/yyyy" value="${s.getBirthDate()}"/></td>
 							<td class="col-md-2">
-								<span id="PromotionName" name="PromotionName"> ${s.getPromotions().getName() != null ? s.getPromotions().getName() : "N/A"}</span>
-								<input type="hidden" id="PromotionId" name="PromotionId" value="${s.getPromotion().getId()}"/>
+							<c:choose>
+								<c:when test="${s.getPromotions().getId() != null}">
+									<span id="PromotionName" name="PromotionName"> ${s.getPromotions().getName()}</span>
+								</c:when>
+								<c:otherwise>
+									<span id="PromotionName" name="PromotionName">N/A</span>
+								</c:otherwise>			
+							</c:choose>				
+								<input type="hidden" id="PromotionId" name="PromotionId" value="${s.getPromotions().getId()}"/>
+								<input type="hidden" id="StudentId" name="StudentId" value="${s.getId()}">
 							</td>
 						</tr>
 					</c:forEach>
 			  	</table>
 		  	</div>
 	  	</div>
+	  	<br/>
 	  	<div class="row">
-	  		<div class="col-md-2 offset-10">
-	  		
+	  		<div class="col-md-2 col-md-offset-10">
+	  			<button type="button" class="btn btn-primary" style="width:100%!important;" onclick="SaveStudents();" id="submitbtn">Enregistrer</button>
 	  		</div>
 	  	</div>
 	</div>
@@ -72,10 +86,9 @@
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
 
 <script>
-var rows;
 $("#Promotion").change(function(){
-	promo = $("#Promotion").val();
-	rows = $("#Students").find("tr#StudentLine");
+	var promo = $("#Promotion").val();
+	var rows = $("#Students").find("tr#StudentLine");
 	
 	rows.each(function(){
 		$(this).removeClass("unable-row");
@@ -87,13 +100,10 @@ $("#Promotion").change(function(){
 			if($(promotionId).val() == promo){
 				$(this).find('td input[type=checkbox]').prop('checked', true);
 			}
-			else if($(promotionId).val()){
+			else if($(promotionId).val() != 0){
 				$(this).addClass("unable-row");
 				$(this).find('td input[type=checkbox]').attr('disabled', true);
 			}
-			/*if($("#Students").is(':hidden')){
-				$("#Students").show('slow');
-			}*/
 		}
 		else{
 			$(this).find('td input[type=checkbox]').attr('disabled', true);
@@ -108,9 +118,9 @@ $("#Promotion").change(function(){
 });
 
 $(":checkbox").change(function UpdateChecks(){
-	promo = $("#Promotion").val();
+	var promo = $("#Promotion").val();
 	
-	var promoId = $(this.parentElement.parentElement).find('td input[type=hidden]');
+	var promoId = $(this.parentElement.parentElement).find('td input[type=hidden]#PromotionId');
 	var promoName = $(this.parentElement.parentElement).find('td span#PromotionName');
 	
 	if(this.checked){
@@ -118,8 +128,42 @@ $(":checkbox").change(function UpdateChecks(){
 		$(promoName).text($("#Promotion option:selected").text());
 	}
 	else{
-		$(promoId).val("");
+		$(promoId).val(0);
 		$(promoName).text("N/A");
 	}
 });
+
+function SaveStudents(){
+    var studentsnew = "";
+    
+    $("#loader").show("slow");
+    $("#submitbtn").attr('disabled', true);
+    
+    var rows = $("#Students").find("tr#StudentLine");
+    rows.each(function(){
+   
+    	var col = $(this).find('td');
+    	col.each(function(){
+    		var p = $(this).find('#PromotionId').val();
+        	var s = $(this).find('#StudentId').val();
+    		if(p){
+        		studentsnew += "|"+p+":"+s;
+    		}
+    	});
+    });
+
+    $.ajax("http://" + location.host + "/Java2015Project/Admin/SaveStudentsToPromotion", {
+        type: "POST",
+        data: {
+        	students : JSON.stringify(studentsnew)
+        }
+    }).success(function (d) {
+        //alert("Ok");
+        location.reload();
+    }).fail(function () {
+        alert("Fail");
+    });
+   
+	
+}
 </script>
