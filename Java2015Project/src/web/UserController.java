@@ -51,13 +51,15 @@ public class UserController  extends HttpServlet
 		else
 		{
 			System.out.println("User = " + user.getFirstName());
+			req.setAttribute("user", user);
+			//req.getSession().getAttribute("user");
 			switch (user.getRole())
 			{
 			case 1:
 				rep.sendRedirect("/Java2015Project/Admin");
 				break;
 			case 2:
-				getServletContext().getRequestDispatcher(urlTeacher).forward(req, rep);
+				rep.sendRedirect("/Java2015Project/Teacher");
 				break;
 			case 3:
 				getServletContext().getRequestDispatcher(urlStudent).forward(req, rep);

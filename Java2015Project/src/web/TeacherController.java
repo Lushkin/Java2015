@@ -1,5 +1,8 @@
 package web;
 
+import hibernate.DataAccess;
+import hibernate.java.Users;
+
 import java.io.IOException;
 
 import javax.servlet.ServletException;
@@ -16,6 +19,16 @@ public class TeacherController extends HttpServlet
 	
 	public void service(HttpServletRequest req, HttpServletResponse rep) throws ServletException, IOException
 	{
+		String action = req.getPathInfo();
 		
+		if(action != null)
+		{
+			switch(action)
+			{
+				case "/exemple":
+				break;
+			}
+		}else
+			getServletContext().getRequestDispatcher(getInitParameter("teacherURl")).forward(req, rep);
 	}
 }
