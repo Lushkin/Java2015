@@ -20,6 +20,7 @@ public class TeacherController extends HttpServlet
 	public void service(HttpServletRequest req, HttpServletResponse rep) throws ServletException, IOException
 	{
 		String action = req.getPathInfo();
+		
 		if(action != null)
 		{
 			switch(action)
