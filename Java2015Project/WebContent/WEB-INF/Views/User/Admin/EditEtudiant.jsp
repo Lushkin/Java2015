@@ -11,28 +11,63 @@
 <title>Admin index</title>
 <link rel="stylesheet"
 	href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css">
-<link rel="stylesheet" href="Content/css/site.css">
+<link rel="stylesheet" href="../Content/css/site.css">
 </head>
 <body>
 	<div class="container">
-		<div class="header">
-			<h2>Edition d'étudiant</h2>
+		<div class="header row">
+			<div class="col-md-10">
+				<h3>Espace administrateur > Edition d'étudiant</h3>
+			</div>
+			<div class="col-md-2" style="text-align:right;">
+				<a class="logout" role="button" href="/Java2015Project/">Déconnexion</a>
+			</div>
 		</div>
 		<hr/>
-		<form action="/Java2015Project/Admin/EditEtudiant?id=${Etudiant.getId()}" method="POST">
-		
-			<label>Nom :</label>
-			<input type="text" placeholder="nom" id="Nom" name="Nom" class="form-control" value="${Etudiant.getLastName()}"/>
-			<label>Prenom :</label>
-			<input type="text" placeholder="prenom" id="Prenom" name="Prenom" class="form-control" value="${Etudiant.getFirstName()}"/>
-			<label>Date de naissance :</label>
-			<input type="date" id="DateNaissance" name="DateNaissance" class="form-control" value="<fmt:formatDate value="${Etudiant.getBirthDate()}" pattern="yyyy-MM-dd" />"/>
-			<label>Email</label>
-			<input type="text" id="Email" name="Email" class="form-control" value="${Etudiant.getEmail()}"/>
-			<label>Password</label>
-			<input type="password" id="Password" name="Password" class="form-control" value="${Etudiant.getPassword()}"/>
-			<input type="submit" value="Modifier un etudiant" class="btn btn-primary"/>
+		<form action="/Java2015Project/Admin/EditEtudiant?id=${Etudiant.getId()}" method="POST" class="form-horizontal">
+			<div class="form-group">
+			    <label for="Nom" class="col-sm-2 control-label">Nom </label>
+			    <div class="col-sm-10">
+			      <input type="text" placeholder="nom" id="Nom" name="Nom" class="form-control" value="${Etudiant.getLastName()}"/>
+			    </div>
+			</div>
+
+			<div class="form-group">
+			    <label for="Prenom" class="col-sm-2 control-label">Prenom </label>
+			    <div class="col-sm-10">
+			      <input type="text" placeholder="prenom" id="Prenom" name="Prenom" class="form-control" value="${Etudiant.getFirstName()}"/>
+			    </div>
+			</div>
 			
+			<div class="form-group">
+			    <label for="DateNaissance" class="col-sm-2 control-label">Date de naissance </label>
+			    <div class="col-sm-10">
+			      <input type="date" id="DateNaissance" name="DateNaissance" class="form-control" value="<fmt:formatDate value="${Etudiant.getBirthDate()}" pattern="yyyy-MM-dd" />"/>
+			    </div>
+			</div>
+			
+			<div class="form-group">
+			    <label for="Email" class="col-sm-2 control-label">Email </label>
+			    <div class="col-sm-10">
+			      <input type="text" id="Email" name="Email" class="form-control" value="${Etudiant.getEmail()}"/>
+			    </div>
+			</div>
+			
+			<div class="form-group">
+			    <label for="Password" class="col-sm-2 control-label">Mot de passe </label>
+			    <div class="col-sm-10">
+			     	<input type="password" id="Password" name="Password" class="form-control" value="${Etudiant.getPassword()}"/>
+			    </div>
+			</div>
+			<hr/>
+		  	<div class="form-group">
+		  		<div class="col-md-2 col-md-offset-8">
+		  			<a class="btn btn-default" role="button" href="/Java2015Project/Admin" style="width:100%!important;">Retours</a>
+		  		</div>
+		  		<div class="col-md-2">
+		  			<input type="submit" value="Enregistrer" class="btn btn-primary" style="width:100%!important;"/>
+		  		</div>
+		  	</div>					
 		</form>
 	</div>
 	<script

@@ -13,8 +13,13 @@
 </head>
 <body>
 	<div class="container">
-		<div class="header">
-			<h2>Ajout d'élèves dans une promotion</h2>
+		<div class="header row">
+			<div class="col-md-10">
+				<h3>Espace administrateur > Ajout d'élèves dans une promotion</h3>
+			</div>
+			<div class="col-md-2" style="text-align:right;">
+				<a class="logout" role="button" href="/Java2015Project/">Déconnexion</a>
+			</div>
 		</div>
 		<hr/>
 		<div class="row">
@@ -72,9 +77,12 @@
 			  	</table>
 		  	</div>
 	  	</div>
-	  	<br/>
+	  	<hr/>
 	  	<div class="row">
-	  		<div class="col-md-2 col-md-offset-10">
+	  		<div class="col-md-2 col-md-offset-8">
+	  			<a class="btn btn-default" role="button" href="/Java2015Project/Admin" style="width:100%!important;">Retours</a>
+	  		</div>
+	  		<div class="col-md-2">
 	  			<button type="button" class="btn btn-primary" style="width:100%!important;" onclick="SaveStudents();" id="submitbtn">Enregistrer</button>
 	  		</div>
 	  	</div>
