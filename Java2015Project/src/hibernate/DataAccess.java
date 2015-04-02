@@ -21,4 +21,13 @@ public class DataAccess
 			promotions = new PromotionsDAO();
 		return promotions;
 	}
+	
+	private static TestsDAO tests;
+	
+	public static TestsDAO Tests()
+	{
+		if (tests == null)
+			tests = new TestsDAO();
+		return tests;
+	}
 }

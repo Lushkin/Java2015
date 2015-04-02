@@ -36,6 +36,10 @@
   		<param-name>teacherURl</param-name>
   		<param-value>/WEB-INF/Views/User/Teacher/Teacher.jsp</param-value>
   	</init-param>
+  	<init-param>
+  		<param-name>EditTestUrl</param-name>
+  		<param-value>/WEB-INF/Views/User/Teacher/EditTest.jsp</param-value>
+  	</init-param>
   </servlet>
   <servlet-mapping>
   	<servlet-name>UserController</servlet-name>
