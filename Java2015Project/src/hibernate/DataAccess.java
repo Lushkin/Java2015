@@ -30,4 +30,13 @@ public class DataAccess
 			tests = new TestsDAO();
 		return tests;
 	}
+
+	private static QuestionsDAO questions;
+
+	public static QuestionsDAO Questions()
+	{
+		if (questions == null)
+			questions = new QuestionsDAO();
+		return questions;
+	}
 }

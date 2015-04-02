@@ -51,7 +51,7 @@ public class UserController  extends HttpServlet
 		else
 		{
 			System.out.println("User = " + user.getFirstName());
-			req.setAttribute("user", user);
+			req.getSession().setAttribute("user", user);
 			//req.getSession().getAttribute("user");
 			switch (user.getRole())
 			{
