@@ -14,9 +14,11 @@ import javax.servlet.http.HttpServletResponse;
 
 public class TeacherController extends HttpServlet
 {
+	private String questionUrl;
+	
 	public void init()
 	{
-		
+		questionUrl =  getInitParameter("teacherQuestionURl");
 	}
 	
 	public void service(HttpServletRequest req, HttpServletResponse rep) throws ServletException, IOException
@@ -35,9 +37,11 @@ public class TeacherController extends HttpServlet
 			getServletContext().getRequestDispatcher(getInitParameter("teacherURl")).forward(req, rep);
 	}
 	
-	private void getQuestions(HttpServletRequest req, HttpServletResponse rep)
+	private void getQuestions(HttpServletRequest req, HttpServletResponse rep) throws ServletException, IOException
 	{
-		List<Questions> questions = DataAccess.Questions().getQuestions(0);		
+		Users user = (Users)req.getSession().getAttribute("user");
+		List<Questions> questions = DataAccess.Questions().getQuestions(user.getId());
 		req.setAttribute("Questions", questions);
+		getServletContext().getRequestDispatcher(questionUrl).forward(req, rep);
 	}
 }

@@ -10,30 +10,34 @@
 <title>Questions</title>
 </head>
 <body>
-	<table class="table table-hover">
-	</table>
-	<tr>
-		<th>Question</th>
-		<th>Catégorie</th>
-		<th>Points</th>
-		<th>Modifier</th>
-		<th>Supprimer</th>
-	</tr>
-	<c:forEach items="${Questions}" var="q">
-		<tr>
-			<td>${q.getContent()}</td>
-			<td>${q.getCatgory()}</td>
-			<td>${q.getPonderation()}</td>
-			<td><a role="button" class="btn btn-default"
-				href="/Java2015Project/Teacher/EditQuestion?id=${q.getId()}"> <span
-					class="glyphicon glyphicon-pencil" aria-hidden="true"></span>
-			</a></td>
-			<td><a role="button" class="btn btn-default"
-				href="/Java2015Project/Teacher/DeleteQuestion?id=${q.getId()}">
-					<span class="glyphicon glyphicon-trash" aria-hidden="true"></span>
-			</a></td>
-		</tr>
-	</c:forEach>
+	<div class="container">
+		<table class="table table-hover">
+			<tr>
+				<th>Question</th>
+				<th>Catégorie</th>
+				<th>Points</th>
+				<th>Modifier</th>
+				<th>Supprimer</th>
+			</tr>
+			<c:forEach items="${Questions}" var="q">
+				<tr>
+					<td>${q.getContent()}</td>
+					<td>
+						<%-- ${q.getCategory()} --%>TODO
+					</td>
+					<td>${q.getPonderation()}</td>
+					<td><a role="button" class="btn btn-default"
+						href="/Java2015Project/Teacher/EditQuestion?id=${q.getId()}">
+							<span class="glyphicon glyphicon-pencil" aria-hidden="true"></span>
+					</a></td>
+					<td><a role="button" class="btn btn-default"
+						href="/Java2015Project/Teacher/DeleteQuestion?id=${q.getId()}">
+							<span class="glyphicon glyphicon-trash" aria-hidden="true"></span>
+					</a></td>
+				</tr>
+			</c:forEach>
+		</table>
+	</div>
 	<script
 		src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
 	<script
