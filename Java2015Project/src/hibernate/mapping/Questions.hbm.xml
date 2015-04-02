@@ -17,6 +17,9 @@
         <property name="ponderation" type="big_decimal">
             <column name="Ponderation" scale="18" not-null="true" />
         </property>
+        <property name="ownerId" type="int">
+            <column name="OwnerId" not-null="true" />
+        </property>
         <set name="userQuestionses" table="UserQuestions" inverse="true" lazy="true" fetch="select">
             <key>
                 <column name="QuestionId" />

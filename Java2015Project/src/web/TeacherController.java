@@ -1,9 +1,11 @@
 package web;
 
 import hibernate.DataAccess;
+import hibernate.java.Questions;
 import hibernate.java.Users;
 
 import java.io.IOException;
+import java.util.List;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -24,10 +26,17 @@ public class TeacherController extends HttpServlet
 		{
 			switch(action)
 			{
-				case "/exemple":
+				case "/Questions":
+					getQuestions(req, rep);
 				break;
 			}
 		}else
 			getServletContext().getRequestDispatcher(getInitParameter("teacherURl")).forward(req, rep);
+	}
+	
+	private void getQuestions(HttpServletRequest req, HttpServletResponse rep)
+	{
+		List<Questions> questions = DataAccess.Questions().getQuestions(0);		
+		req.setAttribute("Questions", questions);
 	}
 }

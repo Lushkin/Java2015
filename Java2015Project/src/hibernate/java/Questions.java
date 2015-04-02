@@ -15,6 +15,7 @@ public class Questions implements java.io.Serializable
 	private Categories categories;
 	private String content;
 	private BigDecimal ponderation;
+	private int ownerId;
 	private Set<UserQuestions> userQuestionses = new HashSet<UserQuestions>(0);
 	private Set<QuestionAnswers> questionAnswerses = new HashSet<QuestionAnswers>(
 			0);
@@ -23,21 +24,23 @@ public class Questions implements java.io.Serializable
 	{
 	}
 
-	public Questions(int id, String content, BigDecimal ponderation)
+	public Questions(int id, String content, BigDecimal ponderation, int ownerId)
 	{
 		this.id = id;
 		this.content = content;
 		this.ponderation = ponderation;
+		this.setOwnerId(ownerId);
 	}
 
 	public Questions(int id, Categories categories, String content,
-			BigDecimal ponderation, Set<UserQuestions> userQuestionses,
+			BigDecimal ponderation, int ownerId, Set<UserQuestions> userQuestionses,
 			Set<QuestionAnswers> questionAnswerses)
 	{
 		this.id = id;
 		this.categories = categories;
 		this.content = content;
 		this.ponderation = ponderation;
+		this.setOwnerId(ownerId);
 		this.userQuestionses = userQuestionses;
 		this.questionAnswerses = questionAnswerses;
 	}
@@ -100,6 +103,16 @@ public class Questions implements java.io.Serializable
 	public void setQuestionAnswerses(Set<QuestionAnswers> questionAnswerses)
 	{
 		this.questionAnswerses = questionAnswerses;
+	}
+
+	public int getOwnerId()
+	{
+		return ownerId;
+	}
+
+	public void setOwnerId(int ownerId)
+	{
+		this.ownerId = ownerId;
 	}
 
 }
