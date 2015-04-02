@@ -57,7 +57,7 @@ public class UserController  extends HttpServlet
 				rep.sendRedirect("/Java2015Project/Admin");
 				break;
 			case 2:
-				getServletContext().getRequestDispatcher(urlTeacher).forward(req, rep);
+				rep.sendRedirect("/Java2015Project/Teacher");
 				break;
 			case 3:
 				getServletContext().getRequestDispatcher(urlStudent).forward(req, rep);
