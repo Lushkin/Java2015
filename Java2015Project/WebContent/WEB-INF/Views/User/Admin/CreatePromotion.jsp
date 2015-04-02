@@ -9,20 +9,36 @@
 <title>Admin index</title>
 <link rel="stylesheet"
 	href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css">
-<link rel="stylesheet" href="Content/css/site.css">
+<link rel="stylesheet" href="../Content/css/site.css">
 </head>
 <body>
 	<div class="container">
-		<div class="header">
-			<h2>Création de promotion</h2>
+		<div class="header row">
+			<div class="col-md-10">
+				<h3>Espace administrateur > Création de promotion</h3>
+			</div>
+			<div class="col-md-2" style="text-align:right;">
+				<a class="logout" role="button" href="/Java2015Project/">Déconnexion</a>
+			</div>
 		</div>
 		<hr/>
-		<form action="/Java2015Project/Admin/CreatePromotion" method="POST">
-			<div class="row">
-				<label class="col-md-4">Nom de la promotion :</label>
-				<div class="col-md-4"><input type="text" placeholder="ING2" id="PromotionName" name="PromotionName" class="form-control"/></div>
-				<div class="col-md-4"><input type="submit" value="Ajouter une promotion" class="btn btn-primary"/></div>
+		<form action="/Java2015Project/Admin/CreatePromotion" method="POST" class="form-horizontal">
+			<div class="form-group">
+			    <label for="Nom" class="col-sm-2 control-label">Nom de la promotion </label>
+			    <div class="col-sm-10">
+			      <input type="text" placeholder="ING2" id="PromotionName" name="PromotionName" class="form-control"/>
+			    </div>
 			</div>
+			
+			<hr/>
+		  	<div class="form-group">
+		  		<div class="col-md-2 col-md-offset-8">
+		  			<a class="btn btn-default" role="button" href="/Java2015Project/Admin" style="width:100%!important;">Retours</a>
+		  		</div>
+		  		<div class="col-md-2">
+		  			<input type="submit" value="Enregistrer" class="btn btn-primary" style="width:100%!important;"/>
+		  		</div>
+		  	</div>	
 		</form>
 	</div>
 	<script

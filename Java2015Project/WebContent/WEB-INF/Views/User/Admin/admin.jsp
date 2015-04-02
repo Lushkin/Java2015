@@ -13,10 +13,15 @@
 </head>
 <body>
 	<div class="container">
-		<div class="header">
-			<h2>Dashboard !</h2>
+		<div class="header row">
+			<div class="col-md-10">
+				<h3>Espace administrateur</h3>
+			</div>
+			<div class="col-md-2" style="text-align:right;">
+				<a class="logout" role="button" href="/Java2015Project/">Déconnexion</a>
+			</div>
 		</div>
-		<hr/>
+		<!-- <hr/> -->
 		<div>
 			<ul class="nav nav-tabs">
 				<li role="presentation" class="active nav" id="teacher"><a>Profs</a></li>
@@ -53,6 +58,7 @@
 				</c:forEach>
 			</table>
 			<a class="btn btn-default" role="button" href="/Java2015Project/Admin/CreateProf">Ajouter un prof</a>
+			<a class="btn btn-primary" role="button" href="/Java2015Project/Admin/StudentsToPromotion">Attribuer Etudiant au Promotion</a>
 		</div>
 		<div class="content" id="promotion-content" style="display: none">
 			<table class="table table-hover">
@@ -75,9 +81,8 @@
 					</tr>
 				</c:forEach>
 			</table>
-			<a class="btn btn-default" role="button"
-				href="/Java2015Project/Admin/CreatePromotion">Ajouter une
-				promotion</a>
+			<a class="btn btn-default" role="button" href="/Java2015Project/Admin/CreatePromotion">Ajouter une promotion</a>
+			<a class="btn btn-primary" role="button" href="/Java2015Project/Admin/StudentsToPromotion">Attribuer Etudiant au Promotion</a>
 		</div>
 		<div class="content" id="student-content" style="display: none">
 			<table class="table table-hover">
@@ -107,9 +112,10 @@
 					</tr>
 				</c:forEach>
 			</table>
+			<hr/>
 			<a class="btn btn-default" role="button" href="/Java2015Project/Admin/CreateEtudiant">Ajouter un étudiant</a>
+			<a class="btn btn-primary" role="button" href="/Java2015Project/Admin/StudentsToPromotion">Attribuer Etudiant au Promotion</a>
 		</div>
-		<a class="btn btn-info" role="button" href="/Java2015Project/Admin/StudentsToPromotion">Attribuer Etudiant au Promotion</a>
 	</div>
 	<script
 		src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>

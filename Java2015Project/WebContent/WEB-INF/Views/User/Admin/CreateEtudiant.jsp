@@ -9,29 +9,65 @@
 <title>Admin index</title>
 <link rel="stylesheet"
 	href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css">
-<link rel="stylesheet" href="Content/css/site.css">
+<link rel="stylesheet" href="../Content/css/site.css">
 </head>
 <body>
 	<div class="container">
-		<div class="header">
-			<h2>Création d'étudiant</h2>
+		<div class="header row">
+			<div class="col-md-10">
+				<h3>Espace administrateur > Création d'étudiant</h3>
+			</div>
+			<div class="col-md-2" style="text-align:right;">
+				<a class="logout" role="button" href="/Java2015Project/">Déconnexion</a>
+			</div>
 		</div>
 		<hr/>
 	
-		<form action="/Java2015Project/Admin/CreateEtudiant" method="POST">
+		<form action="/Java2015Project/Admin/CreateEtudiant" method="POST" class="form-horizontal">
 		
-			<label>Nom :</label>
-			<input type="text" placeholder="nom" id="Nom" name="Nom" class="form-control"/>
-			<label>Prenom :</label>
-			<input type="text" placeholder="prenom" id="Prenom" name="Prenom" class="form-control"/>
-			<label>Date de naissance :</label>
-			<input type="date" id="DateNaissance" name="DateNaissance" class="form-control"/>
-			<label>Email</label>
-			<input type="text" id="Email" name="Email" class="form-control" />
-			<label>Password</label>
-			<input type="password" id="Password" name="Password" class="form-control"/>
-			<input type="submit" value="Ajouter un etudiant" class="btn btn-primary"/>
+			<div class="form-group">
+			    <label for="Nom" class="col-sm-2 control-label">Nom </label>
+			    <div class="col-sm-10">
+			      <input type="text" placeholder="nom" id="Nom" name="Nom" class="form-control"/>
+			    </div>
+			</div>
+
+			<div class="form-group">
+			    <label for="Prenom" class="col-sm-2 control-label">Prenom </label>
+			    <div class="col-sm-10">
+			      <input type="text" placeholder="prenom" id="Prenom" name="Prenom" class="form-control"/>
+			    </div>
+			</div>
 			
+			<div class="form-group">
+			    <label for="DateNaissance" class="col-sm-2 control-label">Date de naissance </label>
+			    <div class="col-sm-10">
+			      <input type="date" id="DateNaissance" name="DateNaissance" class="form-control"/>
+			    </div>
+			</div>
+			
+			<div class="form-group">
+			    <label for="Email" class="col-sm-2 control-label">Email </label>
+			    <div class="col-sm-10">
+			      <input type="text" id="Email" name="Email" class="form-control" />
+			    </div>
+			</div>
+			
+			<div class="form-group">
+			    <label for="Password" class="col-sm-2 control-label">Mot de passe </label>
+			    <div class="col-sm-10">
+			      <input type="password" id="Password" name="Password" class="form-control"/>
+			    </div>
+			</div>
+			<hr/>
+		  	<div class="form-group">
+		  		<div class="col-md-2 col-md-offset-8">
+		  			<a class="btn btn-default" role="button" href="/Java2015Project/Admin" style="width:100%!important;">Retours</a>
+		  		</div>
+		  		<div class="col-md-2">
+		  			<input type="submit" value="Enregistrer" class="btn btn-primary" style="width:100%!important;"/>
+		  		</div>
+		  	</div>					
 		</form>
 	</div>
 	<script

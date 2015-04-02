@@ -1,5 +1,11 @@
 @CHARSET "UTF-8";
 
+.header{background-color:#347ad9; margin-bottom: 5px; color:#fff;}
+.logout{color:#fff; text-decoration:none; text-align:right;}
+.logout:hover{color:#fff; text-decoration:none; text-align:right; font-weight:bold;}
+.logout:visited{color:#fff; text-decoration:none; text-align:right;}
+.logout:focus{color:#fff; text-decoration:none; text-align:right;}
+
 .loader{width: 70px; height:70px; margin-auto; background-image: url('http://www.hepfu.vn/public/images/loader_7.gif');background-size: contain; margin-bottom:-30px;}
 .loader img{max-width: 70px; max-height:100px;}
 
