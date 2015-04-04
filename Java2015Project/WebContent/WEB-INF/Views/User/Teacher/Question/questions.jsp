@@ -25,7 +25,7 @@
 					<td>
 						<%-- ${q.getCategory()} --%>TODO
 					</td>
-					<td>${q.getPonderation()}</td>
+					<td>${q.getPonderation().setScale(2)}</td>
 					<td><a role="button" class="btn btn-default"
 						href="/Java2015Project/Teacher/EditQuestion?id=${q.getId()}">
 							<span class="glyphicon glyphicon-pencil" aria-hidden="true"></span>

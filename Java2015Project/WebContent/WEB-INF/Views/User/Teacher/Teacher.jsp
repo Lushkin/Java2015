@@ -43,6 +43,7 @@
 				</c:forEach>
 			</table>
 			<a class="btn btn-default" role="button" href="/Java2015Project/Teacher/CreateTest">Ajouter un test</a>
+			<a class="btn btn-default" role="button" href="/Java2015Project/Teacher/Questions">Questions</a>
 		</div>
 </body>
 </html>
