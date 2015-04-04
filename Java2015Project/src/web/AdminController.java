@@ -31,7 +31,13 @@ public class AdminController extends HttpServlet
 	}
 	
 	public void service(HttpServletRequest req, HttpServletResponse rep) throws ServletException, IOException
-	{	
+	{
+		if(req.getSession().getAttribute("user") == null || ((Users)req.getSession().getAttribute("user")).getRole() != 1)
+		{
+			rep.sendRedirect("/Java2015Project/");
+			return;
+		}
+		
 		String action = req.getPathInfo();
 		if(action != null)
 		{

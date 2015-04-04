@@ -31,6 +31,12 @@ public class TeacherController extends HttpServlet
 	
 	public void service(HttpServletRequest req, HttpServletResponse rep) throws ServletException, IOException
 	{
+		if(req.getSession().getAttribute("user") == null || ((Users)req.getSession().getAttribute("user")).getRole() != 2)
+		{
+			rep.sendRedirect("/Java2015Project/");
+			return;
+		}
+		
 		String action = req.getPathInfo();
 		System.out.println(action);
 		System.out.println(req.getMethod());
