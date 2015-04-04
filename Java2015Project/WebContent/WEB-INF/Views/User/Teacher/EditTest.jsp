@@ -14,15 +14,29 @@
 </head>
 <body>
 	<div class="content" id="teacher-content">
-			<form action="/Java2015Project" method="post">
+			<form action="/Java2015Project/Teacher/EditTest" method="post">
+				<input type="hidden" name="id" value="${Test.getId() }"/>
 				<label>Titre</label>
-				<input type="text" value="${Test.getTitle()}" class="form-control"/>
+				<input type="text" value="${Test.getTitle()}" name="title" class="form-control"/>
 				<label>Subjet</label>
-				<input type="text" value="${Test.getSubjects().getName()}" class="form-control"/>
+				<select name="subject" class="form-control">
+				<c:forEach items="${Subjects}" var="s">
+					<c:choose>
+						<c:when test="${s.getId() == Test.getSubjects().getId()}">
+							<option value="${s.getId() }" selected>${ s.getName()}</option>
+						</c:when>
+						<c:otherwise>
+							<option value="${s.getId() }" >${ s.getName()}</option>
+						</c:otherwise>			
+					</c:choose>	
+				</c:forEach>
+				</select>
 				<label>Debut</label>
-				<input type="date" value="<fmt:formatDate value="${Test.getStartDate()}" pattern="yyyy-MM-dd" />" class="form-control" />
+				<input type="date" value="<fmt:formatDate value="${Test.getStartDate()}" pattern="yyyy-MM-dd" />" name="startDate" class="form-control" />
 				<label>Fin</label>
-				<input type="date" value="<fmt:formatDate value="${Test.getEndDate()}" pattern="yyyy-MM-dd" />" class="form-control" />
+				<input type="date" value="<fmt:formatDate value="${Test.getEndDate()}" pattern="yyyy-MM-dd" />" name="endDate" class="form-control" />
+				<label>Duration</label>
+				<input type="text" value="${Test.getDuration() }" name="duration" class="form-control" />
 				<input type="submit" value="Sauvegarder"/>
 			</form>
 	</div>

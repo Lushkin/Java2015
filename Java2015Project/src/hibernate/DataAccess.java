@@ -39,4 +39,13 @@ public class DataAccess
 			questions = new QuestionsDAO();
 		return questions;
 	}
+	
+	private static SubjectDAO subjects;
+
+	public static SubjectDAO Subjects()
+	{
+		if (subjects == null)
+			subjects = new SubjectDAO();
+		return subjects;
+	}
 }

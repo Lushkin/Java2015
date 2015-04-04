@@ -1,14 +1,19 @@
 package hibernate.dao;
 
+import hibernate.DataAccess;
 import hibernate.HibernateUtil;
+import hibernate.java.Subjects;
 import hibernate.java.Tests;
 import hibernate.java.Users;
 
+import java.util.Date;
 import java.util.List;
 
 import org.hibernate.Hibernate;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
+
+import com.sun.xml.internal.ws.wsdl.writer.UsingAddressing;
 
 public class TestsDAO
 {
@@ -51,4 +56,34 @@ public class TestsDAO
 		}
 		
 	}
+	
+	public Tests UpdateTest(int id, String title, int subjectId, Date startDate, Date endDate, int duration)
+	{
+		try
+		{
+			Transaction transac = HibernateUtil.currentSession().beginTransaction();
+			Tests test = (Tests)HibernateUtil.currentSession().load(Tests.class, id);
+			test.setTitle(title);
+			
+			
+			Subjects subject = DataAccess.Subjects().GetSubject(subjectId);
+			System.out.println(subject);
+			if(subject != null)
+				test.setSubjects(subject);
+			
+			
+			test.setStartDate(startDate);
+			test.setEndDate(endDate);
+			test.setDuration(duration);
+			HibernateUtil.currentSession().saveOrUpdate(test);
+			transac.commit();
+			HibernateUtil.closeSession();
+			return test;
+		} catch (Exception e)
+		{
+			System.out.println("erreur dans test Update! gg lucas, tu sais pas coder..." + e.getMessage());
+		}
+		return null;
+	}
+	
 }
