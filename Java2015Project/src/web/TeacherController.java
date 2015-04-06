@@ -153,5 +153,6 @@ public class TeacherController extends HttpServlet
 		question.setQuestionAnswerses(questionAnswers);
 		
 		DataAccess.Questions().CreateQuestion(question);
+		rep.sendRedirect("/Java2015Project/Teacher/Questions");
 	}
 }
