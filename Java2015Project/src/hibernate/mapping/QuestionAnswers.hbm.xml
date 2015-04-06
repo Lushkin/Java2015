@@ -3,7 +3,8 @@
                                    "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
 <!-- Generated Mar 12, 2015 7:14:44 PM by Hibernate Tools 4.0.0 -->
 <hibernate-mapping>
- <class catalog="Java2015" name="hibernate.java.QuestionAnswers" schema="dbo" table="QuestionAnswers">
+ <class catalog="Java2015" name="hibernate.java.QuestionAnswers"
+  schema="dbo" table="QuestionAnswers">
   <id name="id" type="int">
    <column name="Id"/>
    <generator class="native"/>
@@ -11,7 +12,8 @@
   <many-to-one class="hibernate.java.Questions" fetch="select" name="questions">
    <column name="QuestionId"/>
   </many-to-one>
-  <many-to-one class="hibernate.java.Answers" fetch="select" name="answers">
+  <many-to-one cascade="all" class="hibernate.java.Answers"
+   fetch="select" name="answers">
    <column name="AnswerId"/>
   </many-to-one>
  </class>

@@ -1,19 +1,26 @@
 package web;
 
 import hibernate.DataAccess;
+import hibernate.java.Answers;
+import hibernate.java.Categories;
 import hibernate.java.Promotions;
+import hibernate.java.QuestionAnswers;
 import hibernate.java.Questions;
 import hibernate.java.Subjects;
 import hibernate.java.Tests;
 import hibernate.java.Users;
 
 import java.io.IOException;
+import java.math.BigDecimal;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Locale;
+import java.util.Set;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -23,10 +30,12 @@ import javax.servlet.http.HttpServletResponse;
 public class TeacherController extends HttpServlet
 {
 	private String questionUrl;
+	private List<Categories> categories;
 	
 	public void init()
 	{
 		questionUrl =  getInitParameter("teacherQuestionURl");
+		categories = DataAccess.Questions().getCategories();
 	}
 	
 	public void service(HttpServletRequest req, HttpServletResponse rep) throws ServletException, IOException
@@ -67,9 +76,9 @@ public class TeacherController extends HttpServlet
 						DataAccess.Tests().UpdateTest(id, title, subjectId, startDate, endDate, duration);
 						getServletContext().getRequestDispatcher(getInitParameter("EditTestUrl")).forward(req, rep);
 						break;
-					case "/Questions":
-						getQuestions(req, rep);
-					break;
+					case "/CreateQuestion":
+						createQuestion(req, rep);
+						break;
 				}
 			}else{
 				switch(action)
@@ -86,6 +95,9 @@ public class TeacherController extends HttpServlet
 						break;
 					case "/Questions":
 						getQuestions(req, rep);
+						break;
+					case "/CreateQuestion":
+						createQuestionView(req, rep);
 					break;
 				}
 			}
@@ -105,5 +117,41 @@ public class TeacherController extends HttpServlet
 		List<Questions> questions = DataAccess.Questions().getQuestions(user.getId());
 		req.setAttribute("Questions", questions);
 		getServletContext().getRequestDispatcher(questionUrl).forward(req, rep);
+	}
+	
+	private void createQuestionView(HttpServletRequest req, HttpServletResponse rep) throws ServletException, IOException
+	{
+		req.setAttribute("Categories", categories);
+		req.getServletContext().getRequestDispatcher("/WEB-INF/Views/User/Teacher/Question/CreateQuestion.jsp").forward(req, rep);
+	}
+	
+	private void createQuestion(HttpServletRequest req, HttpServletResponse rep) throws ServletException, IOException
+	{
+		Users user = (Users)req.getSession().getAttribute("user");
+		Questions question = new Questions();
+		int categoryId = Integer.parseInt(req.getParameter("Categorie"));
+		
+		for(Categories c : categories)
+		{
+			if(c.getId() == categoryId)
+			{
+				question.setCategories(c);
+			}
+		}
+		question.setContent(req.getParameter("Question"));
+		question.setOwnerId(user.getId());
+		question.setPonderation(new BigDecimal(req.getParameter("Points").replaceAll(",", ".")));
+		
+		Set<QuestionAnswers> questionAnswers = new HashSet<QuestionAnswers>();		
+		int i = 0;
+		while(req.getParameter("Answer" + i) != null)
+		{
+			Answers answer = new Answers(0, req.getParameter("Answer" + i), 1, (byte)(req.getParameter("AnswerCb" + i) != null ? 1 : 0));
+			questionAnswers.add(new QuestionAnswers(0, question, answer));
+			i++;
+		}		
+		question.setQuestionAnswerses(questionAnswers);
+		
+		DataAccess.Questions().CreateQuestion(question);
 	}
 }
