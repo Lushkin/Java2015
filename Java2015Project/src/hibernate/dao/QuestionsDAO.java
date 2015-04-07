@@ -1,13 +1,16 @@
 package hibernate.dao;
 
 import java.util.List;
+import java.util.Set;
 
+import org.hibernate.Hibernate;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 
 import hibernate.HibernateUtil;
 import hibernate.java.Categories;
 import hibernate.java.Promotions;
+import hibernate.java.QuestionAnswers;
 import hibernate.java.Questions;
 import hibernate.java.Users;
 
@@ -71,6 +74,41 @@ public class QuestionsDAO
 			Transaction transac = HibernateUtil.currentSession().beginTransaction();
 			Questions question = (Questions)HibernateUtil.currentSession().load(Questions.class, id);
 			HibernateUtil.currentSession().delete(question);
+			transac.commit();
+			HibernateUtil.closeSession();
+		} catch (Exception e)
+		{
+			System.out.println("Erreur dans DeleteQuestion DAO");
+		}
+	}
+
+	public Questions getQuestion(int id)
+	{
+		Session session;
+		try
+		{
+			session = HibernateUtil.currentSession();
+			Questions question = (Questions)session.get(Questions.class, id);
+			Hibernate.initialize(question.getQuestionAnswerses());
+			HibernateUtil.closeSession();
+			return question;
+		} 
+		catch (Exception e)
+		{
+			System.out.println(e.getMessage());
+			return null;
+		}		
+	}
+	
+	public void DeleteQuestionAnswers(Set<QuestionAnswers> answers)
+	{
+		try
+		{
+			Transaction transac = HibernateUtil.currentSession().beginTransaction();
+			for(QuestionAnswers a : answers)
+			{
+				HibernateUtil.currentSession().delete(a);
+			}
 			transac.commit();
 			HibernateUtil.closeSession();
 		} catch (Exception e)

@@ -13,7 +13,7 @@
    <column name="QuestionId"/>
   </many-to-one>
   <many-to-one cascade="all" class="hibernate.java.Answers"
-   fetch="select" name="answers">
+   fetch="select" lazy="false" name="answers">
    <column name="AnswerId"/>
   </many-to-one>
  </class>

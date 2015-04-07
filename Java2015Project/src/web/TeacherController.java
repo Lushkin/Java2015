@@ -79,6 +79,9 @@ public class TeacherController extends HttpServlet
 					case "/CreateQuestion":
 						createQuestion(req, rep);
 						break;
+					case "/EditQuestion":
+						editQuestion(req, rep);
+						break;
 				}
 			}else{
 				switch(action)
@@ -102,6 +105,9 @@ public class TeacherController extends HttpServlet
 					case "/DeleteQuestion":
 						deleteQuestion(req, rep);
 						break;
+					case "/EditQuestion":
+						editQuestionView(req, rep);
+						break;
 				}
 			}
 			
@@ -114,6 +120,51 @@ public class TeacherController extends HttpServlet
 			
 	}
 	
+	private void editQuestion(HttpServletRequest req, HttpServletResponse rep) throws IOException
+	{
+		int id = Integer.parseInt(req.getParameter("id"));
+		Questions question = DataAccess.Questions().getQuestion(id);
+		int categoryId = Integer.parseInt(req.getParameter("Categorie"));
+		
+		for(Categories c : categories)
+		{
+			if(c.getId() == categoryId)
+			{
+				question.setCategories(c);
+			}
+		}
+		question.setContent(req.getParameter("Question"));
+		question.setPonderation(new BigDecimal(req.getParameter("Points").replaceAll(",", ".")));
+		
+		DataAccess.Questions().DeleteQuestionAnswers(question.getQuestionAnswerses());
+		
+		Set<QuestionAnswers> questionAnswers = new HashSet<QuestionAnswers>();		
+		int i = 0;
+		while(req.getParameter("Answer" + i) != null)
+		{
+			if(req.getParameter("Answer" + i) != null && !req.getParameter("Answer" + i).isEmpty())
+			{
+				Answers answer = new Answers(0, req.getParameter("Answer" + i), 1, (byte)(req.getParameter("AnswerCb" + i) != null ? 1 : 0));
+				questionAnswers.add(new QuestionAnswers(0, question, answer));
+			}
+			i++;
+		}		
+		question.setQuestionAnswerses(questionAnswers);
+		
+		DataAccess.Questions().CreateQuestion(question);
+		rep.sendRedirect("/Java2015Project/Teacher/Questions");
+	}
+
+	private void editQuestionView(HttpServletRequest req, HttpServletResponse rep) throws ServletException, IOException
+	{
+		int id = Integer.parseInt(req.getParameter("id"));
+		Questions question = DataAccess.Questions().getQuestion(id);
+		QuestionAnswers q = new QuestionAnswers();
+		req.setAttribute("Question", question);
+		req.setAttribute("Categories", categories);
+		req.getServletContext().getRequestDispatcher("/WEB-INF/Views/User/Teacher/Question/EditQuestion.jsp").forward(req, rep);
+	}
+
 	private void deleteQuestion(HttpServletRequest req, HttpServletResponse rep) throws IOException
 	{
 		int id = Integer.parseInt(req.getParameter("id"));
@@ -156,8 +207,11 @@ public class TeacherController extends HttpServlet
 		int i = 0;
 		while(req.getParameter("Answer" + i) != null)
 		{
-			Answers answer = new Answers(0, req.getParameter("Answer" + i), 1, (byte)(req.getParameter("AnswerCb" + i) != null ? 1 : 0));
-			questionAnswers.add(new QuestionAnswers(0, question, answer));
+			if(req.getParameter("Answer" + i) != null && !req.getParameter("Answer" + i).isEmpty())
+			{
+				Answers answer = new Answers(0, req.getParameter("Answer" + i), 1, (byte)(req.getParameter("AnswerCb" + i) != null ? 1 : 0));
+				questionAnswers.add(new QuestionAnswers(0, question, answer));
+			}
 			i++;
 		}		
 		question.setQuestionAnswerses(questionAnswers);
