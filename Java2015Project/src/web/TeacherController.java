@@ -99,6 +99,9 @@ public class TeacherController extends HttpServlet
 					case "/CreateQuestion":
 						createQuestionView(req, rep);
 					break;
+					case "/DeleteQuestion":
+						deleteQuestion(req, rep);
+						break;
 				}
 			}
 			
@@ -111,6 +114,13 @@ public class TeacherController extends HttpServlet
 			
 	}
 	
+	private void deleteQuestion(HttpServletRequest req, HttpServletResponse rep) throws IOException
+	{
+		int id = Integer.parseInt(req.getParameter("id"));
+		DataAccess.Questions().DeleteQuestion(id);
+		rep.sendRedirect("/Java2015Project/Teacher/Questions");
+	}
+
 	private void getQuestions(HttpServletRequest req, HttpServletResponse rep) throws ServletException, IOException
 	{
 		Users user = (Users)req.getSession().getAttribute("user");

@@ -9,6 +9,7 @@ import hibernate.HibernateUtil;
 import hibernate.java.Categories;
 import hibernate.java.Promotions;
 import hibernate.java.Questions;
+import hibernate.java.Users;
 
 public class QuestionsDAO
 {
@@ -60,6 +61,21 @@ public class QuestionsDAO
 		{
 			System.out.println("Erreur dans CreateQuestion DAO");
 			System.out.println(e.getMessage());
+		}
+	}
+	
+	public void DeleteQuestion(int id)
+	{
+		try
+		{
+			Transaction transac = HibernateUtil.currentSession().beginTransaction();
+			Questions question = (Questions)HibernateUtil.currentSession().load(Questions.class, id);
+			HibernateUtil.currentSession().delete(question);
+			transac.commit();
+			HibernateUtil.closeSession();
+		} catch (Exception e)
+		{
+			System.out.println("Erreur dans DeleteQuestion DAO");
 		}
 	}
 }
