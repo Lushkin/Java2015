@@ -74,7 +74,7 @@ public class TeacherController extends HttpServlet
 						
 						int duration = Integer.parseInt(req.getParameter("duration"));
 						DataAccess.Tests().UpdateTest(id, title, subjectId, startDate, endDate, duration);
-						getServletContext().getRequestDispatcher(getInitParameter("EditTestUrl")).forward(req, rep);
+						rep.sendRedirect("/Java2015Project/Teacher");
 						break;
 					case "/CreateQuestion":
 						createQuestion(req, rep);

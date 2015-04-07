@@ -63,14 +63,15 @@ public class TestsDAO
 		{
 			Transaction transac = HibernateUtil.currentSession().beginTransaction();
 			Tests test = (Tests)HibernateUtil.currentSession().load(Tests.class, id);
+			Hibernate.initialize(test.getSubjects());
 			test.setTitle(title);
 			
-			
-			Subjects subject = DataAccess.Subjects().GetSubject(subjectId);
-			System.out.println(subject);
-			if(subject != null)
-				test.setSubjects(subject);
-			
+			if(test.getSubjects().getId() != subjectId)
+			{
+				Subjects subject = DataAccess.Subjects().GetSubject(subjectId);
+				if(subject != null)
+					test.setSubjects(subject);
+			}
 			
 			test.setStartDate(startDate);
 			test.setEndDate(endDate);
