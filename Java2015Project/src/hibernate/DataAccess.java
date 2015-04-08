@@ -48,4 +48,13 @@ public class DataAccess
 			subjects = new SubjectDAO();
 		return subjects;
 	}
+	
+	private static StudentDAO students;
+
+	public static StudentDAO Students()
+	{
+		if (students == null)
+			students = new StudentDAO();
+		return students;
+	}
 }
