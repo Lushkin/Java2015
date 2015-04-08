@@ -41,6 +41,10 @@
   		<param-value>/WEB-INF/Views/User/Teacher/EditTest.jsp</param-value>
   	</init-param>
   	<init-param>
+  		<param-name>TestToStudentsUrl</param-name>
+  		<param-value>/WEB-INF/Views/User/Teacher/Test/TestToStudent.jsp</param-value>
+  	</init-param>
+  	<init-param>
   		<param-name>teacherQuestionURl</param-name>
   		<param-value>/WEB-INF/Views/User/Teacher/Question/Questions.jsp</param-value>
   	</init-param>
