@@ -9,12 +9,22 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <link rel="stylesheet"
 	href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css">
-<link rel="stylesheet" href="Content/css/site.css">
+<link rel="stylesheet" href="../Content/css/site.css">
 <script
 		src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
 <title>Teacher Index</title>
 </head>
 <body>
+<div class="container">
+		<div class="header row">
+		<div class="col-md-10">
+				<h3>Espace enseignant > Edition d'un Test</h3>
+			</div>
+			<div class="col-md-2" style="text-align: right;">
+				<a class="logout" role="button" href="/Java2015Project/">Déconnexion</a>
+			</div>
+		</div>
+		<hr/>
 	<div class="content" id="teacher-content">
 			<form action="/Java2015Project/Teacher/EditTest" method="post">
 				<input type="hidden" name="id" value="${Test.getId() }"/>
@@ -39,6 +49,7 @@
 				<input type="date" value="<fmt:formatDate value="${Test.getEndDate()}" pattern="yyyy-MM-dd" />" name="endDate" class="form-control" />
 				<label>Duration</label>
 				<input type="text" value="${Test.getDuration() }" name="duration" class="form-control" />
+				<label>Questions</label>
 				<div style="margin:auto;">
 					<c:forEach items="${Questions}" var="q">
 						<c:choose>
@@ -50,10 +61,11 @@
 						</c:otherwise>			
 					</c:choose>	
 					</c:forEach>
-				</div>
+				</div><br/>
 				<input type="hidden" name="questions" id="questions" value=""/>
-				<input type="submit" value="Sauvegarder"/>
+				<input class="btn btn-default" type="submit" value="Sauvegarder"/>
 			</form>
+	</div>
 	</div>
 	<script>
 	$(function(){

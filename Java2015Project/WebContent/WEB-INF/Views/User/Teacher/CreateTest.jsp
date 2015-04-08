@@ -9,12 +9,22 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <link rel="stylesheet"
 	href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css">
-<link rel="stylesheet" href="Content/css/site.css">
+<link rel="stylesheet" href="../Content/css/site.css">
 <script
 		src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
 <title>Teacher Index</title>
 </head>
 <body>
+<div class="container">
+	<div class="header row">
+		<div class="col-md-10">
+				<h3>Espace enseignant > Création d'un test</h3>
+			</div>
+			<div class="col-md-2" style="text-align: right;">
+				<a class="logout" role="button" href="/Java2015Project/">Déconnexion</a>
+			</div>
+		</div>
+		<hr/>
 	<div class="content" id="teacher-content">
 			<form action="/Java2015Project/Teacher/CreateTest" method="post">
 				<input type="hidden" name="id" value=""/>
@@ -31,16 +41,18 @@
 				<label>Fin</label>
 				<input type="date" value="" name="endDate" class="form-control" />
 				<label>Duration</label>
-				<input type="text" value="" name="duration" class="form-control" />
-				<div style="margin:auto;">
+				<input type="text" value="" name="duration" class="form-control" /><br/>
+				<label>Questions </label>
+				<div class="form-group" style="margin:auto;">
 					<c:forEach items="${Questions}" var="q">
-						<input type="checkbox" value="${q.getId() }" >${ q.getContent()}<br/>	
+						<input type="checkbox" value="${q.getId() }" >&nbsp;&nbsp;${ q.getContent()}<br/>	
 					</c:forEach>
 				</div>
-				<input type="hidden" name="questions" id="questions" value=""/>
-				<input type="submit" value="Sauvegarder"/>
+				<input type="hidden" name="questions" id="questions" value=""/> <br/>
+				<input class="btn btn-default" type="submit" value="Sauvegarder"/>
 			</form>
 	</div>
+</div>
 	<script>
 	$(function(){
 		$("input[type=checkbox]").change(function(){
