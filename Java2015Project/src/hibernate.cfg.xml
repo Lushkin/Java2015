@@ -23,5 +23,6 @@
   <mapping resource="hibernate/mapping/QuestionAnswers.hbm.xml"/>
   <mapping resource="hibernate/mapping/Categories.hbm.xml"/>
   <mapping resource="hibernate/mapping/StudentAnswers.hbm.xml"/>
+  <mapping resource="hibernate/mapping/TestQuestions.hbm.xml"/>
  </session-factory>
 </hibernate-configuration>
