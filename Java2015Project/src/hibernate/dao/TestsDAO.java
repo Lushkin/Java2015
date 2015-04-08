@@ -2,6 +2,7 @@ package hibernate.dao;
 
 import hibernate.DataAccess;
 import hibernate.HibernateUtil;
+import hibernate.java.Questions;
 import hibernate.java.Subjects;
 import hibernate.java.Tests;
 import hibernate.java.Users;
@@ -86,5 +87,35 @@ public class TestsDAO
 		}
 		return null;
 	}
+	
+	public Tests CreateTest(String title, int subjectId, Date startDate, Date endDate, int duration)
+	{
+		try
+		{
+			Transaction transac = HibernateUtil.currentSession().beginTransaction();
+			Tests test = new Tests();
+			test.setTitle(title);
+			
+			Subjects subject = DataAccess.Subjects().GetSubject(subjectId);
+			if(subject != null)
+				test.setSubjects(subject);
+			
+			test.setStartDate(startDate);
+			test.setEndDate(endDate);
+			test.setDuration(duration);
+			
+			
+			HibernateUtil.currentSession().saveOrUpdate(test);
+			transac.commit();
+			HibernateUtil.closeSession();
+			return test;
+		} catch (Exception e)
+		{
+			System.out.println("erreur dans test Update! gg lucas, tu sais pas coder..." + e.getMessage());
+		}
+		return null;
+	}
+	
+	
 	
 }

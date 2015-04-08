@@ -51,4 +51,10 @@ public class TestQuestions implements java.io.Serializable
 	{
 		this.questions = question;
 	}
+	
+	public boolean equals(TestQuestions o)
+	{
+		return o.getId() == this.getId();
+	}
+	
 }
