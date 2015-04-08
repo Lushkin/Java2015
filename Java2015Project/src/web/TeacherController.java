@@ -327,6 +327,7 @@ public class TeacherController extends HttpServlet
 		req.setAttribute("Promotions", promotions);
 		req.setAttribute("Students", students);
 		req.setAttribute("ActualPromo", actualPromo);
+		req.setAttribute("Tools", new Tools());
 		getServletContext().getRequestDispatcher(getInitParameter("TestToStudentsUrl")).forward(req, rep);
 	}
 }
