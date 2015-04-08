@@ -69,6 +69,9 @@ public class TeacherController extends HttpServlet
 					case "/EditQuestion":
 						editQuestion(req, rep);
 						break;
+					case "/TestToStudent" :
+						testToStudent(req, rep);
+						break;
 				}
 			}else{
 				switch(action)
@@ -90,6 +93,9 @@ public class TeacherController extends HttpServlet
 						break;
 					case "/EditQuestion":
 						editQuestionView(req, rep);
+						break;
+					case "/TestToStudent" :
+						testToStudent(req, rep);
 						break;
 				}
 			}
@@ -298,5 +304,29 @@ public class TeacherController extends HttpServlet
 		
 		DataAccess.Questions().CreateQuestion(question);
 		rep.sendRedirect("/Java2015Project/Teacher/Questions");
+	}
+	
+	private void testToStudent(HttpServletRequest req, HttpServletResponse rep) throws ServletException, IOException
+	{
+		int id = Integer.parseInt(req.getParameter("id"));
+		int promotionId = -1;
+		Promotions actualPromo = null;
+		List<Users> students = null;
+		if(req.getParameter("promotionId") != null)
+		{
+			promotionId = Integer.parseInt(req.getParameter("promotionId"));
+			actualPromo = (Promotions)DataAccess.Promotions().GetPromotion(promotionId);
+			students = (List<Users>)DataAccess.Users().GetStudentsByPromo(promotionId);
+		}
+		
+		System.out.println(id);
+		Tests test = (Tests)DataAccess.Tests().GetTest(id);
+		List<Promotions> promotions = (List<Promotions>)DataAccess.Promotions().GetPromotions();
+		System.out.println(test);
+		req.setAttribute("Test", test);
+		req.setAttribute("Promotions", promotions);
+		req.setAttribute("Students", students);
+		req.setAttribute("ActualPromo", actualPromo);
+		getServletContext().getRequestDispatcher(getInitParameter("TestToStudentsUrl")).forward(req, rep);
 	}
 }
