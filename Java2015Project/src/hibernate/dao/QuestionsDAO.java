@@ -23,6 +23,10 @@ public class QuestionsDAO
 		{
 			session = HibernateUtil.currentSession();
 			List<Questions> questions = session.createQuery("from Questions WHERE OwnerId = " + teacherId).list();
+			for(Questions q : questions)
+			{
+				Hibernate.initialize(q.getCategories());
+			}
 			HibernateUtil.closeSession();
 			
 			return questions;

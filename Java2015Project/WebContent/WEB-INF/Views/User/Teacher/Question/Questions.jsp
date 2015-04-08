@@ -23,7 +23,7 @@
 				<tr>
 					<td>${q.getContent()}</td>
 					<td>
-						<%-- ${q.getCategory()} --%>TODO
+						${q.getCategories().getName()}
 					</td>
 					<td>${q.getPonderation().setScale(2)}</td>
 					<td><a role="button" class="btn btn-default"
