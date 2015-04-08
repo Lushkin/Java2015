@@ -17,7 +17,7 @@ public class StudentController extends HttpServlet
 	String url;
 	public void init()
 	{
-		url = getInitParameter("testUrl");
+		url = getInitParameter("StudentUrl");
 	}
 	
 	public void service(HttpServletRequest req, HttpServletResponse rep) throws ServletException, IOException
@@ -35,9 +35,9 @@ public class StudentController extends HttpServlet
 		{
 			Users user = (Users)req.getSession().getAttribute("user");
 			List<UserTests> pendingTests = DataAccess.Students().GetPendingTests(user.getId());
-			req.setAttribute("PendingTest", pendingTests);
+			req.setAttribute("PendingTests", pendingTests);
 			List<UserTests> finishedTests = DataAccess.Students().GetFinishedTests(user.getId());
-			req.setAttribute("FinishedTest", finishedTests);
+			req.setAttribute("FinishedTests", finishedTests);
 			getServletContext().getRequestDispatcher(url).forward(req, rep);
 		}
 	}

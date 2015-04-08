@@ -49,6 +49,14 @@
   		<param-value>/WEB-INF/Views/User/Teacher/Question/Questions.jsp</param-value>
   	</init-param>
   </servlet>
+    <servlet>
+  	<servlet-name>StudentController</servlet-name>
+  	<servlet-class>web.StudentController</servlet-class>
+	<init-param>
+  		<param-name>StudentUrl</param-name>
+  		<param-value>/WEB-INF/Views/User/Student/Student.jsp</param-value>
+  	</init-param>
+  </servlet>
   <servlet-mapping>
   	<servlet-name>UserController</servlet-name>
   	<url-pattern>/User/*</url-pattern>
@@ -64,6 +72,10 @@
   <servlet-mapping>
   	<servlet-name>TestController</servlet-name>
   	<url-pattern>/Test/*</url-pattern>
+  </servlet-mapping>
+    <servlet-mapping>
+  	<servlet-name>StudentController</servlet-name>
+  	<url-pattern>/Student/*</url-pattern>
   </servlet-mapping>
   <welcome-file-list>
   	<welcome-file>index.jsp</welcome-file>

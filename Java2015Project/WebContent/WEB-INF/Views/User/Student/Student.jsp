@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -35,7 +36,7 @@
 		</div>
 		<br />
 		<div id="completedTests">
-			<h3>Tests complétés :</h3>
+			<h3>Tests terminés :</h3>
 			<br />
 			<table class="table table-hover">
 				<tr>
@@ -53,12 +54,11 @@
 								value="${t.getTests().getStartDate()}" /></td>
 						<td><fmt:formatDate pattern="dd/MM/yyyy"
 								value="${t.getTests().getEndDate()}" /></td>
-						<td>${t.getTests().getMark()}</td>
+						<td>${t.getMark()}</td>
 					</tr>
 				</c:forEach>
 			</table>
 		</div>
-	</div>
 	</div>
 	<script
 		src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
