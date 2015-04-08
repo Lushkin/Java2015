@@ -16,39 +16,25 @@
 </head>
 <body>
 	<div class="content" id="teacher-content">
-			<form action="/Java2015Project/Teacher/EditTest" method="post">
-				<input type="hidden" name="id" value="${Test.getId() }"/>
+			<form action="/Java2015Project/Teacher/CreateTest" method="post">
+				<input type="hidden" name="id" value=""/>
 				<label>Titre</label>
-				<input type="text" value="${Test.getTitle()}" name="title" class="form-control"/>
+				<input type="text" value="" name="title" class="form-control"/>
 				<label>Subjet</label>
 				<select name="subject" class="form-control">
 				<c:forEach items="${Subjects}" var="s">
-					<c:choose>
-						<c:when test="${s.getId() == Test.getSubjects().getId()}">
-							<option value="${s.getId() }" selected>${ s.getName()}</option>
-						</c:when>
-						<c:otherwise>
-							<option value="${s.getId() }" >${ s.getName()}</option>
-						</c:otherwise>			
-					</c:choose>	
+					<option value="${s.getId() }" >${ s.getName()}</option>			
 				</c:forEach>
 				</select>
 				<label>Debut</label>
-				<input type="date" value="<fmt:formatDate value="${Test.getStartDate()}" pattern="yyyy-MM-dd" />" name="startDate" class="form-control" />
+				<input type="date" value="" name="startDate" class="form-control" />
 				<label>Fin</label>
-				<input type="date" value="<fmt:formatDate value="${Test.getEndDate()}" pattern="yyyy-MM-dd" />" name="endDate" class="form-control" />
+				<input type="date" value="" name="endDate" class="form-control" />
 				<label>Duration</label>
-				<input type="text" value="${Test.getDuration() }" name="duration" class="form-control" />
+				<input type="text" value="" name="duration" class="form-control" />
 				<div style="margin:auto;">
 					<c:forEach items="${Questions}" var="q">
-						<c:choose>
-						<c:when test="${Tools.TestQuestionsContains(QuestionsTest,q)}">
-							<input type="checkbox" checked value="${q.getId() }" >${ q.getContent()}<br/>
-						</c:when>
-						<c:otherwise>
-							<input type="checkbox" value="${q.getId() }" >${ q.getContent()}<br/>
-						</c:otherwise>			
-					</c:choose>	
+						<input type="checkbox" value="${q.getId() }" >${ q.getContent()}<br/>	
 					</c:forEach>
 				</div>
 				<input type="hidden" name="questions" id="questions" value=""/>

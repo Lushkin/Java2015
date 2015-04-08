@@ -172,6 +172,27 @@ public class UsersDAO
 		}
 	}
 	
+	@SuppressWarnings("unchecked")
+	public List<Users> GetStudentsByPromo(int id)
+	{
+		Session session;
+		try
+		{
+			session = HibernateUtil.currentSession();
+			List<Users> students = session.createQuery("from Users WHERE Role = 3 AND PromotionId = " + id).list();
+			for(Users u : students)
+			{
+				Hibernate.initialize(u.getPromotions());
+			}
+			HibernateUtil.closeSession();
+			
+			return students;
+		} 
+		catch (Exception e)
+		{
+			return null;
+		}
+	}
 	
 	public boolean PutUsersIntoPromotion(HashMap<String, String> std, HashMap<String, String> prom)
 	{

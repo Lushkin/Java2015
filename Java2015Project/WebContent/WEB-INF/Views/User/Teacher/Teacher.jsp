@@ -20,6 +20,7 @@
 					<th>Subjet</th>
 					<th>Debut</th>
 					<th>Fin</th>
+					<th>Attribuer</th>
 					<th>Modifier</th>
 					<th>Supprimer</th>
 				</tr>
@@ -31,6 +32,10 @@
 								value="${t.getStartDate()}" /></td>
 						<td><fmt:formatDate pattern="dd/MM/yyyy"
 								value="${t.getEndDate()}" /></td>
+						<td><a role="button" class="btn btn-default"
+							href="/Java2015Project/Teacher/TestToStudent?id=${t.getId()}"> <span class="glyphicon glyphicon-user"
+								aria-hidden="true"></span>
+						</a></td>
 						<td><a role="button" class="btn btn-default"
 							href="/Java2015Project/Teacher/EditTest?id=${t.getId()}"> <span class="glyphicon glyphicon-pencil"
 								aria-hidden="true"></span>
