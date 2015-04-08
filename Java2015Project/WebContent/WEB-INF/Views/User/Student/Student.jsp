@@ -23,7 +23,7 @@
 					<th>Fin</th>
 				</tr>
 				<c:forEach items="${PendingTests}" var="t">
-					<tr>
+					<tr onclick="pendingClicked(${t.getTests().getId()})">
 						<td>${t.getTests().getTitle()}</td>
 						<td>${t.getTests().getSubjects().getName()}</td>
 						<td><fmt:formatDate pattern="dd/MM/yyyy"
@@ -64,5 +64,10 @@
 		src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
 	<script
 		src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
+	<script type="text/javascript">
+		function pendingClicked(id){
+			window.location.href = "/Java2015Project/Student/DoTest?id=" + id;
+		}
+	</script>
 </body>
 </html>

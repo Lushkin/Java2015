@@ -137,6 +137,7 @@ public class QuestionsDAO
 			for (TestQuestions tq : testquestions)
 			{
 				Hibernate.initialize(tq.getQuestions());
+				Hibernate.initialize(tq.getQuestions().getQuestionAnswerses());
 				questions.add(tq.getQuestions());
 			}
 			HibernateUtil.closeSession();

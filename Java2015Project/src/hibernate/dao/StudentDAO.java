@@ -22,7 +22,7 @@ public class StudentDAO
 			SimpleDateFormat formater = new SimpleDateFormat("dd/MM/yyyy");
 			String today = formater.format(new Date());
 			session = HibernateUtil.currentSession();
-			List<UserTests> tests = session.createQuery("select ut from UserTests ut join ut.tests t Where UserId = " + studentId + " AND State = 0 AND t.startDate < GETDATE() AND t.endDate > GETDATE()").list();
+			List<UserTests> tests = session.createQuery("select ut from UserTests ut join ut.tests t Where UserId = " + studentId + " AND State = 0 AND t.startDate <= GETDATE() AND t.endDate > GETDATE()").list();
 			for(UserTests t : tests)
 			{
 				Hibernate.initialize(t.getTests());

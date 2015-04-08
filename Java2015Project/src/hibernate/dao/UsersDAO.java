@@ -85,6 +85,20 @@ public class UsersDAO
 		}
 	}
 	
+	public void UpdateUser(Users user)
+	{
+		try
+		{
+			Transaction transac = HibernateUtil.currentSession().beginTransaction();
+			HibernateUtil.currentSession().saveOrUpdate(user);
+			transac.commit();
+			HibernateUtil.closeSession();
+		} catch (Exception e)
+		{
+			System.out.println("Erreur dans UpdateUser DAO");
+		}	
+	}
+	
 	public void DeleteUser(int id)
 	{	
 		try

@@ -6,7 +6,7 @@ package hibernate.java;
  */
 public class TestQuestions implements java.io.Serializable
 {
-	private static final long serialVersionUID = 6425690899034093660L;
+	private static final long serialVersionUID = -8501483268690252731L;
 	private int id;
 	private Tests tests;
 	private Questions questions;

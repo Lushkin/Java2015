@@ -5,6 +5,7 @@ import hibernate.HibernateUtil;
 import hibernate.java.Questions;
 import hibernate.java.Subjects;
 import hibernate.java.Tests;
+import hibernate.java.UserTests;
 import hibernate.java.Users;
 
 import java.util.Date;
@@ -116,6 +117,21 @@ public class TestsDAO
 		return null;
 	}
 	
-	
+	public UserTests GetUserTest(int userId, int testId)
+	{
+		Session session;
+		try
+		{
+			session = HibernateUtil.currentSession();
+			UserTests test = (UserTests)session.createQuery("from UserTests Where UserId = " + userId + " AND TestId = " + testId).list().get(0);
+			
+			HibernateUtil.closeSession();
+			
+			return test;
+		} catch (Exception e)
+		{
+			return null;
+		}
+	}
 	
 }
