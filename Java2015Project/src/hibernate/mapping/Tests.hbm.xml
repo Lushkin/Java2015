@@ -9,7 +9,7 @@
             <generator class="native" />
         </id>
         <many-to-one name="subjects" class="hibernate.java.Subjects"
-        	fetch="select" cascade="all">
+        	fetch="select">
         	<column name="SubjectId"></column>
         </many-to-one>
         <many-to-one name="users" class="hibernate.java.Users" fetch="select">
@@ -30,13 +30,13 @@
         <property name="title" type="string">
             <column name="Title" length="250" not-null="true" />
         </property>
-        <set name="userTestses" table="UserTests" inverse="true" lazy="true" fetch="select">
+        <set cascade="all,delete-orphan" name="userTestses" table="UserTests" inverse="true" lazy="true" fetch="select">
             <key>
                 <column name="TestId" />
             </key>
             <one-to-many class="hibernate.java.UserTests" />
         </set>
-        <set name="studentAnswerses" table="StudentAnswers" inverse="true" lazy="true" fetch="select">
+        <set cascade="all,delete-orphan" name="studentAnswerses" table="StudentAnswers" inverse="true" lazy="true" fetch="select">
             <key>
                 <column name="TestId" />
             </key>

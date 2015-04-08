@@ -86,6 +86,9 @@ public class TeacherController extends HttpServlet
 					case "/CreateTest":
 						createTest(req,rep);
 						break;
+					case "/DeleteTest":
+						deleteTest(req, rep);
+						break;
 					case "/Questions":
 						getQuestions(req, rep);
 						break;
@@ -276,6 +279,13 @@ public class TeacherController extends HttpServlet
 				DataAccess.Questions().AddTestQuestions(questionId, test.getId());
 			}
 		}
+		rep.sendRedirect("/Java2015Project/Teacher");
+	}
+	
+	private void deleteTest(HttpServletRequest req, HttpServletResponse rep) throws IOException
+	{
+		int id = Integer.parseInt(req.getParameter("id"));
+		DataAccess.Tests().DeleteTest(id);
 		rep.sendRedirect("/Java2015Project/Teacher");
 	}
 	

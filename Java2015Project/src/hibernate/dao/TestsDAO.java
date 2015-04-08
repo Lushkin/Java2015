@@ -119,6 +119,22 @@ public class TestsDAO
 		return null;
 	}
 	
+	public void DeleteTest(int id)
+	{
+		try
+		{
+			Transaction transac = HibernateUtil.currentSession().beginTransaction();
+			Tests test = (Tests)HibernateUtil.currentSession().get(Tests.class, id);
+			HibernateUtil.currentSession().delete(test);
+			transac.commit();
+			HibernateUtil.closeSession();
+		} catch (Exception e)
+		{
+			System.out.println(e.getMessage());
+			System.out.println("Erreur dans DeleteTest DAO");
+		}
+	}
+	
 	@SuppressWarnings("unchecked")
 	public boolean RemoveTestFromStudents(HashMap<String, Boolean> userTest, int testId)
 	{
