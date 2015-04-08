@@ -97,7 +97,8 @@
 		  		<table class="table table-condensed" id="Students">
 					<c:forEach items="${Students}" var="s">
 						<tr id="StudentLine">
-							<td class="col-md-1"><input type="checkbox"></td>
+<%-- 						${Tools.UserTestContains(s.getUserTestses(),Test) ? "checked" : "" } --%>
+							<td class="col-md-1"><input type="checkbox" ${Tools.UserTestContains(s,Test) ? "checked" : "" }></td>
 							<td class="col-md-2">${s.getFirstName()}</td>
 							<td class="col-md-2">${s.getLastName()}</td>
 							<td class="col-md-3">${s.getEmail()}</td>
@@ -112,7 +113,7 @@
 								</c:otherwise>			
 							</c:choose>				
 								<%-- <input type="hidden" id="PromotionId" name="PromotionId" value="${s.getPromotions().getId()}"/> --%>
-								<input type="hidden" id="TestId" name="TestId"/>
+								<input type="hidden" id="TestId" name="TestId" value="${Tools.UserTestContains(s,Test) ? Test.getId() : null}"/>
 								<input type="hidden" id="StudentId" name="StudentId" value="${s.getId()}">
 							</td>
 						</tr>
