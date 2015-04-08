@@ -27,6 +27,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import Utils.Tools;
+
 public class TeacherController extends HttpServlet
 {
 	private String questionUrl;
@@ -56,25 +58,10 @@ public class TeacherController extends HttpServlet
 				switch(action)
 				{
 					case "/EditTest":
-						int id = Integer.parseInt(req.getParameter("id"));
-						String title = req.getParameter("title");
-						int subjectId = Integer.parseInt(req.getParameter("subject"));
-						System.out.println(subjectId);
-						DateFormat format = new SimpleDateFormat("yyyy-MM-dd", Locale.ENGLISH);
-						Date startDate = new Date();
-						Date endDate = new Date();
-						try
-						{
-							startDate = (Date) format.parse(req.getParameter("startDate"));
-							endDate = (Date) format.parse(req.getParameter("endDate"));
-						} catch (ParseException e)
-						{
-							e.printStackTrace();
-						}
-						
-						int duration = Integer.parseInt(req.getParameter("duration"));
-						DataAccess.Tests().UpdateTest(id, title, subjectId, startDate, endDate, duration);
-						rep.sendRedirect("/Java2015Project/Teacher");
+						editTestPost(req,rep);
+						break;
+					case "/CreateTest":
+						createTestPost(req,rep);
 						break;
 					case "/CreateQuestion":
 						createQuestion(req, rep);
@@ -90,14 +77,10 @@ public class TeacherController extends HttpServlet
 				switch(action)
 				{
 					case "/EditTest":
-						int id = Integer.parseInt(req.getParameter("id"));
-						System.out.println(id);
-						Tests test = (Tests)DataAccess.Tests().GetTest(id);
-						List<Subjects> subjects = (List<Subjects>)DataAccess.Subjects().GetSubjects();
-						System.out.println(test);
-						req.setAttribute("Test", test);
-						req.setAttribute("Subjects", subjects);
-						getServletContext().getRequestDispatcher(getInitParameter("EditTestUrl")).forward(req, rep);
+						editTest(req,rep);
+						break;
+					case "/CreateTest":
+						createTest(req,rep);
 						break;
 					case "/Questions":
 						getQuestions(req, rep);
@@ -124,6 +107,59 @@ public class TeacherController extends HttpServlet
 			getServletContext().getRequestDispatcher(getInitParameter("teacherURl")).forward(req, rep);
 		}
 			
+	}
+	private void editTest(HttpServletRequest req, HttpServletResponse rep) throws ServletException, IOException
+	{
+		int id = Integer.parseInt(req.getParameter("id"));
+		System.out.println(id);
+		Tests test = (Tests)DataAccess.Tests().GetTest(id);
+		List<Subjects> subjects = (List<Subjects>)DataAccess.Subjects().GetSubjects();
+		System.out.println(test);
+		req.setAttribute("Test", test);
+		req.setAttribute("Subjects", subjects);
+		List<Questions> questionsTest = (List<Questions>)DataAccess.Questions().GetQuestionsByIdTest(test.getId());
+		List<Questions> questions = (List<Questions>)DataAccess.Questions().getQuestions(((Users)req.getSession().getAttribute("user")).getId());
+		System.out.println("taile questionsTest : " + questionsTest.size());
+		System.out.println("taile questions: " + questions.size());
+		req.setAttribute("QuestionsTest", questionsTest);
+		req.setAttribute("Questions", questions);
+		req.setAttribute("Tools", new Tools());
+		getServletContext().getRequestDispatcher(getInitParameter("EditTestUrl")).forward(req, rep);
+	}
+	private void editTestPost(HttpServletRequest req, HttpServletResponse rep) throws IOException
+	{
+		int id = Integer.parseInt(req.getParameter("id"));
+		String title = req.getParameter("title");
+		int subjectId = Integer.parseInt(req.getParameter("subject"));
+		System.out.println(subjectId);
+		DateFormat format = new SimpleDateFormat("yyyy-MM-dd", Locale.ENGLISH);
+		Date startDate = new Date();
+		Date endDate = new Date();
+		String quest = req.getParameter("questions");
+		String[] quests = quest.split("|");
+		DataAccess.Questions().DeleteAllQuestionForTestId(id);
+		for (String q : quests)
+		{
+			System.out.println(q);
+			if(!q.equals("")&& !q.equals("|"))
+			{
+				int questionId = Integer.parseInt(q);
+				DataAccess.Questions().AddTestQuestions(questionId, id);
+			}
+		}
+		
+		try
+		{
+			startDate = (Date) format.parse(req.getParameter("startDate"));
+			endDate = (Date) format.parse(req.getParameter("endDate"));
+		} catch (ParseException e)
+		{
+			e.printStackTrace();
+		}
+		
+		int duration = Integer.parseInt(req.getParameter("duration"));
+		DataAccess.Tests().UpdateTest(id, title, subjectId, startDate, endDate, duration);
+		rep.sendRedirect("/Java2015Project/Teacher");
 	}
 	
 	private void editQuestion(HttpServletRequest req, HttpServletResponse rep) throws IOException
@@ -190,6 +226,50 @@ public class TeacherController extends HttpServlet
 	{
 		req.setAttribute("Categories", categories);
 		req.getServletContext().getRequestDispatcher("/WEB-INF/Views/User/Teacher/Question/CreateQuestion.jsp").forward(req, rep);
+	}
+	private void createTest(HttpServletRequest req, HttpServletResponse rep) throws ServletException, IOException
+	{
+		List<Subjects> subjects = (List<Subjects>)DataAccess.Subjects().GetSubjects();
+		req.setAttribute("Subjects", subjects);
+		List<Questions> questions = (List<Questions>)DataAccess.Questions().getQuestions(((Users)req.getSession().getAttribute("user")).getId());
+		req.setAttribute("Questions", questions);
+		req.getServletContext().getRequestDispatcher("/WEB-INF/Views/User/Teacher/CreateTest.jsp").forward(req, rep);
+	}
+	private void createTestPost(HttpServletRequest req, HttpServletResponse rep) throws IOException
+	{
+		String title = req.getParameter("title");
+		int subjectId = Integer.parseInt(req.getParameter("subject"));
+		System.out.println(subjectId);
+		DateFormat format = new SimpleDateFormat("yyyy-MM-dd", Locale.ENGLISH);
+		Date startDate = new Date();
+		Date endDate = new Date();
+		String quest = req.getParameter("questions");
+		String[] quests = quest.split("|");
+		
+		
+		try
+		{
+			startDate = (Date) format.parse(req.getParameter("startDate"));
+			endDate = (Date) format.parse(req.getParameter("endDate"));
+		} catch (ParseException e)
+		{
+			e.printStackTrace();
+		}
+		
+		int duration = Integer.parseInt(req.getParameter("duration"));
+		
+		Tests test = DataAccess.Tests().CreateTest(title, subjectId, startDate, endDate, duration);
+		
+		for (String q : quests)
+		{
+			System.out.println(q);
+			if(!q.equals("")&& !q.equals("|"))
+			{
+				int questionId = Integer.parseInt(q);
+				DataAccess.Questions().AddTestQuestions(questionId, test.getId());
+			}
+		}
+		rep.sendRedirect("/Java2015Project/Teacher");
 	}
 	
 	private void createQuestion(HttpServletRequest req, HttpServletResponse rep) throws ServletException, IOException

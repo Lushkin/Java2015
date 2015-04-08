@@ -10,7 +10,7 @@
   	</init-param>
 	<init-param>
   		<param-name>StudentUrl</param-name>
-  		<param-value>/WEB-INF/Views/User/student.jsp</param-value>
+  		<param-value>/WEB-INF/Views/User/Student/Student.jsp</param-value>
   	</init-param>
   </servlet>
   <servlet>

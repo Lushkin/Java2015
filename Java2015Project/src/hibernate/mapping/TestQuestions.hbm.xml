@@ -1,0 +1,18 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated Mar 12, 2015 7:14:44 PM by Hibernate Tools 4.0.0 -->
+<hibernate-mapping>
+    <class name="hibernate.java.TestQuestions" table="TestQuestions" schema="dbo" catalog="Java2015">
+        <id name="id" type="int">
+            <column name="Id" />
+            <generator class="native" />
+        </id>
+        <many-to-one name="tests" class="hibernate.java.Tests" fetch="select">
+            <column name="TestId" />
+        </many-to-one>
+        <many-to-one name="questions" class="hibernate.java.Questions" fetch="select">
+            <column name="QuestionId" />
+        </many-to-one>
+    </class>
+</hibernate-mapping>
