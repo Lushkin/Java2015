@@ -17,6 +17,7 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Locale;
@@ -72,6 +73,9 @@ public class TeacherController extends HttpServlet
 					case "/TestToStudent" :
 						testToStudent(req, rep);
 						break;
+					case "/SaveTestToStudent":
+						saveTestToStudent(req, rep);
+						break;
 				}
 			}else{
 				switch(action)
@@ -81,6 +85,9 @@ public class TeacherController extends HttpServlet
 						break;
 					case "/CreateTest":
 						createTest(req,rep);
+						break;
+					case "/DeleteTest":
+						deleteTest(req, rep);
 						break;
 					case "/Questions":
 						getQuestions(req, rep);
@@ -96,6 +103,9 @@ public class TeacherController extends HttpServlet
 						break;
 					case "/TestToStudent" :
 						testToStudent(req, rep);
+						break;
+					case "/SaveTestToStudent":
+						saveTestToStudent(req, rep);
 						break;
 				}
 			}
@@ -272,6 +282,13 @@ public class TeacherController extends HttpServlet
 		rep.sendRedirect("/Java2015Project/Teacher");
 	}
 	
+	private void deleteTest(HttpServletRequest req, HttpServletResponse rep) throws IOException
+	{
+		int id = Integer.parseInt(req.getParameter("id"));
+		DataAccess.Tests().DeleteTest(id);
+		rep.sendRedirect("/Java2015Project/Teacher");
+	}
+	
 	private void createQuestion(HttpServletRequest req, HttpServletResponse rep) throws ServletException, IOException
 	{
 		Users user = (Users)req.getSession().getAttribute("user");
@@ -327,6 +344,29 @@ public class TeacherController extends HttpServlet
 		req.setAttribute("Promotions", promotions);
 		req.setAttribute("Students", students);
 		req.setAttribute("ActualPromo", actualPromo);
+		req.setAttribute("Tools", new Tools());
 		getServletContext().getRequestDispatcher(getInitParameter("TestToStudentsUrl")).forward(req, rep);
+	}
+	
+	private void saveTestToStudent(HttpServletRequest req, HttpServletResponse rep) throws ServletException, IOException
+	{
+		HashMap<String, Boolean> userTest = new HashMap<String, Boolean>();
+		int i = 0;
+		while(req.getParameter("StudentId_"+i) != null)
+		{
+			if(req.getParameter("StudentId_"+i) != null && !req.getParameter("StudentId_"+i).isEmpty())
+			{
+				userTest.put(req.getParameter("StudentId_"+i), (req.getParameter("UserTestId_"+i) != null && !req.getParameter("UserTestId_"+i).isEmpty()));
+			}
+			i++;
+		}
+		int testId = Integer.parseInt(req.getParameter("ActualTestId"));
+		System.out.println(userTest);
+		System.out.println(testId);
+		
+		boolean result = DataAccess.Tests().RemoveTestFromStudents(userTest, testId);
+		result = DataAccess.Tests().PutTestToStudents(userTest, testId);
+		
+		rep.sendRedirect("/Java2015Project/Teacher/TestToStudent?id="+testId);
 	}
 }

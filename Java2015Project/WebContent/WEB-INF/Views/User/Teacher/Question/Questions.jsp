@@ -7,10 +7,19 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <link rel="stylesheet"
 	href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css">
+	<link rel="stylesheet" href="../Content/css/site.css">
 <title>Questions</title>
 </head>
 <body>
 	<div class="container">
+		<div class="header row">
+			<div class="col-md-10">
+				<h3>Espace enseignant > Liste des questions</h3>
+			</div>
+			<div class="col-md-2" style="text-align: right;">
+				<a class="logout" role="button" href="/Java2015Project/">Déconnexion</a>
+			</div>
+		</div>
 		<table class="table table-hover">
 			<tr>
 				<th>Question</th>
@@ -37,6 +46,8 @@
 				</tr>
 			</c:forEach>
 		</table>
+		<hr/>
+		<a class="btn btn-default" role="button" href="/Java2015Project/Teacher">Retours</a>
 		<a class="btn btn-default" role="button" href="/Java2015Project/Teacher/CreateQuestion">Ajouter une question</a>
 	</div>
 	<script

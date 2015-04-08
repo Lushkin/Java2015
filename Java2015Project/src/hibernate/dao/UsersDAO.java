@@ -175,6 +175,7 @@ public class UsersDAO
 			for(Users u : students)
 			{
 				Hibernate.initialize(u.getPromotions());
+				Hibernate.initialize(u.getUserTestses());
 			}
 			HibernateUtil.closeSession();
 			
@@ -197,6 +198,7 @@ public class UsersDAO
 			for(Users u : students)
 			{
 				Hibernate.initialize(u.getPromotions());
+				Hibernate.initialize(u.getUserTestses());
 			}
 			HibernateUtil.closeSession();
 			

@@ -57,6 +57,7 @@
 					</tr>
 				</c:forEach>
 			</table>
+			<hr/>
 			<a class="btn btn-default" role="button" href="/Java2015Project/Admin/CreateProf">Ajouter un prof</a>
 			<a class="btn btn-primary" role="button" href="/Java2015Project/Admin/StudentsToPromotion">Attribuer Etudiant au Promotion</a>
 		</div>
@@ -81,6 +82,7 @@
 					</tr>
 				</c:forEach>
 			</table>
+			<hr/>
 			<a class="btn btn-default" role="button" href="/Java2015Project/Admin/CreatePromotion">Ajouter une promotion</a>
 			<a class="btn btn-primary" role="button" href="/Java2015Project/Admin/StudentsToPromotion">Attribuer Etudiant au Promotion</a>
 		</div>

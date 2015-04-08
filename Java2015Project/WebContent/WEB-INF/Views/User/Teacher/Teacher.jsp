@@ -13,6 +13,16 @@
 <title>Teacher Index</title>
 </head>
 <body>
+	<div class="container">
+		<div class="header row">
+			<div class="col-md-10">
+				<h3>Espace enseignant > Liste des tests</h3>
+			</div>
+			<div class="col-md-2" style="text-align: right;">
+				<a class="logout" role="button" href="/Java2015Project/">Déconnexion</a>
+			</div>
+		</div>
+	
 	<div class="content" id="teacher-content">
 			<table class="table table-hover">
 				<tr>
@@ -47,8 +57,10 @@
 					</tr>
 				</c:forEach>
 			</table>
+			<hr/>
 			<a class="btn btn-default" role="button" href="/Java2015Project/Teacher/CreateTest">Ajouter un test</a>
 			<a class="btn btn-default" role="button" href="/Java2015Project/Teacher/Questions">Questions</a>
+		</div>
 		</div>
 </body>
 </html>
