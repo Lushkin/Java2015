@@ -358,36 +358,5 @@ public class TeacherController extends HttpServlet
 		result = DataAccess.Tests().PutTestToStudents(userTest, testId);
 		
 		rep.sendRedirect("/Java2015Project/Teacher/TestToStudent?id="+testId);
-		
-//		int testId = Integer.parseInt(req.getParameter("TestId"));
-//		Questions question = new Questions();
-//		int categoryId = Integer.parseInt(req.getParameter("Categorie"));
-//		
-//		for(Categories c : categories)
-//		{
-//			if(c.getId() == categoryId)
-//			{
-//				question.setCategories(c);
-//			}
-//		}
-//		question.setContent(req.getParameter("Question"));
-//		question.setOwnerId(user.getId());
-//		question.setPonderation(new BigDecimal(req.getParameter("Points").replaceAll(",", ".")));
-//		
-//		Set<QuestionAnswers> questionAnswers = new HashSet<QuestionAnswers>();		
-//		int i = 0;
-//		while(req.getParameter("Answer" + i) != null)
-//		{
-//			if(req.getParameter("Answer" + i) != null && !req.getParameter("Answer" + i).isEmpty())
-//			{
-//				Answers answer = new Answers(0, req.getParameter("Answer" + i), 1, (byte)(req.getParameter("AnswerCb" + i) != null ? 1 : 0));
-//				questionAnswers.add(new QuestionAnswers(0, question, answer));
-//			}
-//			i++;
-//		}		
-//		question.setQuestionAnswerses(questionAnswers);
-//		
-//		DataAccess.Questions().CreateQuestion(question);
-//		rep.sendRedirect("/Java2015Project/Teacher/Questions");
 	}
 }
