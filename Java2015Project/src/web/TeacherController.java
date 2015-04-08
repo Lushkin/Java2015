@@ -17,6 +17,7 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Locale;
@@ -72,6 +73,9 @@ public class TeacherController extends HttpServlet
 					case "/TestToStudent" :
 						testToStudent(req, rep);
 						break;
+					case "/SaveTestToStudent":
+						saveTestToStudent(req, rep);
+						break;
 				}
 			}else{
 				switch(action)
@@ -96,6 +100,9 @@ public class TeacherController extends HttpServlet
 						break;
 					case "/TestToStudent" :
 						testToStudent(req, rep);
+						break;
+					case "/SaveTestToStudent":
+						saveTestToStudent(req, rep);
 						break;
 				}
 			}
@@ -329,5 +336,58 @@ public class TeacherController extends HttpServlet
 		req.setAttribute("ActualPromo", actualPromo);
 		req.setAttribute("Tools", new Tools());
 		getServletContext().getRequestDispatcher(getInitParameter("TestToStudentsUrl")).forward(req, rep);
+	}
+	
+	private void saveTestToStudent(HttpServletRequest req, HttpServletResponse rep) throws ServletException, IOException
+	{
+		HashMap<String, Boolean> userTest = new HashMap<String, Boolean>();
+		int i = 0;
+		while(req.getParameter("StudentId_"+i) != null)
+		{
+			if(req.getParameter("StudentId_"+i) != null && !req.getParameter("StudentId_"+i).isEmpty())
+			{
+				userTest.put(req.getParameter("StudentId_"+i), (req.getParameter("UserTestId_"+i) != null && !req.getParameter("UserTestId_"+i).isEmpty()));
+			}
+			i++;
+		}
+		int testId = Integer.parseInt(req.getParameter("ActualTestId"));
+		System.out.println(userTest);
+		System.out.println(testId);
+		
+		boolean result = DataAccess.Tests().RemoveTestFromStudents(userTest, testId);
+		result = DataAccess.Tests().PutTestToStudents(userTest, testId);
+		
+		rep.sendRedirect("/Java2015Project/Teacher/TestToStudent?id="+testId);
+		
+//		int testId = Integer.parseInt(req.getParameter("TestId"));
+//		Questions question = new Questions();
+//		int categoryId = Integer.parseInt(req.getParameter("Categorie"));
+//		
+//		for(Categories c : categories)
+//		{
+//			if(c.getId() == categoryId)
+//			{
+//				question.setCategories(c);
+//			}
+//		}
+//		question.setContent(req.getParameter("Question"));
+//		question.setOwnerId(user.getId());
+//		question.setPonderation(new BigDecimal(req.getParameter("Points").replaceAll(",", ".")));
+//		
+//		Set<QuestionAnswers> questionAnswers = new HashSet<QuestionAnswers>();		
+//		int i = 0;
+//		while(req.getParameter("Answer" + i) != null)
+//		{
+//			if(req.getParameter("Answer" + i) != null && !req.getParameter("Answer" + i).isEmpty())
+//			{
+//				Answers answer = new Answers(0, req.getParameter("Answer" + i), 1, (byte)(req.getParameter("AnswerCb" + i) != null ? 1 : 0));
+//				questionAnswers.add(new QuestionAnswers(0, question, answer));
+//			}
+//			i++;
+//		}		
+//		question.setQuestionAnswerses(questionAnswers);
+//		
+//		DataAccess.Questions().CreateQuestion(question);
+//		rep.sendRedirect("/Java2015Project/Teacher/Questions");
 	}
 }

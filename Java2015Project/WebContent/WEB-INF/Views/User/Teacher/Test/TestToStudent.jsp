@@ -16,7 +16,7 @@
 	<div class="container">
 		<div class="header row">
 			<div class="col-md-10">
-				<h3>Espace professeur > Attribution de test aux élèves</h3>
+				<h3>Espace enseignant > Attribution de test aux élèves</h3>
 			</div>
 			<div class="col-md-2" style="text-align:right;">
 				<a class="logout" role="button" href="/Java2015Project/">Déconnexion</a>
@@ -82,54 +82,58 @@
 	  	</div>
 	  	<br/>
 	  	<div><label>Liste d'élèves</label></div>
-	  	<div style="border: solid 1px #ddd;">
-		  	<table class="table table-condensed">
-			  		<tr>
-			  			<th class="col-md-1">Ajouter</th>
-						<th class="col-md-2">Prénom</th>
-						<th class="col-md-2">Nom</th>
-						<th class="col-md-3">Email</th>
-						<th class="col-md-2">Date de naissance</th>
-						<th class="col-md-2">Promotion</th>
-					</tr>
-			</table>
-		  	<div class="student-table">
-		  		<table class="table table-condensed" id="Students">
-					<c:forEach items="${Students}" var="s">
-						<tr id="StudentLine">
-<%-- 						${Tools.UserTestContains(s.getUserTestses(),Test) ? "checked" : "" } --%>
-							<td class="col-md-1"><input type="checkbox" ${Tools.UserTestContains(s,Test) ? "checked" : "" }></td>
-							<td class="col-md-2">${s.getFirstName()}</td>
-							<td class="col-md-2">${s.getLastName()}</td>
-							<td class="col-md-3">${s.getEmail()}</td>
-							<td class="col-md-2"><fmt:formatDate pattern="dd/MM/yyyy" value="${s.getBirthDate()}"/></td>
-							<td class="col-md-2">
-							<c:choose>
-								<c:when test="${s.getPromotions().getId() != null}">
-									<span id="PromotionName" name="PromotionName"> ${s.getPromotions().getName()}</span>
-								</c:when>
-								<c:otherwise>
-									<span id="PromotionName" name="PromotionName">N/A</span>
-								</c:otherwise>			
-							</c:choose>				
-								<%-- <input type="hidden" id="PromotionId" name="PromotionId" value="${s.getPromotions().getId()}"/> --%>
-								<input type="hidden" id="TestId" name="TestId" value="${Tools.UserTestContains(s,Test) ? Test.getId() : null}"/>
-								<input type="hidden" id="StudentId" name="StudentId" value="${s.getId()}">
-							</td>
+	  	<form action="/Java2015Project/Teacher/SaveTestToStudent" method="POST"
+			class="form-horizontal">
+		  	<div style="border: solid 1px #ddd;">
+			  	<table class="table table-condensed">
+				  		<tr>
+				  			<th class="col-md-1">Ajouter</th>
+							<th class="col-md-2">Prénom</th>
+							<th class="col-md-2">Nom</th>
+							<th class="col-md-3">Email</th>
+							<th class="col-md-2">Date de naissance</th>
+							<th class="col-md-2">Promotion</th>
 						</tr>
-					</c:forEach>
-			  	</table>
+				</table>
+			  	<div class="student-table">
+			  		<table class="table table-condensed" id="Students">
+						<c:forEach items="${Students}" var="s" varStatus="i">
+							<tr id="StudentLine">
+	<%-- 						${Tools.UserTestContains(s.getUserTestses(),Test) ? "checked" : "" } --%>
+								<td class="col-md-1"><input type="checkbox" ${Tools.UserTestContains(s,Test) ? "checked" : "" }></td>
+								<td class="col-md-2">${s.getFirstName()}</td>
+								<td class="col-md-2">${s.getLastName()}</td>
+								<td class="col-md-3">${s.getEmail()}</td>
+								<td class="col-md-2"><fmt:formatDate pattern="dd/MM/yyyy" value="${s.getBirthDate()}"/></td>
+								<td class="col-md-2">
+								<c:choose>
+									<c:when test="${s.getPromotions().getId() != null}">
+										<span id="PromotionName" name="PromotionName"> ${s.getPromotions().getName()}</span>
+									</c:when>
+									<c:otherwise>
+										<span id="PromotionName" name="PromotionName">N/A</span>
+									</c:otherwise>			
+								</c:choose>				
+									<%-- <input type="hidden" id="PromotionId" name="PromotionId" value="${s.getPromotions().getId()}"/> --%>
+									<input type="hidden" id="UserTestId" name="UserTestId_${i.index}"  value="${Tools.UserTestContains(s,Test) ? Test.getId() : null}"/>
+									<input type="hidden" id="StudentId" name="StudentId_${i.index}" value="${s.getId()}">
+									<input type="hidden" id="ActualTestId" name="ActualTestId"  value="${Test.getId()}"/>
+								</td>
+							</tr>
+						</c:forEach>
+				  	</table>
+			  	</div>
 		  	</div>
-	  	</div>
-	  	<hr/>
-	  	<div class="row">
-	  		<div class="col-md-2 col-md-offset-8">
-	  			<a class="btn btn-default" role="button" href="/Java2015Project/Teacher" style="width:100%!important;">Retours</a>
-	  		</div>
-	  		<div class="col-md-2">
-	  			<button type="button" class="btn btn-primary" style="width:100%!important;" onclick="SaveStudents();" id="submitbtn">Enregistrer</button>
-	  		</div>
-	  	</div>
+		  	<hr/>
+		  	<div class="row">
+		  		<div class="col-md-2 col-md-offset-8">
+		  			<a class="btn btn-default" role="button" href="/Java2015Project/Teacher" style="width:100%!important;">Retours</a>
+		  		</div>
+		  		<div class="col-md-2">
+		  			<button type="submit" class="btn btn-primary" style="width:100%!important;" onclick="SaveStudents();" id="submitbtn">Enregistrer</button>
+		  		</div>
+		  	</div>
+	  	</form>
 	</div>
 </body>
 </html>
@@ -155,7 +159,7 @@ function GetStudents(){
 $(":checkbox").change(function UpdateChecks(){
 	 var actualTest = $("#ActualTest").val();
 	
-	var testId = $(this.parentElement.parentElement).find('td input[type=hidden]#TestId');
+	var testId = $(this.parentElement.parentElement).find('td input[type=hidden]#UserTestId');
 	//var promoName = $(this.parentElement.parentElement).find('td span#PromotionName');
 	
 	if(this.checked){

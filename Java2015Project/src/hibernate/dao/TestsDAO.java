@@ -5,10 +5,13 @@ import hibernate.HibernateUtil;
 import hibernate.java.Questions;
 import hibernate.java.Subjects;
 import hibernate.java.Tests;
+import hibernate.java.UserTests;
 import hibernate.java.Users;
 
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.hibernate.Hibernate;
 import org.hibernate.Session;
@@ -116,6 +119,67 @@ public class TestsDAO
 		return null;
 	}
 	
+	@SuppressWarnings("unchecked")
+	public boolean RemoveTestFromStudents(HashMap<String, Boolean> userTest, int testId)
+	{
+		Session session;
+		try
+		{
+			session = HibernateUtil.currentSession();
+			Transaction transac = session.beginTransaction();
+			
+			List<UserTests> tests = session.createQuery("FROM UserTests WHERE TestId = " + testId).list();
+			for(int i = 0; i < tests.size(); i++)
+			{
+				for(String u: userTest.keySet()){
+					if(tests.get(i).getUsers().getId() == Integer.parseInt(u))
+					{
+						session.delete(tests.get(i));
+						System.out.println("UserId " + u + " deleted from TestId " + testId);
+					}
+				}
+			}
+			transac.commit();
+			session = HibernateUtil.currentSession();
+			return true;
+		}
+		catch(Exception e)
+		{
+			System.out.println("Error : " + e.getMessage());
+			return false;
+		}
+	}
 	
+	public boolean PutTestToStudents(HashMap<String, Boolean> userTest, int testId)
+	{
+		Session session;
+		try
+		{
+			session = HibernateUtil.currentSession();
+			Transaction transac = session.beginTransaction();
+			
+			for ( Map.Entry<String, Boolean> entry : userTest.entrySet()) {
+			    String key = entry.getKey();
+			    Boolean val = entry.getValue();
+			    
+			    if(val)
+			    {
+			    	UserTests ut = new UserTests();
+				    ut.setUsers((Users)session.get(Users.class, Integer.parseInt(key)));
+				    ut.setTests((Tests)session.get(Tests.class, testId));
+				    session.saveOrUpdate(ut);
+				    System.out.println("UserId " + key + " added to TestId " + testId);
+			    }
+			}
+			transac.commit();
+			HibernateUtil.closeSession();
+			return true;
+		}
+		catch(Exception e)
+		{
+			System.out.println("Error : " + e.getMessage());
+			return false;
+		}
+	}
 	
 }
