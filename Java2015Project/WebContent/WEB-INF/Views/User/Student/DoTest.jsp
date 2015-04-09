@@ -11,7 +11,7 @@
 </head>
 <body>
 	<div class="container">
-	<h1>${Test.getSubjects()}</h1>
+	<h1>${Test.getTitle()}</h1>
 		<form action="/Java2015Project/Student/DoTest?id=${Test.getId()}" method="POST"
 			class="form-horizontal">
 			<c:forEach items="${Questions}" var="q" varStatus="i">
