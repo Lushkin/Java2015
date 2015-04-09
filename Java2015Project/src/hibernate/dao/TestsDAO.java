@@ -32,6 +32,7 @@ public class TestsDAO
 			for(Tests t : tests)
 			{
 				Hibernate.initialize(t.getSubjects());
+				Hibernate.initialize(t.getUserTestses());
 			}
 			HibernateUtil.closeSession();
 			
@@ -42,6 +43,28 @@ public class TestsDAO
 		}
 		
 	}
+	
+//	public List<Tests> GetAttributedTests()
+//	{
+//		Session session;
+//		try
+//		{
+//			session = HibernateUtil.currentSession();
+//			List<Tests> tests = session.createQuery("from Tests").list();
+//			for(Tests t : tests)
+//			{
+//				Hibernate.initialize(t.getSubjects());
+//				Hibernate.initialize(t.getUserTestses());
+//			}
+//			HibernateUtil.closeSession();
+//			
+//			return tests;
+//		} catch (Exception e)
+//		{
+//			return null;
+//		}
+//		
+//	}
 	
 	public Tests GetTest(int id)
 	{
