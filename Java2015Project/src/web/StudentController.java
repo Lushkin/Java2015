@@ -85,40 +85,54 @@ public class StudentController extends HttpServlet
 		int testId = Integer.parseInt(req.getParameter("id"));
 		UserTests userTest = DataAccess.Tests().GetUserTest(user.getId(),
 				testId);
+		List<Questions> questions = DataAccess.Questions().GetQuestionsByIdTest(testId);
+		
 		Set<StudentAnswers> studentAnswers = new HashSet<StudentAnswers>();
-
-		Enumeration<String> allParamsNames = req.getParameterNames();
-		while (allParamsNames.hasMoreElements())
+		
+		for(Questions q : questions)
 		{
-			String param = allParamsNames.nextElement();
-			if (param.contains("Answer-"))
+			for(QuestionAnswers qa : q.getQuestionAnswerses())
 			{
-				String[] ids = param.split("-");
-				Answers answer = new Answers();
-				answer.setId(Integer.parseInt(ids[1]));
+				Answers answer = qa.getAnswers();
+				String answerValue = req.getParameter("Answer-" + answer.getId());
 				Tests test = new Tests();
 				test.setId(testId);
-				byte checked = (byte) (req.getParameter(param) != null ? 1 : 0);
-				studentAnswers.add(new StudentAnswers(0, answer, user, test,
-						checked));
+				studentAnswers.add(new StudentAnswers(0, answer, user, test, (byte)(answerValue != null ? 1 : 0)));
 			}
 		}
+
+//		Enumeration<String> allParamsNames = req.getParameterNames();
+//		while (allParamsNames.hasMoreElements())
+//		{
+//			String param = allParamsNames.nextElement();
+//			if (param.contains("Answer-"))
+//			{
+//				String[] ids = param.split("-");
+//				Answers answer = new Answers();
+//				answer.setId(Integer.parseInt(ids[1]));
+//				Tests test = new Tests();
+//				test.setId(testId);
+//				studentAnswers.add(new StudentAnswers(0, answer, user, test,
+//						(byte)1));
+//			}
+//		}
 
 		user.setStudentAnswerses(studentAnswers);
 		userTest.setState(1);
 		userTest.setMark(calculateMark(testId, studentAnswers));
-		// DataAccess.Users().UpdateUser(user);
-		// rep.sendRedirect("/Java2015Project/Student");
+		DataAccess.Tests().UpdateUserTest(userTest);
+		DataAccess.Users().UpdateUser(user);
+		rep.sendRedirect("/Java2015Project/Student");
 	}
 
 	private double calculateMark(int testId, Set<StudentAnswers> answers)
 	{
-		int total = 0;
-		int right = 0;
+		double total = 0;
+		double right = 0;
 		List<Questions> questions = DataAccess.Questions().GetQuestionsByIdTest(testId);
 		for(Questions q : questions)
 		{
-			total += q.getPonderation().intValue();
+			total += q.getPonderation().doubleValue();
 			boolean correct = true;
 			for(QuestionAnswers qa : q.getQuestionAnswerses())
 			{
@@ -126,7 +140,7 @@ public class StudentController extends HttpServlet
 				{
 					if(qa.getAnswers().getId() == a.getAnswers().getId())
 					{
-						if(a.getIsChecked() != a.getAnswers().getIsCorrect())
+						if(a.getIsChecked() != qa.getAnswers().getIsCorrect())
 						{
 							correct = false;
 						}
@@ -136,7 +150,7 @@ public class StudentController extends HttpServlet
 			
 			if(correct)
 			{
-				right += q.getPonderation().intValue();
+				right += q.getPonderation().doubleValue();
 			}
 		}
 		return (right * 20) / total;
