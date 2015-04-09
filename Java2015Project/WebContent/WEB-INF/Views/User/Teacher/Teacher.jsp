@@ -88,7 +88,7 @@
 								value="${t.getEndDate()}" /></td>
 						<td>
 							<c:forEach items="${AStudents}" var="a">
-								${t.getId() == a.getKey() ? m.getValue() : ""}
+								${t.getId() == a.getKey() ? a.getValue() : ""}
 							</c:forEach>
 							/ ${t.getUserTestses().size()}</td>
 						<td>
