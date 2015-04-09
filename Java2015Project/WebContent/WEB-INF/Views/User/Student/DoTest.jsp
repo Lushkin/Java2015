@@ -8,15 +8,26 @@
 <title>Test</title>
 <link rel="stylesheet"
 	href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css">
+	<link rel="stylesheet" href="../Content/css/site.css">
 </head>
 <body>
 	<div class="container">
+		<div class="header row">
+			<div class="col-md-10">
+				<h3>Espace étudiant > Test en cours</h3>
+			</div>
+			<div class="col-md-2" style="text-align: right;">
+				<a class="logout" role="button" href="/Java2015Project/">Déconnexion</a>
+			</div>
+		</div>
+		<hr />
+		
 	<h1>${Test.getTitle()}</h1>
 		<form action="/Java2015Project/Student/DoTest?id=${Test.getId()}" method="POST"
 			class="form-horizontal">
 			<c:forEach items="${Questions}" var="q" varStatus="i">
 				<div class="form-group">
-					<h4>${i.index + 1}-${q.getContent()}</h4>
+					<h4>${i.index + 1}-${q.getContent()} (${q.getPonderation().setScale(2)} pts)</h4>
 					<c:forEach items="${q.getQuestionAnswerses()}" var="a">
 						<label class="form-label"> <input type="checkbox"
 							id="Answer-${a.getAnswers().getId()}"
@@ -27,6 +38,7 @@
 					</c:forEach>
 				</div>
 			</c:forEach>
+			<hr/>
 			<div class="form-group">
 				<div class="col-md-2 col-md-offset-8">
 					<a class="btn btn-default" role="button"

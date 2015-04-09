@@ -9,9 +9,20 @@
 <title>Student Index</title>
 <link rel="stylesheet"
 	href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css">
+	<link rel="stylesheet" href="Content/css/site.css">
 </head>
 <body>
 	<div class="container">
+	<div class="header row">
+			<div class="col-md-10">
+				<h3>Espace étudiant > Tests</h3>
+			</div>
+			<div class="col-md-2" style="text-align: right;">
+				<a class="logout" role="button" href="/Java2015Project/">Déconnexion</a>
+			</div>
+		</div>
+		<hr />
+		
 		<div id="pendingTests">
 			<h3>Tests à faire :</h3>
 			<br />
@@ -54,7 +65,7 @@
 								value="${t.getTests().getStartDate()}" /></td>
 						<td><fmt:formatDate pattern="dd/MM/yyyy"
 								value="${t.getTests().getEndDate()}" /></td>
-						<td><fmt:formatNumber value="${t.getMark()}" maxFractionDigits="2"/></td>
+						<td><fmt:formatNumber value="${t.getMark()}" maxFractionDigits="2"/>/20</td>
 					</tr>
 				</c:forEach>
 			</table>
