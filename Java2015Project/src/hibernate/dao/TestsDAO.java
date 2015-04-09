@@ -143,11 +143,15 @@ public class TestsDAO
 			Tests test = (Tests)HibernateUtil.currentSession().get(Tests.class, id);
 			HibernateUtil.currentSession().delete(test);
 			transac.commit();
-			HibernateUtil.closeSession();
+			
 		} catch (Exception e)
 		{
 			System.out.println(e.getMessage());
 			System.out.println("Erreur dans DeleteTest DAO");
+		}
+		finally
+		{
+			HibernateUtil.closeSession();
 		}
 	}
 	
