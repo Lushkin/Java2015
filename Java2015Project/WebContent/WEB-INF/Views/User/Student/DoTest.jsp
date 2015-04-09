@@ -19,8 +19,8 @@
 					<h4>${i.index + 1}-${q.getContent()}</h4>
 					<c:forEach items="${q.getQuestionAnswerses()}" var="a">
 						<label class="form-label"> <input type="checkbox"
-							id="Answer-${a.getId()}"
-							name="Answer-${a.getId()}">
+							id="Answer-${a.getAnswers().getId()}"
+							name="Answer-${a.getAnswers().getId()}">
 							${a.getAnswers().getValue()}
 						</label>
 						<br />

@@ -135,6 +135,21 @@ public class TestsDAO
 			return null;
 		}
 	}
+	
+	public void UpdateUserTest(UserTests userTest)
+	{
+		try
+		{
+			Transaction transac = HibernateUtil.currentSession().beginTransaction();
+			HibernateUtil.currentSession().saveOrUpdate(userTest);
+			transac.commit();
+			HibernateUtil.closeSession();
+		} catch (Exception e)
+		{
+			System.out.println("Erreur dans UpdateUserTest DAO");
+		}	
+	}
+	
 	public void DeleteTest(int id)
 	{
 		try
