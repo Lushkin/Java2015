@@ -13,7 +13,9 @@ import hibernate.HibernateUtil;
 import hibernate.java.Categories;
 import hibernate.java.Promotions;
 import hibernate.java.QuestionAnswers;
+import hibernate.java.QuestionWithAnswers;
 import hibernate.java.Questions;
+import hibernate.java.StudentAnswers;
 import hibernate.java.TestQuestions;
 import hibernate.java.Tests;
 import hibernate.java.Users;
@@ -149,6 +151,43 @@ public class QuestionsDAO
 			return null;
 		}
 	}
+	
+	public List<QuestionWithAnswers> GetQuestionsByIdTestWithStudentAnswers(int testId, int userId)
+	{
+		Session session;
+		try
+		{
+			session = HibernateUtil.currentSession();
+			@SuppressWarnings("unchecked")
+			List<TestQuestions> testquestions = session.createQuery("From TestQuestions WHERE TestId = " + testId).list();
+			List<StudentAnswers> studentAnswers = session.createQuery("from StudentAnswers Where testId = " + testId + " And StudentId = " +userId).list();
+			
+			List<QuestionWithAnswers> questions = new ArrayList<QuestionWithAnswers>();
+			for (TestQuestions tq : testquestions)
+			{
+				QuestionWithAnswers qa = new QuestionWithAnswers();
+				qa.setQuestion(tq.getQuestions());
+				for(QuestionAnswers a : tq.getQuestions().getQuestionAnswerses())
+				{
+					for(StudentAnswers sa : studentAnswers)
+					{
+						if(sa.getAnswers().getId() == a.getAnswers().getId())
+						{
+							qa.AddAnswer(sa);
+						}
+					}
+				}
+			}
+			HibernateUtil.closeSession();
+			return questions;
+		} 
+		catch (Exception e)
+		{
+			System.out.println(e.getMessage());
+			return null;
+		}
+	}
+	
 	public void DeleteAllQuestionForTestId(int testId)
 	{
 		Session session;

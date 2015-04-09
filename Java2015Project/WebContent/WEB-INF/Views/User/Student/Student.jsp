@@ -58,7 +58,7 @@
 					<th>Note</th>
 				</tr>
 				<c:forEach items="${FinishedTests}" var="t">
-					<tr>
+					<tr onclick="finishedClicked(${t.getTests().getId()})">
 						<td>${t.getTests().getTitle()}</td>
 						<td>${t.getTests().getSubjects().getName()}</td>
 						<td><fmt:formatDate pattern="dd/MM/yyyy"
@@ -78,6 +78,9 @@
 	<script type="text/javascript">
 		function pendingClicked(id){
 			window.location.href = "/Java2015Project/Student/DoTest?id=" + id;
+		}
+		function finishedClicked(id){
+			window.location.href = "/Java2015Project/Student/TestResult?id=" + id;
 		}
 	</script>
 </body>

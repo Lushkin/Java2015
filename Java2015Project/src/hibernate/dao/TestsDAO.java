@@ -3,6 +3,7 @@ package hibernate.dao;
 import hibernate.DataAccess;
 import hibernate.HibernateUtil;
 import hibernate.java.Questions;
+import hibernate.java.StudentAnswers;
 import hibernate.java.Subjects;
 import hibernate.java.Tests;
 import hibernate.java.UserTests;

@@ -56,12 +56,16 @@ public class StudentController extends HttpServlet
 				{
 				case "/DoTest":
 					int id = Integer.parseInt(req.getParameter("id"));
-					req.setAttribute("Questions", DataAccess.Questions()
-							.GetQuestionsByIdTest(id));
+					req.setAttribute("Questions", DataAccess.Questions().GetQuestionsByIdTest(id));
 					req.setAttribute("Test", DataAccess.Tests().GetTest(id));
-					getServletContext().getRequestDispatcher(
-							"/WEB-INF/Views/User/Student/DoTest.jsp").forward(
-							req, rep);
+					getServletContext().getRequestDispatcher("/WEB-INF/Views/User/Student/DoTest.jsp").forward(req, rep);
+					break;
+				case "/TestResult":
+					Users user = (Users) req.getSession().getAttribute("user");
+					int id2 = Integer.parseInt(req.getParameter("id"));
+					req.setAttribute("Questions", DataAccess.Questions().GetQuestionsByIdTestWithStudentAnswers(id2, user.getId()));
+					req.setAttribute("Test", DataAccess.Tests().GetTest(id2));
+					getServletContext().getRequestDispatcher("/WEB-INF/Views/User/Student/TestResult.jsp").forward(req, rep);
 					break;
 				}
 			}
