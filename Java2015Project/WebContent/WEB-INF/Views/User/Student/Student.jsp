@@ -54,7 +54,7 @@
 								value="${t.getTests().getStartDate()}" /></td>
 						<td><fmt:formatDate pattern="dd/MM/yyyy"
 								value="${t.getTests().getEndDate()}" /></td>
-						<td>${t.getMark()}</td>
+						<td><fmt:formatNumber value="${t.getMark()}" maxFractionDigits="2"/></td>
 					</tr>
 				</c:forEach>
 			</table>
