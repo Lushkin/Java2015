@@ -8,6 +8,7 @@ import hibernate.java.QuestionAnswers;
 import hibernate.java.Questions;
 import hibernate.java.Subjects;
 import hibernate.java.Tests;
+import hibernate.java.UserTests;
 import hibernate.java.Users;
 
 import java.io.IOException;
@@ -112,8 +113,33 @@ public class TeacherController extends HttpServlet
 			
 		}else{
 			List<Tests> tests = DataAccess.Tests().GetTests();
+			HashMap<Integer, String> testMoyenne = new HashMap<Integer, String>();
+			HashMap<Integer, String> answeredStudents = new HashMap<Integer, String>();
+			
+			for (Tests t : tests)
+			{
+				double total = 0;
+				int index = 0;
+				int students = 0;
+				for (UserTests ut : t.getUserTestses())
+				{
+					if(ut.getMark() != null)
+					{
+						total += ut.getMark();
+						index ++;
+					}
+					if(ut.getState() > 0)
+					{
+						students ++;
+					}
+				}
+				testMoyenne.put(t.getId(), Double.toString(castRoundTo2(total/index)));
+				answeredStudents.put(t.getId(), Integer.toString(students));
+			}
 			System.out.println(tests.size());
 			req.setAttribute("Tests", tests);
+			req.setAttribute("Moy", testMoyenne);
+			req.setAttribute("AStudents", answeredStudents);
 			getServletContext().getRequestDispatcher(getInitParameter("teacherURl")).forward(req, rep);
 		}
 			
@@ -368,5 +394,9 @@ public class TeacherController extends HttpServlet
 		result = DataAccess.Tests().PutTestToStudents(userTest, testId);
 		
 		rep.sendRedirect("/Java2015Project/Teacher/TestToStudent?id="+testId);
+	}
+	
+	private double castRoundTo2(double d) {
+	    return (long) (d * 100 + 0.5) / 100.0;
 	}
 }

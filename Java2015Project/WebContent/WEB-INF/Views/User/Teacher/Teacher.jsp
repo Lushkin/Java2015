@@ -24,6 +24,8 @@
 		</div>
 	
 	<div class="content" id="teacher-content">
+		<h3>Tous les tests</h3>
+		<div class="table-container">
 			<table class="table table-hover">
 				<tr>
 					<th>Titre</th>
@@ -57,9 +59,51 @@
 					</tr>
 				</c:forEach>
 			</table>
-			<hr/>
-			<a class="btn btn-default" role="button" href="/Java2015Project/Teacher/CreateTest">Ajouter un test</a>
-			<a class="btn btn-default" role="button" href="/Java2015Project/Teacher/Questions">Questions</a>
+		</div>
+		<hr/>
+		<a class="btn btn-default" role="button" href="/Java2015Project/Teacher/CreateTest">Ajouter un test</a>
+		<a class="btn btn-default" role="button" href="/Java2015Project/Teacher/Questions">Questions</a>
+		<br/><br/>
+		
+		<h3>Tests attribués</h3>
+		<div class="table-container">
+			<table class="table table-hover">
+				<tr>
+					<th>Titre</th>
+					<th>Subjet</th>
+					<th>Debut</th>
+					<th>Fin</th>
+					<th>Nb élèves</th>
+					<th>Moyenne</th>
+					<th>...</th>
+				</tr>
+				<c:forEach items="${Tests}" var="t">
+					<c:if test="${t.getUserTestses().size() > 0 }">
+						<tr>
+						<td>${t.getTitle()}</td>
+						<td>${t.getSubjects().getName()}</td>
+						<td><fmt:formatDate pattern="dd/MM/yyyy"
+								value="${t.getStartDate()}" /></td>
+						<td><fmt:formatDate pattern="dd/MM/yyyy"
+								value="${t.getEndDate()}" /></td>
+						<td>
+							<c:forEach items="${AStudents}" var="a">
+								${t.getId() == a.getKey() ? m.getValue() : ""}
+							</c:forEach>
+							/ ${t.getUserTestses().size()}</td>
+						<td>
+							<c:forEach items="${Moy}" var="m">
+								${t.getId() == m.getKey() ? m.getValue() : ""}
+							</c:forEach>
+							/ 20
+						</td>
+						<td></td>
+					</tr>
+					</c:if>
+				</c:forEach>
+			</table>
+		</div>
+		
 		</div>
 		</div>
 </body>
