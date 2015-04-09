@@ -177,6 +177,7 @@ public class QuestionsDAO
 						}
 					}
 				}
+				questions.add(qa);
 			}
 			HibernateUtil.closeSession();
 			return questions;
