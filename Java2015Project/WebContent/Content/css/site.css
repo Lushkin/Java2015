@@ -18,3 +18,6 @@
 
 .student-table{max-height:500px; overflow-y:auto;}
 .table-container{overflow-y:auto; max-height:250px;}
+
+.correct-answer{color:green !important;}
+.false-answer{color:red !important;}

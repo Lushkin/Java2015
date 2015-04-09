@@ -160,7 +160,7 @@ public class QuestionsDAO
 			session = HibernateUtil.currentSession();
 			@SuppressWarnings("unchecked")
 			List<TestQuestions> testquestions = session.createQuery("From TestQuestions WHERE TestId = " + testId).list();
-			List<StudentAnswers> studentAnswers = session.createQuery("from StudentAnswers Where testId = " + testId + " And StudentId = " +userId).list();
+			List<StudentAnswers> studentAnswers = session.createQuery("from StudentAnswers Where TestId = " + testId + " And StudentId = " +userId).list();
 			
 			List<QuestionWithAnswers> questions = new ArrayList<QuestionWithAnswers>();
 			for (TestQuestions tq : testquestions)

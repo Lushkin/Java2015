@@ -28,8 +28,8 @@
 					<h4>${i.index + 1}-${q.getQuestion().getContent()} (${q.getQuestion().getPonderation().setScale(2)} pts)</h4>
 					<c:forEach items="${q.getAnswers()}" var="a">
 						<label class="form-label"> 
-							<input type="checkbox" disabled ${a.getIsChecked() ? "checked" : ""}>
-							${a.getAnswers().getValue()}
+							<input type="checkbox" ${a.getIsChecked() == 1 ? "checked" : ""} disabled />
+							<span class="${a.getAnswers().getIsCorrect() == 1 ? "correct-answer" : "false-answer"}">${a.getAnswers().getValue()}</span>
 						</label>
 						<br />
 					</c:forEach>
